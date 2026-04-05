@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Métrologie Préemballages — DGCCRF 2014</title>
+    <style>
+        :root {
+            --blue:    #1a5c9e;
+            --blue-dk: #0d3a5c;
+            --blue-lt: #e8f2fc;
+            --green:   #1a8a4a;
+            --green-lt:#e8f5ee;
+            --orange:  #d06200;
+            --orange-lt:#fff3e0;
+            --red:     #c0392b;
+            --red-lt:  #fdecea;
+            --grey:    #5a6470;
+            --grey-lt: #f4f6f8;
+            --border:  #d0d6de;
+            --white:   #ffffff;
+            --radius:  8px;
+            --shadow:  0 4px 16px rgba(0,0,0,.12);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,.15);
+            --font:    'Segoe UI', system-ui, sans-serif;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: var(--font);
+            background: linear-gradient(135deg, #e8ecf2 0%, #f0f3f7 100%);
+            color: #222;
+            padding: 16px;
+            font-size: 15px;
+            line-height: 1.55;
+        }
+        /* ── NAV TABS ── */
+        .app-header {
+            max-width: 960px;
+            margin: 0 auto 0;
+            background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dk) 100%);
+            border-radius: var(--radius) var(--radius) 0 0;
+            padding: 16px 24px 0;
+            color: #fff;
+            box-shadow: var(--shadow-lg);
+        }
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .logo-fallback {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-icon { font-size: 1.5rem; }
+        .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: .02em;
+        }
+        .logo-sub {
+            font-size: .8rem;
+            opacity: .85;
+            margin-top: 2px;
+        }
+        .header-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #fff;
+            text-decoration: none;
+            font-size: .85rem;
+            padding: 6px 12px;
+            background: rgba(255,255,255,.15);
+            border-radius: 20px;
+            transition: background .2s;
+        }
+        .header-link:hover { background: rgba(255,255,255,.25); }
+        .app-header h1 {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: .02em;
+            margin-bottom: 14px;
+            opacity: .9;
+        }
+        .app-header p.subtitle {
+            font-size: .78rem;
+            opacity: .75;
+            margin-top: -10px;
+            margin-bottom: 12px;
+        }
+        .tabs {
+            display: flex;
+            gap: 2px;
+        }
+        .tab-btn {
+            background: rgba(255,255,255,.12);
+            border: none;
+            color: rgba(255,255,255,.8);
+            padding: 10px 20px;
+            border-radius: var(--radius) var(--radius) 0 0;
+            cursor: pointer;
+            font-size: .88rem;
+            font-weight: 500;
+            transition: background .2s, color .2s;
+        }
+        .tab-btn:hover { background: rgba(255,255,255,.2); color:#fff; }
+        .tab-btn.active { background: #f5f7fa; color: var(--blue-dk); font-weight: 700; }
+
+        /* ── PANELS ── */
+        .panel-wrap {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 0 0 var(--radius) var(--radius);
+            box-shadow: var(--shadow-lg);
+        }
+        .panel { display: none; padding: 28px 28px 36px; }
+        .panel.active { display: block; }
+        .panel h2 { margin-bottom: 10px; }
+
+        /* ── CARDS & SECTIONS ── */
+        .card {
+            background: var(--grey-lt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,.04);
+        }
+        .card-blue  { background: var(--blue-lt);   border-left: 4px solid var(--blue); }
+        .card-green { background: var(--green-lt);  border-left: 4px solid var(--green); }
+        .card-orange{ background: var(--orange-lt); border-left: 4px solid var(--orange); }
+        .card-red   { background: var(--red-lt);    border-left: 4px solid var(--red); }
+
+        h2 { font-size: 1.15rem; font-weight: 700; color: var(--blue-dk); margin-bottom: 16px;
+             border-bottom: 2px solid var(--blue); padding-bottom: 8px; }
+        h3 { font-size: 1rem; font-weight: 600; color: var(--grey); margin: 20px 0 10px; }
+        h4 { font-size: .92rem; font-weight: 600; margin: 12px 0 8px; }
+
+        /* ── FORM GRID ── */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .fg2 { grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        label { font-size: .85rem; font-weight: 600; color: #333; }
+        label .hint { font-weight: 400; color: var(--grey); font-size: .8rem; }
+        input[type=number], input[type=text], select {
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: .95rem;
+            background: var(--white);
+            transition: border-color .2s, box-shadow .2s;
+            width: 100%;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(26,107,186,.15);
+        }
+        input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+        /* ── BUTTONS ── */
+        .btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0 0; justify-content: center; }
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: var(--radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: filter .2s, transform .1s, box-shadow .2s;
+            color: #fff;
+        }
+        .btn:active { transform: scale(.98); }
+        .btn:hover  { filter: brightness(1.1); box-shadow: 0 4px 12px rgba(0,0,0,.2); }
+        .btn-blue   { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dk) 100%); }
+        .btn-green  { background: linear-gradient(135deg, var(--green) 0%, #147a3e 100%); }
+        .btn-orange { background: linear-gradient(135deg, var(--orange) 0%, #b55400 100%); }
+        .btn:disabled { background: #aab0b8; cursor: not-allowed; filter: none; }
+
+        /* ── RESULTS ── */
+        .result-box {
+            display: none;
+            margin-top: 24px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        .result-box.show { display: block; }
+        .result-header {
+            padding: 14px 20px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .result-header.ok  { background: linear-gradient(135deg, var(--green) 0%, #147a3e 100%); color:#fff; }
+        .result-header.nok { background: linear-gradient(135deg, var(--red) 0%, #9c2d1f 100%); color:#fff; }
+        .result-header.warn{ background: linear-gradient(135deg, var(--orange) 0%, #b55400 100%); color:#fff; }
+        .result-header.info{ background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dk) 100%); color:#fff; }
+        .result-body { padding: 18px 20px; background: var(--white); }
+        .result-body table { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 10px 0; }
+        .result-body table td { padding: 7px 10px; border-bottom: 1px solid var(--border); }
+        .result-body table td:first-child { font-weight: 600; color: #444; width: 55%; }
+        .result-body table td.val-ok  { color: var(--green);  font-weight: 700; }
+        .result-body table td.val-nok { color: var(--red);    font-weight: 700; }
+        .result-body table td.val-warn{ color: var(--orange); font-weight: 700; }
+        .result-body table tr.section-row td {
+            background: linear-gradient(90deg, #dbe6f4, #eef3fa);
+            color: var(--blue-dk);
+            font-weight: 800;
+            border-bottom: 1px solid #b9cbe0;
+        }
+        .result-body table tr.crit-emtm td:first-child,
+        .result-body table tr.crit-emtm td:last-child { color: var(--blue); font-weight: 800; }
+        .result-body table tr.crit-emt td:first-child,
+        .result-body table tr.crit-emt td:last-child { color: var(--orange); font-weight: 800; }
+        .result-body table tr.crit-threshold td:first-child,
+        .result-body table tr.crit-threshold td:last-child { font-weight: 800; }
+        .result-body table tr.crit-pass td:last-child { color: var(--green); }
+        .result-body table tr.crit-fail td:last-child { color: var(--red); }
+        .result-body table tr.active-ref-row td {
+            background: #fff7cf !important;
+            box-shadow: inset 4px 0 0 #f0c419;
+            font-weight: 700;
+        }
+        .conclusion {
+            font-weight: 700;
+            font-size: 1.05rem;
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            margin-top: 14px;
+            text-align: center;
+        }
+        .conclusion.ok  { background: linear-gradient(135deg, var(--green-lt) 0%, #d4edda 100%); color: var(--green); border: 2px solid var(--green); }
+        .conclusion.nok { background: linear-gradient(135deg, var(--red-lt) 0%, #f5d4d0 100%); color: var(--red); border: 2px solid var(--red); }
+        .conclusion.warn{ background: linear-gradient(135deg, var(--orange-lt) 0%, #ffe8cc 100%); color: var(--orange);border: 2px solid var(--orange); }
+
+        /* ── INFO BOX ── */
+        .info-box {
+            font-size: .92rem;
+            color: var(--grey);
+            background: var(--grey-lt);
+            border-left: 4px solid var(--border);
+            padding: 10px 14px;
+            border-radius: 0 6px 6px 0;
+            margin: 10px 0;
+        }
+        .info-box.blue { border-color: var(--blue); color: #1a4a8a; background: var(--blue-lt); }
+        .info-box.good { border-color: var(--green); color: #1a5a34; background: var(--green-lt); }
+        .info-box.bad { border-color: var(--red); color: #8e271d; background: var(--red-lt); }
+        .field-help {
+            font-size: .82rem;
+            color: var(--grey);
+            margin-top: -2px;
+        }
+
+        /* ── TABLE REFERENCES ── */
+        .ref-table { width:100%; border-collapse:collapse; font-size:.88rem; margin:10px 0; }
+        .ref-table th { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dk) 100%); color:#fff; padding:8px 10px; text-align:left; }
+        .ref-table td { padding:6px 10px; border-bottom:1px solid var(--border); }
+        .ref-table tr:nth-child(even) td { background: var(--blue-lt); }
+        .ref-table tr.active-ref-row td {
+            background: #fff7cf !important;
+            box-shadow: inset 4px 0 0 #f0c419;
+            font-weight: 700;
+        }
+
+        /* ── STEP INDICATOR ── */
+        .steps { display:flex; gap:0; margin-bottom:22px; flex-wrap:wrap; }
+        .step {
+            flex:1; min-width:110px;
+            padding:10px 14px;
+            background: var(--grey-lt);
+            border: 1px solid var(--border);
+            border-right: none;
+            font-size: .82rem;
+            text-align: center;
+        }
+        .step:last-child { border-right: 1px solid var(--border); border-radius: 0 4px 4px 0; }
+        .step:first-child { border-radius: 4px 0 0 4px; }
+        .step.active { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dk) 100%); color:#fff; border-color: var(--blue); font-weight:700; }
+        .step.done   { background: var(--green-lt); color: var(--green); font-weight:600; }
+        .step.todo   { background: var(--grey-lt); color: var(--grey); opacity: .75; }
+
+        /* ── CPK GAUGE ── */
+        .cpk-gauge-wrap { margin: 14px 0; }
+        .cpk-bar-bg { height: 26px; background: linear-gradient(to right, #e74c3c, #e67e22, #f1c40f, #2ecc71, #1a8a4a); border-radius: 6px; position:relative; box-shadow: inset 0 2px 4px rgba(0,0,0,.1); }
+        .cpk-needle { position:absolute; top:-6px; width:4px; background:#222; height:36px; border-radius:2px; transform:translateX(-50%); transition: left .5s; box-shadow: 0 2px 4px rgba(0,0,0,.2); }
+        .cpk-labels { display:flex; justify-content:space-between; gap:8px; font-size:.78rem; color:var(--grey); margin-top:8px; }
+        .cpk-labels span { flex:1; text-align:center; line-height:1.2; }
+        .cpk-labels span strong { display:block; color:#2b3440; font-size:.85rem; }
+        .cpk-labels span em { display:block; font-style:normal; font-size:.72rem; color:var(--grey); }
+
+        /* ── VERDICT STRIP ── */
+        .verdict-strip {
+            position: sticky;
+            top: 12px;
+            z-index: 10;
+            margin: 8px 0 20px;
+            padding: 18px 20px;
+            border-radius: 16px;
+            border: none;
+            background: rgba(255,255,255,.97);
+            box-shadow: 0 8px 32px rgba(14, 35, 68, .12);
+            backdrop-filter: blur(8px);
+        }
+        .verdict-strip .verdict-pill {
+            display:inline-flex;
+            align-items:center;
+            gap:10px;
+            padding: 12px 20px;
+            border-radius: 999px;
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: .01em;
+        }
+        .verdict-strip .verdict-icon {
+            font-size: 1.4rem;
+        }
+        .verdict-strip .verdict-text {
+            margin-top: 10px;
+            font-size: .95rem;
+            color: #39424d;
+            line-height: 1.5;
+        }
+        .verdict-strip.ok .verdict-pill { background: linear-gradient(135deg, var(--green) 0%, #147a3e 100%); color: #fff; }
+        .verdict-strip.nok .verdict-pill { background: linear-gradient(135deg, var(--red) 0%, #9c2d1f 100%); color: #fff; }
+        .verdict-strip.warn .verdict-pill { background: linear-gradient(135deg, var(--orange) 0%, #b55400 100%); color: #fff; }
+        .verdict-strip.info .verdict-pill { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dk) 100%); color: #fff; }
+        .verdict-strip.neutral .verdict-pill { background: #f3f5f7; color: var(--grey); border: 1px solid var(--border); }
+
+        /* ── COMPARISON BAR ── */
+        .compare-wrap { margin: 14px 0 16px; }
+        .compare-head { display:flex; justify-content:space-between; gap:14px; font-size:.88rem; color:var(--grey); margin-bottom:6px; }
+        .compare-bar {
+            position: relative;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #e5f4ff, #fff4e6, #ffe5e0);
+            border: 1px solid var(--border);
+            overflow:hidden;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,.05);
+        }
+        .compare-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, rgba(26,107,186,.85), rgba(208,98,0,.85));
+        }
+        .compare-limit {
+            position:absolute;
+            top:-5px;
+            width: 3px;
+            height: 46px;
+            background: var(--green);
+            box-shadow: 0 0 0 3px rgba(26,138,74,.15), 0 2px 6px rgba(0,0,0,.2);
+        }
+        .compare-labels {
+            display:flex;
+            justify-content:space-between;
+            gap:14px;
+            margin-top:6px;
+            font-size:.85rem;
+        }
+        .compare-labels span { color:var(--grey); }
+        .compare-labels strong { color:#1f2a35; }
+
+        /* ── RAW MEASUREMENTS ── */
+        .raw-grid { display:grid; gap:12px; grid-template-columns: 1fr auto; align-items:end; }
+        textarea.raw-input {
+            width:100%;
+            min-height:110px;
+            padding:12px 14px;
+            border:1px solid var(--border);
+            border-radius:6px;
+            font: inherit;
+            resize: vertical;
+            font-size: .95rem;
+        }
+        .raw-stats {
+            display:grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap:12px;
+            margin-top:12px;
+        }
+        .raw-stat {
+            background: #fff;
+            border:1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,.04);
+        }
+        .raw-stat .label { font-size:.78rem; color:var(--grey); }
+        .raw-stat .value { font-weight:800; font-size:1.05rem; color:#1f2a35; margin-top:4px; }
+
+        /* ── HOW-TO GUIDE ── */
+        .howto-guide {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, #f0f5ff 0%, #e8f0fc 100%);
+            border-radius: var(--radius);
+            border: 1px solid #c8d8f0;
+            margin-bottom: 20px;
+        }
+        .howto-step {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .88rem;
+            color: #444;
+        }
+        .howto-step .num {
+            width: 22px;
+            height: 22px;
+            background: var(--blue);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .75rem;
+            font-weight: 700;
+        }
+        .howto-arrow {
+            color: var(--blue);
+            font-size: 1.2rem;
+        }
+
+        /* ── REGULATORY CONTEXT ── */
+        .reg-context {
+            padding: 14px 18px;
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+            border-radius: var(--radius);
+            border-left: 4px solid #e6a800;
+            margin-bottom: 20px;
+        }
+        .reg-context h4 {
+            color: #8a6d00;
+            margin-top: 0;
+        }
+        .reg-context ul {
+            margin: 8px 0 0 20px;
+            font-size: .88rem;
+            color: #5a4d00;
+        }
+        .reg-context li { margin-bottom: 4px; }
+
+        /* ── TOOLTIP HELP ── */
+        .help-tip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background: var(--blue-lt);
+            color: var(--blue);
+            border-radius: 50%;
+            font-size: .7rem;
+            font-weight: 700;
+            cursor: help;
+            margin-left: 4px;
+            position: relative;
+        }
+        .help-tip:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2a35;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: .78rem;
+            font-weight: 400;
+            white-space: nowrap;
+            max-width: 280px;
+            white-space: normal;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,.2);
+        }
+        .help-tip.neutral::after { content: none; }
+
+        /* ── UTILITY ── */
+        .details-emtm  { margin-top: 30px; }
+        .details-emt   { margin-top: 10px; }
+        .details-g    { margin: 16px 0; }
+        .details-sum summary { cursor: pointer; font-weight: 600; color: var(--blue); padding: 8px 0; font-size: .92rem; }
+        .ref-table-wrap { margin-top: 12px; }
+        .form-grid-mt  { margin-top: 14px; }
+        .footer-note   { text-align: center; font-size: .78rem; color: #666; margin-top: 16px; }
+        .footer-note a  { color: var(--blue); text-decoration: none; }
+        .result-th     { background: #f4f6f8; font-weight: 700; padding: 7px 10px; }
+        .info-box-mt   { margin-top: 12px; }
+        .info-box-mb   { margin-bottom: 12px; }
+        .info-box-mt8  { margin-top: 10px; }
+        .cpk-gauge-label { font-size: .88rem; font-weight: 600; margin-bottom: 6px; }
+        .h4-mb8        { margin-bottom: 10px; }
+        .h4-my14-8     { margin: 16px 0 10px; }
+        .mini-table-wrap { max-height: 280px; overflow:auto; border:1px solid var(--border); border-radius: 10px; }
+        .mini-table { width:100%; border-collapse: collapse; font-size: .85rem; }
+        .mini-table th, .mini-table td { padding: 7px 10px; border-bottom:1px solid var(--border); text-align:left; }
+        .mini-table th { position: sticky; top: 0; background: var(--grey-lt); z-index: 1; }
+        .mini-table tr:nth-child(even) td { background: #fafbfd; }
+        .note-inline { font-size:.85rem; color:var(--grey); margin-top:8px; }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:900px) {
+            body { padding: 12px; }
+            .app-header { padding: 14px 18px 0; }
+            .app-header h1 { font-size: .9rem; }
+            .header-top { gap: 14px; }
+            .logo-area { gap: 10px; }
+            .logo-img, .logo-fallback { width: 42px; height: 42px; }
+            .logo-text { font-size: 1.1rem; }
+            .tab-btn { padding: 9px 14px; font-size:.84rem; }
+        }
+        @media(max-width:600px) {
+            body { padding: 8px; }
+            .panel { padding: 16px; }
+            .app-header { padding: 12px 14px 0; }
+            .header-top { flex-direction: column; gap: 10px; }
+            .tab-btn { padding: 8px 10px; font-size:.78rem; }
+            .tab-btn span { display: none; }
+            .btn { width: 100%; }
+            .raw-grid { grid-template-columns: 1fr; }
+            .howto-guide { flex-direction: column; align-items: flex-start; }
+            .howto-arrow { transform: rotate(90deg); }
+            .form-grid { grid-template-columns: 1fr; }
+            .cpk-gauge-wrap { overflow-x: auto; }
+            .compare-wrap { overflow-x: auto; }
+        }
+        @media(min-width:1200px) {
+            body { padding: 24px 40px; }
+            .panel-wrap, .app-header { max-width: 1100px; }
+        }
+        @media print {
+            .app-header { box-shadow: none; }
+            .verdict-strip { position: static; }
+            .btn-row { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-header">
+    <div class="header-top">
+        <div class="logo-area">
+            <img src="logo.png" alt="VisiPilot" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="logo-fallback" style="display:none;">
+                <span class="logo-icon">⚖</span>
+            </div>
+            <div>
+                <div class="logo-text">VisiPilot</div>
+                <div class="logo-sub">Métrologie Préemballages — DGCCRF 2014</div>
+            </div>
+        </div>
+        <a href="https://visipilot.com" target="_blank" rel="noopener" class="header-link">
+            🌐 visipilot.com ↗
+        </a>
+    </div>
+    <h1>Guide interactif — Directives 76/211/CEE · 2014/31/UE · WELMEC 6.4</h1>
+    <div class="tabs">
+        <button type="button" class="tab-btn active" onclick="switchTab('balance')">① Adéquation Balance</button>
+        <button type="button" class="tab-btn" onclick="switchTab('cpk')">② Capabilité CPk</button>
+        <button type="button" class="tab-btn" onclick="switchTab('pom')">③ Plan d'échantillonnage POM/POL</button>
+    </div>
+</div>
+
+<div class="panel-wrap">
+
+<!-- ══════════════════════════════════════════════════
+      PANEL 1 — ADÉQUATION BALANCE
+═══════════════════════════════════════════════════ -->
+    <div class="panel active" id="panel-balance">
+    <div class="verdict-strip neutral" id="b_verdict">
+        <div class="verdict-pill"><span class="verdict-icon">○</span>Verdict en attente</div>
+        <div class="verdict-text">Lancez un calcul pour afficher immédiatement l'adéquation de la balance.</div>
+    </div>
+    <h2>Vérification d'adéquation de l'instrument de pesage</h2>
+
+    <div class="howto-guide">
+        <div class="howto-step"><span class="num">1</span> Saisissez les paramètres</div>
+        <span class="howto-arrow">→</span>
+        <div class="howto-step"><span class="num">2</span> Cliquez Vérifier</div>
+        <span class="howto-arrow">→</span>
+        <div class="howto-step"><span class="num">3</span> Lisez le verdict vert/rouge</div>
+    </div>
+
+    <div class="reg-context">
+        <h4>Pourquoi vérifier l'adéquation de la balance ?</h4>
+        <ul>
+            <li><strong>Obligation légale</strong> : L'instrument de pesage doit être adapté au contrôle (Guide DGCCRF §IV)</li>
+            <li><strong>Règle des 1/5</strong> : EMT en service ≤ 1/5 EMTM — sinon l'incertitude de la balance compromet la conformité</li>
+            <li><strong>Sanctions</strong> : Un instrument mal adapté peut entraîner un rejet de lot ou une verbalisation</li>
+        </ul>
+    </div>
+
+    <div class="card card-blue">
+        <h4>Règle fondamentale (Guide DGCCRF §IV + WELMEC 6.4)</h4>
+        <p>L'instrument est <strong>adapté</strong> si : <strong>EMT en service ≤ 1/5 de l'EMTM</strong><br>
+        où EMT en service = 2 × EMT (neuve), calculée selon la classe et la plage de charge.</p>
+    </div>
+
+    <h3>Paramètres de l'instrument</h3>
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="b_type">Type d'instrument <span class="hint">(directive)</span></label>
+            <select id="b_type" title="Type d'instrument de pesage" onchange="onTypeChange()">
+                <option value="nawi">IPFNA — Balance non automatique (Dir. 2014/31/UE)</option>
+                <option value="ipfa">IPFA — Trieuse pondérale (Dir. 2014/32/UE)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="b_classe">Classe de précision</label>
+            <select id="b_classe" title="Classe de précision de l'instrument" onchange="updateBalanceClassInfo()"></select>
+            <div class="field-help" id="b_class_desc">Choisissez une classe pour afficher l'explication réglementaire adaptée.</div>
+        </div>
+        <div class="form-group">
+            <label for="b_ref">Référence / N° de l'instrument</label>
+            <input type="text" id="b_ref" title="Référence ou numéro de série de la balance" value="V41XWE3T-M">
+        </div>
+        <div class="form-group">
+            <label for="b_e">Échelon de vérification e <span class="hint">(g)</span></label>
+            <input type="number" id="b_e" title="Échelon de vérification e en grammes" value="1" min="0.001" step="any">
+            <div class="field-help">e = échelon gravé sur le certificat de vérification.</div>
+        </div>
+        <div class="form-group">
+            <label for="b_d">Échelon d'affichage d <span class="hint">(g — peut ≠ e)</span></label>
+            <input type="number" id="b_d" title="Échelon d'affichage d en grammes" value="1" min="0.001" step="any">
+            <div class="field-help">d = pas affiché à l'écran. Si e = d, saisissez la même valeur.</div>
+        </div>
+        <div class="form-group">
+            <label for="b_max">Portée maximale Max <span class="hint">(g)</span></label>
+            <input type="number" id="b_max" title="Portée maximale en grammes" value="3000" min="1" step="any">
+        </div>
+        <div class="form-group">
+            <label for="b_min">Portée minimale Min <span class="hint">(g)</span></label>
+            <input type="number" id="b_min" title="Portée minimale en grammes" value="20" min="0" step="any">
+            <div class="field-help">Portée minimale utile pour la conformité de l'instrument, mais non utilisée dans la règle EMTM.</div>
+        </div>
+    </div>
+
+    <h3>Produit préemballé à contrôler</h3>
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="b_qn">Quantité nominale QN <span class="hint">(g)</span></label>
+            <input type="number" id="b_qn" title="Quantité nominale du produit en grammes" value="100" min="1" step="any">
+        </div>
+        <div class="form-group">
+            <label for="b_prod">Libellé produit <span class="hint">(facultatif)</span></label>
+            <input type="text" id="b_prod" title="Nom ou référence du produit" value="Produit X">
+        </div>
+    </div>
+
+    <div class="btn-row">
+        <button type="button" class="btn btn-blue" onclick="verifyBalance()">Vérifier l'adéquation</button>
+        <button type="button" class="btn btn-orange" id="b_dl_btn" disabled onclick="downloadReport('balance')">Télécharger rapport .txt</button>
+    </div>
+
+    <div class="result-box" id="b_result">
+        <div class="result-header" id="b_result_hdr"></div>
+        <div class="result-body" id="b_result_body"></div>
+    </div>
+
+    <!-- Table de référence EMTM -->
+    <details class="details-emtm details-sum">
+        <summary>▸ Table EMTM — Directive 76/211/CEE (Décret 78-166 Art. 4)</summary>
+        <table class="ref-table ref-table-wrap">
+            <tr><th>Quantité Nominale QN</th><th>EMTM (Erreur Maximale Tolérée en Moins)</th></tr>
+            <tr id="emtm_row_0"><td>QN ≤ 50 g</td><td>9 % de QN</td></tr>
+            <tr id="emtm_row_1"><td>50 g &lt; QN ≤ 100 g</td><td>4,5 g</td></tr>
+            <tr id="emtm_row_2"><td>100 g &lt; QN ≤ 200 g</td><td>4,5 % de QN</td></tr>
+            <tr id="emtm_row_3"><td>200 g &lt; QN ≤ 300 g</td><td>9 g</td></tr>
+            <tr id="emtm_row_4"><td>300 g &lt; QN ≤ 500 g</td><td>3 % de QN</td></tr>
+            <tr id="emtm_row_5"><td>500 g &lt; QN ≤ 1 000 g</td><td>15 g</td></tr>
+            <tr id="emtm_row_6"><td>1 000 g &lt; QN ≤ 10 000 g</td><td>1,5 % de QN</td></tr>
+        </table>
+    </details>
+
+    <details class="details-emt details-sum">
+        <summary>▸ Table EMT NAWI selon classe et plage de charge (Décret 91-330 — Tableau 2)</summary>
+        <table class="ref-table ref-table-wrap">
+            <tr><th>Classe</th><th>Plage de charge m</th><th>EMT (neuve)</th><th>EMT en service</th></tr>
+            <tr id="emt_row_nawi_I_0"><td rowspan="3">I</td><td>m ≤ 50 000e</td><td>±0,5e</td><td>±1e</td></tr>
+            <tr id="emt_row_nawi_I_1"><td>50 000e &lt; m ≤ 200 000e</td><td>±1e</td><td>±2e</td></tr>
+            <tr id="emt_row_nawi_I_2"><td>m &gt; 200 000e</td><td>±1,5e</td><td>±3e</td></tr>
+            <tr id="emt_row_nawi_II_0"><td rowspan="3">II</td><td>m ≤ 5 000e</td><td>±0,5e</td><td>±1e</td></tr>
+            <tr id="emt_row_nawi_II_1"><td>5 000e &lt; m ≤ 20 000e</td><td>±1e</td><td>±2e</td></tr>
+            <tr id="emt_row_nawi_II_2"><td>m &gt; 20 000e</td><td>±1,5e</td><td>±3e</td></tr>
+            <tr id="emt_row_nawi_III_0"><td rowspan="3">III</td><td>m ≤ 500e</td><td>±0,5e</td><td>±1e</td></tr>
+            <tr id="emt_row_nawi_III_1"><td>500e &lt; m ≤ 2 000e</td><td>±1e</td><td>±2e</td></tr>
+            <tr id="emt_row_nawi_III_2"><td>m &gt; 2 000e</td><td>±1,5e</td><td>±3e</td></tr>
+            <tr id="emt_row_nawi_IIII_0"><td rowspan="3">IIII</td><td>m ≤ 50e</td><td>±0,5e</td><td>±1e</td></tr>
+            <tr id="emt_row_nawi_IIII_1"><td>50e &lt; m ≤ 200e</td><td>±1e</td><td>±2e</td></tr>
+            <tr id="emt_row_nawi_IIII_2"><td>m &gt; 200e</td><td>±1,5e</td><td>±3e</td></tr>
+        </table>
+    </details>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PANEL 2 — CAPABILITÉ CPk
+══════════════════════════════════════════════════ -->
+<div class="panel" id="panel-cpk">
+    <h2>Calcul de capabilité de ligne — CPk métrologique</h2>
+    <div class="verdict-strip neutral" id="c_verdict">
+        <div class="verdict-pill"><span class="verdict-icon">○</span>Verdict en attente</div>
+        <div class="verdict-text">La capabilité et le centrage s'afficheront ici dès le calcul.</div>
+    </div>
+
+    <div class="howto-guide">
+        <div class="howto-step"><span class="num">1</span> Saisissez σ₀, μ, QN</div>
+        <span class="howto-arrow">→</span>
+        <div class="howto-step"><span class="num">2</span> Cliquez Calculer</div>
+        <span class="howto-arrow">→</span>
+        <div class="howto-step"><span class="num">3</span> Interprétez Cpk et ms</div>
+    </div>
+
+    <div class="reg-context">
+        <h4>Qu'est-ce que le CPk métrologique ?</h4>
+        <ul>
+            <li><strong>Définition</strong> : Cpk mesure la capacité à fabriquer sans défectueux (rapport tolérance / variabilité)</li>
+            <li><strong>Exemple concret</strong> : Si QN = 100g, E = 4,5g → seuil σ = 2,19g. Si σ ≤ 2,19g, centrage sur QN possible</li>
+            <li><strong>Guide DGCCRF §V</strong> : La capabilité conditionne le surdosage obligatoire et le choix du centrage</li>
+        </ul>
+    </div>
+
+    <div class="card card-blue">
+        <h4>Référence : Guide DGCCRF §V — Seuil de centrage selon capabilité machine</h4>
+        <p>La capabilité exprime la capacité du procédé à fabriquer des lots conformes sans surdosage excessif.<br>
+        <strong>Règle clé :</strong> si σ ≤ E/2,05 → centrage sur QN ; sinon surdosage obligatoire.</p>
+    </div>
+    <div class="card">
+        <h4>Références réglementaires</h4>
+        <div class="info-box blue">
+            <strong>Formule de seuil ms :</strong> ms = QN si σ ≤ E/2,05, sinon ms = QN − E + 2,05σ (et, si signe e, comparaison avec Uσ).<br>
+            <strong>Interprétation :</strong> Cpk &lt; 0,67 = très insuffisant, 0,67 à 1,00 = insuffisant, 1,00 à 1,33 = acceptable, 1,33 à 1,63 = bon, ≥ 1,63 = excellent.
+        </div>
+        <table class="ref-table">
+            <tr><th>Seuil</th><th>Interprétation opérateur</th></tr>
+            <tr><td>0,67</td><td>Limite basse, le procédé devient fragile</td></tr>
+            <tr><td>1,00</td><td>Minimum pratique pour un centrage acceptable</td></tr>
+            <tr><td>1,33</td><td>Bonne maîtrise statistique</td></tr>
+            <tr><td>1,63</td><td>Très bon niveau de sécurité process</td></tr>
+        </table>
+    </div>
+
+    <h3>Paramètres du processus</h3>
+    <div class="form-grid fg2">
+        <div class="form-group">
+            <label for="c_qn">Quantité nominale QN <span class="hint">(g)</span></label>
+            <input type="number" id="c_qn" title="Quantité nominale du produit en grammes" value="100" min="1" step="any">
+        </div>
+        <div class="form-group">
+            <label for="c_sigma">Écart-type du processus σ₀ <span class="hint">(g — mesuré sur ≥20 points)</span></label>
+            <input type="number" id="c_sigma" title="Écart-type du processus de remplissage en grammes" value="1.5" min="0.001" step="any">
+            <div class="field-help">Prenez au moins 20 pesées consécutives en production normale. Si vous n’avez pas σ₀, utilisez l’onglet POM/POL pour l’estimer depuis s.</div>
+        </div>
+        <div class="form-group">
+            <label for="c_mu">Moyenne effective du processus μ <span class="hint">(g)</span></label>
+            <input type="number" id="c_mu" title="Moyenne effective du processus en grammes" value="101" step="any">
+            <div class="field-help">μ = moyenne de vos dernières pesées de production sur le même lot.</div>
+        </div>
+        <div class="form-group">
+            <label for="c_signe_e">Utilisation du signe « e »</label>
+            <select id="c_signe_e" title="Utilisation du signe e de garantie de conformité">
+                <option value="non">Non — Critère défectueux seul (2%)</option>
+                <option value="oui">Oui — Critère défectueux + superdéfectueux</option>
+            </select>
+            <div class="field-help">Le signe e impose des cartes de contrôle obligatoires (art. 5, arrêté du 20/10/1978).</div>
+        </div>
+        <div class="form-group" id="c_lot_wrap">
+            <label for="c_lot_n">Taille du lot N <span class="hint">(pour critère superdéfectueux)</span></label>
+            <select id="c_lot_n" title="Taille du lot de fabrication">
+                <option value="3.09">N ≤ 1 000 (U = 3,09)</option>
+                <option value="3.71">1 000 &lt; N ≤ 10 000 (U = 3,71)</option>
+                <option value="4.26">N &gt; 10 000 (U = 4,26)</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="btn-row">
+        <button type="button" class="btn btn-green" onclick="calcCpk()">Calculer la capabilité</button>
+        <button type="button" class="btn btn-orange" id="c_dl_btn" disabled onclick="downloadReport('cpk')">Télécharger rapport .txt</button>
+    </div>
+
+    <div class="result-box" id="c_result">
+        <div class="result-header info" id="c_result_hdr"></div>
+        <div class="result-body" id="c_result_body"></div>
+    </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+     PANEL 3 — POM / POL — PLAN D'ÉCHANTILLONNAGE
+══════════════════════════════════════════════════ -->
+<div class="panel" id="panel-pom">
+    <h2>Plan d'échantillonnage — Validation POM/POL</h2>
+    <div class="verdict-strip neutral" id="p_verdict">
+        <div class="verdict-pill"><span class="verdict-icon">○</span>Verdict en attente</div>
+        <div class="verdict-text">Le test de moyenne, la carte et les périodes opérationnelles apparaîtront ici après calcul.</div>
+    </div>
+
+    <div class="howto-guide">
+        <div class="howto-step"><span class="num">1</span> Configurez n et σ₀</div>
+        <span class="howto-arrow">→</span>
+        <div class="howto-step"><span class="num">2</span> Saisissez x̄ et s</div>
+        <span class="howto-arrow">→</span>
+        <div class="howto-step"><span class="num">3</span> Vérifiez POM/POL ≤ 1h</div>
+    </div>
+
+    <div class="reg-context">
+        <h4>Pourquoi POM/POL doivent détecter un déréglage en ≤ 1h ?</h4>
+        <ul>
+            <li><strong>Exigence légale</strong> : Article 5 de l'arrêté du 20/10/1978 impose la détection rapide des déréglages</li>
+            <li><strong>Risque économique</strong> : Un déréglage non détecté = lot entier non conforme = perte financière</li>
+            <li><strong>Fréquence type</strong> : 30 min avec n=10 offre un bon compromis détection/coût ( Guide DGCCRF §VII.B)</li>
+        </ul>
+    </div>
+
+    <div class="card card-blue">
+        <h4>Référence : Guide DGCCRF §VII.B — Cartes de contrôle et périodes opérationnelles</h4>
+        <p>
+            <strong>POM</strong> = Période Opérationnelle Moyenne : nombre d'échantillonnages pour détecter un déréglage avec probabilité 50%<br>
+            <strong>POL</strong> = Période Opérationnelle Limite : nombre d'échantillonnages maximal pour détecter le déréglage<br>
+            <strong>Objectif réglementaire :</strong> détecter tout déréglage menant à un lot NC dans <strong>≤ 1 heure de fabrication</strong>
+        </p>
+    </div>
+
+    <div class="steps">
+        <div class="step active" id="step1">① Paramètres</div>
+        <div class="step" id="step2">② Test de la moyenne</div>
+        <div class="step" id="step3">③ Carte de contrôle</div>
+        <div class="step" id="step4">④ POM / POL</div>
+    </div>
+
+    <h3>① Paramètres du plan de contrôle</h3>
+    <div class="form-grid fg2">
+        <div class="form-group">
+            <label for="p_qn">Quantité nominale QN <span class="hint">(g)</span></label>
+            <input type="number" id="p_qn" title="Quantité nominale du produit en grammes" value="100" min="1" step="any">
+        </div>
+        <div class="form-group">
+            <label for="p_sigma">Écart-type du processus σ₀ <span class="hint">(g)</span></label>
+            <input type="number" id="p_sigma" title="Écart-type du processus de remplissage en grammes" value="1.5" min="0.001" step="any">
+            <div class="field-help">Valeur synchronisée avec l’onglet CPk. Si vous la changez ici, elle se répercute aussi ailleurs.</div>
+        </div>
+        <div class="form-group">
+            <label for="p_n">Effectif de l'échantillon n <span class="hint">(7–10 recommandé)</span></label>
+            <input type="number" id="p_n" title="Effectif de l'échantillon (7 à 10 recommandé)" value="10" min="2" max="65" step="1">
+            <div class="field-help">Recommandation Guide DGCCRF §VII.B.2.1 : 7 à 10 unités, bon compromis détection/coût. En multi-becs, prendre un multiple du nombre de becs.</div>
+        </div>
+        <div class="form-group">
+            <label for="p_freq">Fréquence d'échantillonnage <span class="hint">(min)</span></label>
+            <input type="number" id="p_freq" title="Fréquence de prélèvement en minutes" value="30" min="5" step="5">
+        </div>
+        <div class="form-group">
+            <label for="p_signe_e">Signe « e » utilisé ?</label>
+            <select id="p_signe_e" title="Utilisation du signe e de garantie de conformité">
+                <option value="non">Non</option>
+                <option value="oui">Oui (cartes de contrôle obligatoires)</option>
+            </select>
+            <div class="field-help">Le signe e renforce la surveillance statistique et suppose des cartes de contrôle obligatoires.</div>
+        </div>
+        <div class="form-group">
+            <label for="p_lot_n">Taille lot N <span class="hint">(pour U si signe e)</span></label>
+            <select id="p_lot_n" title="Taille du lot de fabrication">
+                <option value="3.09">N ≤ 1 000</option>
+                <option value="3.71">1 000 &lt; N ≤ 10 000</option>
+                <option value="4.26">N &gt; 10 000</option>
+            </select>
+        </div>
+    </div>
+
+    <h3>② Données de l'échantillon (test de la moyenne)</h3>
+    <div class="info-box blue">
+        Saisissez les données d'un échantillon pour tester la conformité de la moyenne du lot.
+        Le test est : <strong>x̄ − g·s ≥ QN</strong> (critère emplisseur, risque β minimisé, seuil 90%).
+    </div>
+    <div class="card">
+        <h4>Saisie des mesures individuelles</h4>
+        <div class="raw-grid">
+            <div>
+                <textarea class="raw-input" id="p_raw_values" placeholder="Saisissez les pesées individuelles séparées par des espaces, virgules ou retours ligne. Exemple :&#10;101.2 100.8 101.5 100.9 101.0"></textarea>
+                <div class="note-inline">L'app calcule automatiquement x̄ et s à partir des mesures brutes lorsque vous cliquez sur le bouton.</div>
+            </div>
+            <button type="button" class="btn btn-blue" onclick="deriveStatsFromRaw()">Calculer x̄ et s</button>
+        </div>
+        <div class="raw-stats">
+            <div class="raw-stat">
+                <div class="label">Nombre de mesures</div>
+                <div class="value" id="raw_count">0</div>
+            </div>
+            <div class="raw-stat">
+                <div class="label">Moyenne calculée x̄</div>
+                <div class="value" id="raw_mean">N/A</div>
+            </div>
+            <div class="raw-stat">
+                <div class="label">Écart-type estimé s</div>
+                <div class="value" id="raw_std">N/A</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-grid fg2 form-grid-mt">
+        <div class="form-group">
+            <label for="p_xbar">Moyenne d'échantillon x̄ <span class="hint">(g)</span></label>
+            <input type="number" id="p_xbar" title="Moyenne arithmétique de l'échantillon en grammes" value="101.2" step="any">
+        </div>
+        <div class="form-group">
+            <label for="p_s">Écart-type estimé s <span class="hint">(g)</span></label>
+            <input type="number" id="p_s" title="Écart-type estimé de l'échantillon en grammes" value="1.8" min="0.001" step="any">
+        </div>
+    </div>
+
+    <details class="details-g">
+        <summary>▸ Table g — Annexe 3 (coefficients pour test de la moyenne à 90%)</summary>
+        <div class="mini-table-wrap">
+            <table class="mini-table" id="g_table_static">
+                <tr><th>n</th><th>g</th></tr>
+            </table>
+        </div>
+        <div class="note-inline">La ligne correspondant à n sera surlignée automatiquement dans le résultat pour garder la référence réglementaire sous les yeux.</div>
+    </details>
+
+    <div class="btn-row">
+        <button type="button" class="btn btn-blue" onclick="calcPomPol()">Analyser le plan d'échantillonnage</button>
+        <button type="button" class="btn btn-orange" id="p_dl_btn" disabled onclick="downloadReport('pom')">Télécharger rapport .txt</button>
+    </div>
+
+    <div class="result-box" id="p_result">
+        <div class="result-header" id="p_result_hdr"></div>
+        <div class="result-body" id="p_result_body"></div>
+    </div>
+</div><!-- end panel pom -->
+
+</div><!-- end panel-wrap -->
+
+<p class="footer-note">
+    © <a href="https://visipilot.com" target="_blank" rel="noopener">VisiPilot</a> — Guide DGCCRF 2014 — Directive 76/211/CEE — WELMEC 6.4 / 6.5 — NF X06-031-1 — ISO 7870-2
+</p>
+
+<script>
+'use strict';
+
+// ── TAB NAVIGATION ──────────────────────────────────
+function switchTab(id) {
+    document.querySelectorAll('.tab-btn').forEach((b,i) => {
+        const ids = ['balance','cpk','pom'];
+        b.classList.toggle('active', ids[i] === id);
+    });
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    if (id === 'pom') {
+        setTimeout(() => renderGTable(), 50);
+    }
+}
+
+// ── DONNÉES ──────────────────────────────────────────
+
+// EMTM — Directive 76/211/CEE / Décret 78-166 Art. 4
+const EMTM_TABLE = [
+    { max: 50,    val: 9,   pct: true  },
+    { max: 100,   val: 4.5, pct: false },
+    { max: 200,   val: 4.5, pct: true  },
+    { max: 300,   val: 9,   pct: false },
+    { max: 500,   val: 3,   pct: true  },
+    { max: 1000,  val: 15,  pct: false },
+    { max: 10000, val: 1.5, pct: true  }
+];
+
+// EMT NAWI par classe : tableau [seuil1, seuil2] en multiples de e
+// EMT = 0.5e si m ≤ seuil1·e, 1e si m ≤ seuil2·e, 1.5e sinon
+const NAWI_EMT_THRESHOLDS = {
+    'I':    { s1: 50000, s2: 200000, label: 'Classe I (Très haute précision — laboratoires spécialisés)' },
+    'II':   { s1: 5000,  s2: 20000,  label: 'Classe II (Haute précision — pharmacies, laboratoires)' },
+    'III':  { s1: 500,   s2: 2000,   label: 'Classe III (Industrielle/commerciale standard)' },
+    'IIII': { s1: 50,    s2: 200,    label: 'Classe IIII (Usage moins exigeant)' }
+};
+
+// EMT IPFA (trieuse) : même structure de plages que NAWI mais référentiel différent (arrêté 10/01/2006)
+const IPFA_EMT_THRESHOLDS = {
+    'XII':   { s1: 5000, s2: 20000, label: 'Classe XII (trieuse précision standard)' },
+    'XIII':  { s1: 500,  s2: 2000,  label: 'Classe XIII (trieuse usage industriel)' }
+};
+
+// Table des g (Annexe 3 du Guide — t(1-α)/√n à 90%)
+const G_TABLE = {
+    2:2.176, 3:1.089, 4:0.819, 5:0.686, 6:0.603, 7:0.544, 8:0.500,
+    9:0.466, 10:0.437, 11:0.414, 12:0.394, 13:0.376, 14:0.361, 15:0.347,
+    16:0.335, 17:0.324, 18:0.314, 19:0.305, 20:0.297, 21:0.289, 22:0.282,
+    23:0.275, 24:0.269, 25:0.264, 26:0.258, 27:0.253, 28:0.248, 29:0.244,
+    30:0.239, 31:0.235, 32:0.231, 33:0.228, 34:0.224, 35:0.221, 36:0.218,
+    37:0.215, 38:0.212, 39:0.209, 40:0.206, 41:0.204, 42:0.201, 43:0.199,
+    44:0.196, 45:0.194, 46:0.192, 47:0.190, 48:0.188, 49:0.186, 50:0.184,
+    55:0.175, 60:0.167, 65:0.161
+};
+
+// Stockage rapports
+let reports = { balance: null, cpk: null, pom: null };
+
+// ── HELPERS ──────────────────────────────────────────
+function f(v, d=3) {
+    if (typeof v !== 'number' || isNaN(v)) return 'N/A';
+    return parseFloat(v.toFixed(d)).toString();
+}
+
+function computeEMTM(qn) {
+    for (const row of EMTM_TABLE) {
+        if (qn <= row.max) return row.pct ? (row.val / 100) * qn : row.val;
+    }
+    // Au-delà de 10 000 g : 1,5 % (même règle)
+    return 0.015 * qn;
+}
+
+function computeNAWI_EMT_service(qn, classe, e) {
+    const t = NAWI_EMT_THRESHOLDS[classe];
+    if (!t) return null;
+    const ratio = qn / e;
+    let factorNeuf;
+    if (ratio <= t.s1)       factorNeuf = 0.5;
+    else if (ratio <= t.s2)  factorNeuf = 1.0;
+    else                     factorNeuf = 1.5;
+    return { emt_neuf: factorNeuf * e, emt_service: 2 * factorNeuf * e, factor: factorNeuf, plage: ratio };
+}
+
+function computeIPFA_EMT_service(qn, classe, e) {
+    const t = IPFA_EMT_THRESHOLDS[classe];
+    if (!t) return null;
+    const ratio = qn / e;
+    let factorMoyen;
+    if (ratio <= t.s1)       factorMoyen = 1.0;
+    else if (ratio <= t.s2)  factorMoyen = 2.0;
+    else                     factorMoyen = 3.0;
+    return { emt_neuf: factorMoyen * e, emt_service: factorMoyen * e, factor: factorMoyen, plage: ratio };
+    // Pour IPFA : EMT moyenne tolérée en service (pas de doublement)
+}
+
+function getG(n) {
+    // Interpolation si n pas dans la table
+    if (G_TABLE[n]) return G_TABLE[n];
+    const keys = Object.keys(G_TABLE).map(Number).sort((a,b)=>a-b);
+    let lo = keys[0], hi = keys[keys.length-1];
+    for (let k of keys) { if (k < n) lo = k; if (k > n && hi === keys[keys.length-1]) hi = k; }
+    if (lo === hi) return G_TABLE[lo];
+    const t = (n - lo) / (hi - lo);
+    return G_TABLE[lo] + t * (G_TABLE[hi] - G_TABLE[lo]);
+}
+
+function echelonAdapte(qn, e, type) {
+    // Tableau 1 (IPFNA) ou Tableau 3 (IPFA)
+    const tableIPFNA = [
+        [0.1, 0], [0.2, 10], [0.5, 50], [1, 200], [2, 2000],
+        [5, 5000], [10, 10000], [20, 20000], [50, 50000]
+    ];
+    const tableIPFA = [
+        [0.1, 0], [0.2, 10], [0.5, 25], [1, 110], [2, 330],
+        [5, 1670], [10, 3330], [20, 6670]
+    ];
+    const table = type === 'ipfa' ? tableIPFA : tableIPFNA;
+    // Trouver la ligne correspondant à l'échelon e
+    for (const [echelon, qnMin] of table) {
+        if (Math.abs(echelon - e) < 0.0001) return qn >= qnMin;
+    }
+    return true; // Non trouvé dans table → pas de contrôle possible
+}
+
+function rowOK(label, value, ok) {
+    return `<tr><td>${label}</td><td class="val-${ok?'ok':'nok'}">${value}</td></tr>`;
+}
+function rowInfo(label, value) {
+    return `<tr><td>${label}</td><td>${value}</td></tr>`;
+}
+
+function rowCritical(label, value, tone = '', extraClass = '') {
+    const cls = [extraClass, tone ? 'crit-' + tone : ''].filter(Boolean).join(' ');
+    return `<tr class="${cls}"><td>${label}</td><td>${value}</td></tr>`;
+}
+
+function sectionRow(title) {
+    return `<tr class="section-row"><td colspan="2">${title}</td></tr>`;
+}
+
+function setVerdictStrip(id, state, title, text) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const icons = { ok: '✅', nok: '❌', warn: '⚠️', info: 'ℹ️', neutral: '○' };
+    el.className = 'verdict-strip ' + (state || 'neutral');
+    el.innerHTML = `<div class="verdict-pill"><span class="verdict-icon">${icons[state] || icons.neutral}</span>${title}</div><div class="verdict-text">${text}</div>`;
+}
+
+function clearActiveRows(selector) {
+    document.querySelectorAll(selector).forEach(row => row.classList.remove('active-ref-row'));
+}
+
+function highlightRowById(id) {
+    const row = document.getElementById(id);
+    if (row) row.classList.add('active-ref-row');
+}
+
+function clearBalanceReferenceHighlights() {
+    clearActiveRows('#panel-balance .ref-table tr');
+}
+
+function buildComparisonBar(used, limit, leftLabel, rightLabel, unit = 'g') {
+    const max = Math.max(used, limit) * 1.15 || 1;
+    const usedPct = Math.min((used / max) * 100, 100);
+    const limitPct = Math.min((limit / max) * 100, 100);
+    const state = used <= limit ? 'good' : 'bad';
+    const summary = used <= limit
+        ? `EMT service sous le seuil 1/5 EMTM`
+        : `EMT service au-dessus du seuil 1/5 EMTM`;
+    return `
+    <div class="compare-wrap">
+        <div class="compare-head"><span>${summary}</span><span>échelle relative</span></div>
+        <div class="compare-bar">
+            <div class="compare-fill" style="width:${usedPct}%"></div>
+            <div class="compare-limit" style="left:${limitPct}%"></div>
+        </div>
+        <div class="compare-labels">
+            <span><strong>${leftLabel}</strong> ${f(used)} ${unit}</span>
+            <span><strong>${rightLabel}</strong> ${f(limit)} ${unit}</span>
+        </div>
+    </div>`;
+}
+
+function updateBalanceClassInfo() {
+    const type = document.getElementById('b_type').value;
+    const classe = document.getElementById('b_classe').value;
+    const info = type === 'nawi' ? NAWI_EMT_THRESHOLDS[classe] : IPFA_EMT_THRESHOLDS[classe];
+    const desc = type === 'nawi'
+        ? {
+            I: 'Classe I → haute précision pour applications de laboratoire.',
+            II: 'Classe II → précision élevée, usage technique et commercial exigeant.',
+            III: 'Classe III → balance commerciale standard, e min. 0,5 g.',
+            IIII: 'Classe IIII → usage moins exigeant, contrôle plus souple.'
+        }[classe]
+        : {
+            XII: 'Classe XII → trieuse pondérale standard, surveillance industrielle.',
+            XIII: 'Classe XIII → trieuse à précision plus large.'
+        }[classe];
+    document.getElementById('b_class_desc').textContent = desc || (info?.label || '');
+}
+
+function renderGTable(selectedN) {
+    const table = document.getElementById('g_table_static');
+    if (!table) return;
+    const entries = Object.keys(G_TABLE).map(Number).sort((a, b) => a - b);
+    if (table.dataset.ready !== '1') {
+        for (const n of entries) {
+            const tr = document.createElement('tr');
+            tr.id = `g_row_${n}`;
+            tr.innerHTML = `<td>${n}</td><td>${f(G_TABLE[n], 3)}</td>`;
+            table.appendChild(tr);
+        }
+        table.dataset.ready = '1';
+    }
+    table.querySelectorAll('tr.active-ref-row').forEach(row => row.classList.remove('active-ref-row'));
+    if (selectedN) {
+        const row = document.getElementById(`g_row_${selectedN}`);
+        if (row) row.classList.add('active-ref-row');
+    }
+}
+
+function syncSigmaInputs(sourceId) {
+    const value = document.getElementById(sourceId).value;
+    const targetId = sourceId === 'c_sigma' ? 'p_sigma' : 'c_sigma';
+    const target = document.getElementById(targetId);
+    if (target && target.value !== value) target.value = value;
+}
+
+function deriveStatsFromRaw() {
+    const raw = document.getElementById('p_raw_values').value.trim();
+    const nums = raw
+        .split(/[\s,;]+/g)
+        .map(v => parseFloat(v))
+        .filter(v => !isNaN(v));
+    if (nums.length < 2) {
+        alert('Saisissez au moins 2 mesures valides.');
+        return;
+    }
+    const mean = nums.reduce((a, b) => a + b, 0) / nums.length;
+    const variance = nums.reduce((sum, x) => sum + Math.pow(x - mean, 2), 0) / (nums.length - 1);
+    const std = Math.sqrt(variance);
+    document.getElementById('p_xbar').value = mean.toFixed(4);
+    document.getElementById('p_s').value = std.toFixed(4);
+    document.getElementById('raw_count').textContent = String(nums.length);
+    document.getElementById('raw_mean').textContent = f(mean, 4);
+    document.getElementById('raw_std').textContent = f(std, 4);
+}
+
+function buildBalanceReferenceClasses(type, qn, e) {
+    const rows = [];
+    const ratio = qn / e;
+    if (type === 'nawi') {
+        const classes = Object.entries(NAWI_EMT_THRESHOLDS);
+        for (const [classe, t] of classes) {
+            let idx = ratio <= t.s1 ? 0 : ratio <= t.s2 ? 1 : 2;
+            rows.push(`emt_row_nawi_${classe}_${idx}`);
+        }
+    } else if (type === 'ipfa') {
+        const classes = Object.entries(IPFA_EMT_THRESHOLDS);
+        for (const [classe, t] of classes) {
+            let idx = ratio <= t.s1 ? 0 : ratio <= t.s2 ? 1 : 2;
+            rows.push(`emt_row_ipfa_${classe}_${idx}`);
+        }
+    }
+    return rows;
+}
+
+function balanceEchelonNote(type, qn, e) {
+    const table = type === 'nawi'
+        ? [
+            [0.1, 0], [0.2, 10], [0.5, 50], [1, 200], [2, 2000],
+            [5, 5000], [10, 10000], [20, 20000], [50, 50000]
+        ]
+        : [
+            [0.1, 0], [0.2, 10], [0.5, 25], [1, 110], [2, 330],
+            [5, 1670], [10, 3330], [20, 6670]
+        ];
+    const row = table.find(([echelon]) => Math.abs(echelon - e) < 0.0001);
+    if (!row) return '';
+    return qn >= row[1]
+        ? `Échelon e compatible avec le tableau de charge pour e = ${f(e, 3)} g.`
+        : `Échelon e à vérifier : la charge minimale réglementaire n'est pas atteinte pour e = ${f(e, 3)} g.`;
+}
+
+// ── PANEL 1 : VÉRIFICATION BALANCE ──────────────────
+
+function onTypeChange() {
+    const t = document.getElementById('b_type').value;
+    const sel = document.getElementById('b_classe');
+    sel.innerHTML = '';
+    const classes = t === 'nawi'
+        ? ['I','II','III','IIII']
+        : ['XII','XIII'];
+    classes.forEach(c => {
+        const o = document.createElement('option');
+        o.value = c; o.textContent = 'Classe ' + c;
+        sel.appendChild(o);
+    });
+    if (t === 'nawi') sel.value = 'III';
+    updateBalanceClassInfo();
+}
+
+function verifyBalance() {
+    const type   = document.getElementById('b_type').value;
+    const classe = document.getElementById('b_classe').value;
+    const ref    = document.getElementById('b_ref').value || 'N/A';
+    const e      = parseFloat(document.getElementById('b_e').value);
+    const d      = parseFloat(document.getElementById('b_d').value);
+    const max_p  = parseFloat(document.getElementById('b_max').value);
+    const min_p  = parseFloat(document.getElementById('b_min').value);
+    const qn     = parseFloat(document.getElementById('b_qn').value);
+    const prod   = document.getElementById('b_prod').value || 'N/A';
+
+    if ([e,d,max_p,qn].some(v => isNaN(v) || v <= 0)) {
+        alert('Vérifiez les valeurs saisies (toutes doivent être positives).');
+        return;
+    }
+
+    const emtm = computeEMTM(qn);
+    const emtm5 = emtm / 5;
+
+    let emt_data;
+    if (type === 'nawi') {
+        emt_data = computeNAWI_EMT_service(qn, classe, e);
+    } else {
+        emt_data = computeIPFA_EMT_service(qn, classe, e);
+    }
+
+    if (!emt_data) {
+        alert('Erreur de calcul EMT pour la classe sélectionnée.');
+        return;
+    }
+
+    const emt_service = emt_data.emt_service;
+    const isAdapte    = emt_service <= emtm5;
+    const echelonOK   = echelonAdapte(qn, e, type);
+    const qnOutOfScope = qn > 10000;
+    const emtmRowId = qn <= 50 ? 'emtm_row_0'
+        : qn <= 100 ? 'emtm_row_1'
+        : qn <= 200 ? 'emtm_row_2'
+        : qn <= 300 ? 'emtm_row_3'
+        : qn <= 500 ? 'emtm_row_4'
+        : qn <= 1000 ? 'emtm_row_5'
+        : 'emtm_row_6';
+    const activeEmtRowId = (() => {
+        if (type !== 'nawi') return null;
+        const ratio = qn / e;
+        const t = NAWI_EMT_THRESHOLDS[classe];
+        const idx = ratio <= t.s1 ? 0 : ratio <= t.s2 ? 1 : 2;
+        return `emt_row_nawi_${classe}_${idx}`;
+    })();
+
+    clearBalanceReferenceHighlights();
+    highlightRowById(emtmRowId);
+    if (activeEmtRowId) highlightRowById(activeEmtRowId);
+    document.querySelector('.details-emtm').open = true;
+    document.querySelector('.details-emt').open = true;
+
+    const emtApplicableNote = balanceEchelonNote(type, qn, e);
+
+    // Construction du rapport
+    const plageLabel = (() => {
+        const r = emt_data.plage;
+        if (type === 'nawi') {
+            const t = NAWI_EMT_THRESHOLDS[classe];
+            if (r <= t.s1) return `m ≤ ${t.s1}e → facteur 0,5`;
+            if (r <= t.s2) return `${t.s1}e < m ≤ ${t.s2}e → facteur 1,0`;
+            return `m > ${t.s2}e → facteur 1,5`;
+        } else {
+            const t = IPFA_EMT_THRESHOLDS[classe];
+            if (r <= t.s1) return `m ≤ ${t.s1}e → EMT moy. ±1e`;
+            if (r <= t.s2) return `${t.s1}e < m ≤ ${t.s2}e → EMT moy. ±2e`;
+            return `m > ${t.s2}e → EMT moy. ±3e`;
+        }
+    })();
+
+    const nomType = type === 'nawi' ? 'IPFNA (Balance non automatique)' : 'IPFA (Trieuse pondérale)';
+    const descClasse = type === 'nawi'
+        ? NAWI_EMT_THRESHOLDS[classe]?.label
+        : IPFA_EMT_THRESHOLDS[classe]?.label;
+
+    setVerdictStrip(
+        'b_verdict',
+        isAdapte && echelonOK ? 'ok' : isAdapte ? 'warn' : 'nok',
+        isAdapte && echelonOK ? 'ADAPTÉE' : isAdapte ? 'Vérifier échelon' : 'NON ADAPTÉE',
+        isAdapte && echelonOK
+            ? `EMT service ${f(emt_service)} g ≤ 1/5 EMTM ${f(emtm5)} g, avec échelon e conforme.`
+            : isAdapte
+                ? `EMT service conforme mais l'échelon e doit encore être validé pour QN ${f(qn,2)} g.`
+                : `EMT service ${f(emt_service)} g > 1/5 EMTM ${f(emtm5)} g.`
+    );
+
+    let html = `<table>
+${rowInfo('Instrument', `${nomType} — Classe ${classe}`)}
+${rowInfo('Référence', ref)}
+${rowInfo('Description classe', descClasse || '')}
+${rowInfo('Échelon de vérification e', f(e) + ' g')}
+${rowInfo('Échelon d\'affichage d', f(d) + ' g')}
+${rowInfo('Portée Max / Min', f(max_p) + ' g / ' + f(min_p,1) + ' g')}
+${rowInfo('Produit / QN', prod + ' — ' + f(qn,2) + ' g')}
+${sectionRow('Calculs')}
+${rowInfo('m/e (ratio charge/échelon)', f(qn/e,1) + ' → Plage : ' + plageLabel)}
+${rowCritical('EMT (neuve)', '±' + f(emt_data.emt_neuf) + ' g', 'emtm')}
+${rowCritical(type === 'nawi' ? 'EMT en service (×2 — NAWI)' : 'EMT en service (×1 — IPFA, pas de doublement)', '±' + f(emt_service) + ' g', 'emt')}
+${rowCritical('EMTM du produit', f(emtm) + ' g (Directive 76/211/CEE)', 'emtm')}
+${rowCritical('Seuil 1/5 EMTM', f(emtm5) + ' g', 'threshold', isAdapte ? 'crit-pass' : 'crit-fail')}
+${rowOK('EMT service ≤ 1/5 EMTM ?', f(emt_service) + ' g ≤ ' + f(emtm5) + ' g → ' + (isAdapte ? 'OUI' : 'NON'), isAdapte)}
+${rowOK('Échelon e adapté à QN ?', echelonOK ? 'OUI' : 'NON (voir Tableau 1/3)', echelonOK)}
+</table>
+${buildComparisonBar(emt_service, emtm5, 'EMT service', '1/5 EMTM')}
+${emtApplicableNote ? `<div class="info-box blue">${emtApplicableNote}</div>` : ''}
+${qnOutOfScope ? '<div class="info-box bad">⚠️ Hors domaine : QN dépasse 10 000 g — calcul indicatif uniquement.</div>' : ''}
+${!(isAdapte && echelonOK) ? '<div class="info-box ' + (isAdapte ? 'blue' : 'bad') + '"><strong>Actions recommandées :</strong> ' + (isAdapte ? 'Vérifiez l'échelon e au regard du tableau réglementaire.' : 'Utiliser une balance de classe supérieure, ou augmenter le QN, ou choisir un échelon e plus petit.') + '</div>' : ''}
+`;
+
+    const both = isAdapte && echelonOK;
+    html += `<div class="conclusion ${both?'ok':isAdapte?'warn':'nok'}">
+        ${both
+            ? `✅ La balance ${ref} (Classe ${classe}) est ADAPTÉE pour contrôler ce produit (${f(qn,2)} g).`
+            : isAdapte
+            ? `⚠️ Balance adéquate mais vérifier l'échelon réglementaire pour QN = ${f(qn,2)} g.`
+            : `❌ Balance NON ADAPTÉE — EMT en service (${f(emt_service)} g) > 1/5 EMTM (${f(emtm5)} g).`
+        }
+    </div>`;
+    if (qnOutOfScope) {
+        html += '<div class="info-box bad" style="margin-top:12px;font-size:.95rem;"><strong>⚠️ Hors domaine :</strong> QN dépasse 10 000 g. Les tables EMTM réglementaires de cet outil ne couvrent plus ce cas. Le calcul est donné à titre indicatif uniquement — consultez un métrologue pour valider.</div>';
+    }
+
+    const hdr = document.getElementById('b_result_hdr');
+    hdr.className = 'result-header ' + (both ? 'ok' : isAdapte ? 'warn' : 'nok');
+    hdr.textContent = both ? '✅ Balance ADAPTÉE' : isAdapte ? '⚠️ Vérifier échelon' : '❌ Balance NON ADAPTÉE';
+    document.getElementById('b_result_body').innerHTML = html;
+    document.getElementById('b_result').classList.add('show');
+    document.getElementById('b_dl_btn').disabled = false;
+    document.getElementById('b_result').scrollIntoView({ behavior: 'smooth' });
+
+    // Stockage rapport texte
+    reports.balance = `RAPPORT ADÉQUATION BALANCE — Guide DGCCRF 2014
+Date : ${new Date().toLocaleString('fr-FR')}
+===========================================
+Instrument   : ${nomType} — Classe ${classe}
+Référence    : ${ref}
+Echelon e    : ${f(e)} g   Echelon d : ${f(d)} g
+Portée Max   : ${f(max_p)} g   Min : ${f(min_p,1)} g
+Produit/QN   : ${prod} — ${f(qn,2)} g
+
+CALCULS
+-------
+Ratio m/e          : ${f(qn/e,1)}  → Plage : ${plageLabel}
+EMT neuve          : ±${f(emt_data.emt_neuf)} g
+EMT en service     : ±${f(emt_service)} g${type === 'nawi' ? ' (= 2 × EMT neuve — règle NAWI)' : ' (= EMT nominale — IPFA, pas de doublement)'}
+EMTM produit       : ${f(emtm)} g
+1/5 EMTM           : ${f(emtm5)} g
+
+RÈGLE DGCCRF : EMT en service ≤ 1/5 EMTM
+  ${f(emt_service)} g ≤ ${f(emtm5)} g → ${isAdapte ? 'OUI — Balance ADAPTÉE' : 'NON — Balance NON ADAPTÉE'}
+
+Échelon e adapté à QN : ${echelonOK ? 'OUI' : 'NON — vérifier Tableau 1/3 du guide'}`;
+}
+
+// ── PANEL 2 : CPk ────────────────────────────────────
+
+function calcCpk() {
+    const qn    = parseFloat(document.getElementById('c_qn').value);
+    const sigma = parseFloat(document.getElementById('c_sigma').value);
+    const mu    = parseFloat(document.getElementById('c_mu').value);
+    const signeE = document.getElementById('c_signe_e').value === 'oui';
+    const U     = parseFloat(document.getElementById('c_lot_n').value);
+
+    if ([qn,sigma,mu].some(v => isNaN(v) || v <= 0)) {
+        alert('Vérifiez les valeurs saisies.'); return;
+    }
+
+    const E    = computeEMTM(qn);
+    const qnOutOfScope = qn > 10000;
+    const seuil_defect  = qn - E;       // TU1
+    const seuil_superdef = qn - 2 * E; // TU2
+
+    // Règle DGCCRF : σ ≤ E/2.05 ?
+    const seuilSigma = E / 2.05;
+    const sigmaOK    = sigma <= seuilSigma;
+
+    // Seuil de centrage ms
+    const ms_defect   = sigmaOK ? qn : qn - E + 2.05 * sigma;
+    let ms = ms_defect;
+    let ms_superdef = null;
+    if (signeE) {
+        ms_superdef = qn - 2 * E + U * sigma;
+        ms = Math.max(ms_defect, ms_superdef);
+    }
+
+    // Indices de capabilité
+    const Cp          = E / (3 * sigma);
+    const Cpk_lower   = (mu - seuil_defect)  / (3 * sigma);
+    const Cpk_super   = signeE ? (mu - seuil_superdef) / (3 * sigma) : null;
+    const Cpk         = Cpk_super !== null ? Math.min(Cpk_lower, Cpk_super) : Cpk_lower;
+
+    // Taux de défectueux estimé (loi normale)
+    // P(X < QN-E) = Phi(-(mu-(QN-E))/(sigma)) = Phi(-Cpk_lower*3)
+    function phi(z) {
+        // Approximation loi normale cumulative
+        const t = 1 / (1 + 0.3275911 * Math.abs(z));
+        const poly = t * (0.254829592 + t * (-0.284496736 + t * (1.421413741 + t * (-1.453152027 + t * 1.061405429))));
+        const cdf = 1 - poly * Math.exp(-z * z / 2);
+        return z >= 0 ? cdf : 1 - cdf;
+    }
+    const z_defect  = (mu - seuil_defect) / sigma;
+    const pct_defect = (1 - phi(z_defect)) * 100;
+    const z_super    = signeE ? (mu - seuil_superdef) / sigma : null;
+    const pct_super  = signeE ? (1 - phi(z_super)) * 100 : null;
+
+    // Verdict
+    const surplus    = mu - ms; // surdosage actuel par rapport au seuil requis
+    const msOK       = mu >= ms;
+    const cpkGlobal  = Cpk >= (sigmaOK ? 1.00 : 0.683);
+
+    // Gauge position (Cpk de 0 à 2, clamp)
+    const gaugePos = Math.min(Math.max(Cpk / 2, 0), 1) * 100;
+
+    let interp;
+    if (Cpk < 0.67)      interp = { label: 'Très insuffisant — surdosage impératif, envisager amélioration machine', cls: 'nok' };
+    else if (Cpk < 1.00) interp = { label: 'Insuffisant — surdosage nécessaire', cls: 'warn' };
+    else if (Cpk < 1.33) interp = { label: 'Acceptable — vigilance requise, centrage sur QN possible', cls: 'warn' };
+    else if (Cpk < 1.63) interp = { label: 'Bon — faible risque de défectueux', cls: 'ok' };
+    else                 interp = { label: 'Excellent — centrage sur QN sans surdosage', cls: 'ok' };
+
+    setVerdictStrip(
+        'c_verdict',
+        Cpk >= 1.33 && msOK ? 'ok' : Cpk >= 1.00 ? 'warn' : 'nok',
+        Cpk >= 1.33 && msOK ? 'Cpk satisfaisant' : Cpk >= 1.00 ? 'Cpk limite' : 'Cpk insuffisant',
+        `${interp.label}. Seuil σ = ${f(seuilSigma)} g, ms = ${f(ms)} g.`
+    );
+
+    const html = `
+<div class="cpk-gauge-wrap">
+    <div class="cpk-gauge-label">Indice Cpk = ${f(Cpk,3)}</div>
+    <div class="cpk-bar-bg">
+        <div class="cpk-needle" style="left:${gaugePos}%"></div>
+    </div>
+    <div class="cpk-labels">
+        <span><strong>0</strong><em>non mesuré</em></span>
+        <span><strong>0,67</strong><em>limite basse</em></span>
+        <span><strong>1,00</strong><em>minimum pratique</em></span>
+        <span><strong>1,33</strong><em>bon niveau</em></span>
+        <span><strong>1,63</strong><em>très bon</em></span>
+        <span><strong>2,0</strong><em>excellent</em></span>
+    </div>
+</div>
+<table>
+${rowInfo('Quantité Nominale QN', f(qn,2) + ' g')}
+${rowCritical('EMTM (E) du produit', f(E) + ' g (Directive 76/211/CEE)', 'emtm')}
+${rowCritical('Seuil défectueux TU1 (QN−E)', f(seuil_defect) + ' g', 'threshold', 'crit-pass')}
+${signeE ? rowCritical('Seuil superdéfectueux TU2 (QN−2E)', f(seuil_superdef) + ' g', 'threshold', 'crit-pass') : ''}
+${rowInfo('Écart-type processus σ₀', f(sigma) + ' g')}
+${rowInfo('Seuil σ critique (E/2,05)', f(seuilSigma) + ' g')}
+${rowOK('σ ≤ E/2,05 (centrage sur QN possible)', sigmaOK ? 'OUI' : 'NON — surdosage obligatoire', sigmaOK)}
+${sectionRow('Indices de capabilité')}
+${rowInfo('Cp (symétrique)', f(Cp,3))}
+${rowInfo('Cpk inférieur (critère défectueux)', f(Cpk_lower,3))}
+${signeE ? rowInfo('Cpk superdéfectueux', f(Cpk_super,3)) : ''}
+${rowInfo('Cpk global retenu', f(Cpk,3))}
+${sectionRow(`Centrage actuel (μ = ${f(mu)} g)`)}
+${rowInfo('Seuil de centrage ms requis (sans surdosage)', f(ms_defect) + ' g')}
+${signeE ? rowInfo('Seuil ms superdéfectueux', f(ms_superdef) + ' g') : ''}
+${rowInfo('Seuil de centrage ms à respecter', f(ms) + ' g')}
+${rowOK('μ ≥ ms requis ?', f(mu) + ' g ≥ ' + f(ms) + ' g → ' + (msOK?'OUI':'NON'), msOK)}
+${rowInfo('Surdosage actuel (μ − ms)', f(surplus,3) + ' g')}
+${sectionRow('Estimation des défectueux')}
+${rowInfo('Taux de défectueux estimé (< TU1)', f(pct_defect,4) + ' %')}
+${signeE ? rowInfo('Taux superdéfectueux estimé', f(pct_super,6) + ' %') : ''}
+</table>
+<div class="info-box blue">
+    <strong>Références réglementaires :</strong>
+    ms = QN si σ ≤ E/2,05, sinon ms = QN − E + 2,05σ. Si le signe e est utilisé, comparer aussi avec Uσ pour le critère superdéfectueux.
+</div>
+${qnOutOfScope ? '<div class="info-box bad">⚠️ Hors domaine : QN dépasse 10 000 g — calcul indicatif uniquement.</div>' : ''}
+<div class="info-box blue">
+    <strong>Actions recommandées :</strong>
+    ${sigmaOK
+        ? `Si Cpk reste trop faible, réduisez la variabilité machine ou augmentez légèrement μ.`
+        : `Réduisez la variabilité machine (maintenance préventive) ou appliquez un surdosage d'environ ${f(Math.max(ms - mu, 0), 3)} g.`
+    }
+</div>
+<div class="conclusion ${interp.cls}">Cpk = ${f(Cpk,3)} — ${interp.label}</div>
+${!sigmaOK ? '<div class="info-box info-box-mt">⚠️ Surdosage calculé : μ recommandée ≥ ' + f(ms) + ' g pour rester conforme</div>' : ''}
+`;
+
+    document.getElementById('c_result_hdr').textContent = `Capabilité : Cpk = ${f(Cpk,3)} — ${interp.label}`;
+    document.getElementById('c_result_hdr').className = 'result-header ' + interp.cls;
+    document.getElementById('c_result_body').innerHTML = html;
+    document.getElementById('c_result').classList.add('show');
+    document.getElementById('c_dl_btn').disabled = false;
+    document.getElementById('c_result').scrollIntoView({ behavior: 'smooth' });
+
+    reports.cpk = `RAPPORT CAPABILITÉ CPk — Guide DGCCRF 2014
+Date : ${new Date().toLocaleString('fr-FR')}
+=========================================
+QN         : ${f(qn,2)} g
+EMTM (E)   : ${f(E)} g
+σ₀         : ${f(sigma)} g
+μ actuelle : ${f(mu)} g
+Signe e    : ${signeE ? 'Oui (U='+U+')' : 'Non'}
+
+RÉSULTATS
+---------
+Cp          : ${f(Cp,3)}
+Cpk         : ${f(Cpk,3)}
+Seuil σ critique (E/2,05) : ${f(seuilSigma)} g
+σ ≤ E/2,05 : ${sigmaOK ? 'OUI' : 'NON'}
+Seuil ms requis : ${f(ms)} g
+μ ≥ ms : ${msOK ? 'OUI' : 'NON'}
+Taux défectueux estimé : ${f(pct_defect,4)} %
+${signeE ? 'Taux superdéfectueux estimé : ' + f(pct_super,6) + ' %' : ''}
+
+RÉFÉRENCES
+----------
+ms = QN si σ ≤ E/2,05, sinon ms = QN − E + 2,05σ
+Si signe e : comparer aussi avec Uσ pour le critère superdéfectueux
+
+ACTION
+------
+${sigmaOK
+    ? 'Si Cpk reste trop faible, réduire la variabilité machine ou augmenter légèrement μ.'
+    : `Réduire la variabilité machine ou appliquer un surdosage d'environ ${f(Math.max(ms - mu, 0), 3)} g.`
+}
+
+VERDICT : ${interp.label}`;
+}
+
+// ── PANEL 3 : POM/POL ────────────────────────────────
+
+function calcPomPol() {
+    const qn    = parseFloat(document.getElementById('p_qn').value);
+    const sigma = parseFloat(document.getElementById('p_sigma').value);
+    const n     = parseInt(document.getElementById('p_n').value);
+    const freq  = parseFloat(document.getElementById('p_freq').value); // minutes
+    const signeE = document.getElementById('p_signe_e').value === 'oui';
+    const U     = parseFloat(document.getElementById('p_lot_n').value);
+    const xbar  = parseFloat(document.getElementById('p_xbar').value);
+    const s     = parseFloat(document.getElementById('p_s').value);
+
+    if ([qn,sigma,n,freq,xbar,s].some(v => isNaN(v) || v <= 0)) {
+        alert('Vérifiez les valeurs saisies.'); return;
+    }
+    if (n < 2 || n > 65) {
+        alert('L\'effectif n doit être entre 2 et 65.'); return;
+    }
+
+    const E     = computeEMTM(qn);
+    const qnOutOfScope = qn > 10000;
+    const g     = getG(n);
+    const seuilSigma = E / 2.05;
+    const sigmaOK = sigma <= seuilSigma;
+    const ms    = sigmaOK ? qn : qn - E + 2.05 * sigma;
+
+    // Test de la moyenne (critère emplisseur — risque β)
+    const test_val   = xbar - g * s;
+    const testOK     = test_val >= qn;
+    const testMargin = test_val - qn;
+
+    // Limites cartes de contrôle (σ₀ connu)
+    const lc_upper  = ms + 3 * sigma / Math.sqrt(n);
+    const ls_upper  = ms + 2 * sigma / Math.sqrt(n);
+    const ls_lower  = ms - 2 * sigma / Math.sqrt(n);
+    const lc_lower  = ms - 3 * sigma / Math.sqrt(n);
+
+    // POM / POL — efficacité de la carte de contrôle pour détecter un déréglage δ vers ms→QN (déréglage = QN - ms)
+    // Pour une dérive de Δ (en unités de σ/√n), P(détection en 1 échantillon) = 1 - β
+    // POM ≈ 1 / (1 - β),  POL ≈ 3 × POM (ordre de grandeur pratique)
+    // On calcule pour le déréglage "critique" : δ = (QN - lc_lower) / (σ/√n)
+    // Approximation : si déréglage descend la moyenne exactement à QN :
+    //   Z = (lc_lower - QN) / (σ/√n), P(detect) = P(Z < z_lc_lower)
+    // On utilise phi() déjà définie
+    function phi(z) {
+        const t = 1 / (1 + 0.3275911 * Math.abs(z));
+        const poly = t * (0.254829592 + t * (-0.284496736 + t * (1.421413741 + t * (-1.453152027 + t * 1.061405429))));
+        const cdf = 1 - poly * Math.exp(-z * z / 2);
+        return z >= 0 ? cdf : 1 - cdf;
+    }
+
+    // Probabilité de détecter en 1 prélèvement si déréglage vers QN (cible descend de ms à QN)
+    // La LCI est à ms - 3σ/√n ; si la vraie moyenne devient QN :
+    const delta_n   = (ms - qn) / (sigma / Math.sqrt(n)); // déréglage en unités σ/√n
+    const z_detect  = (ms - 3 * sigma / Math.sqrt(n) - qn) / (sigma / Math.sqrt(n));
+    // P(x̄ < LCI | vraie moy = QN) = phi(z_detect)
+    const beta1    = 1 - phi(z_detect); // prob de NE PAS détecter
+    const pDetect1 = phi(z_detect);      // prob de détecter en 1 prélèvement
+
+    const POM = pDetect1 > 0 && pDetect1 < 1 ? Math.round(1 / pDetect1) : (pDetect1 >= 1 ? 1 : Infinity);
+    const POL = pDetect1 > 0 && pDetect1 < 1
+        ? Math.round(Math.log(0.05) / Math.log(1 - pDetect1))  // 95% confiance
+        : (pDetect1 >= 1 ? 1 : Infinity);
+
+    const pomHours = POM !== Infinity ? f(POM * freq / 60, 2) : '∞';
+    const polHours = POL !== Infinity ? f(POL * freq / 60, 2) : '∞';
+    const polOK    = POL !== Infinity && (POL * freq / 60) <= 1.0;
+
+    // Validation de la fréquence
+    const freqOK = freq <= 60;
+
+    // Recommandations
+    const nOK     = n >= 7 && n <= 10;
+    const echanOK = freqOK;
+    const nTarget = n < 7 ? 7 : (n < 10 ? 10 : n);
+    const freqTarget = POL !== Infinity ? Math.max(5, Math.floor(60 / POL)) : 5;
+    renderGTable(n);
+    setVerdictStrip(
+        'p_verdict',
+        testOK && polOK && freqOK ? 'ok' : testOK ? 'warn' : 'nok',
+        testOK && polOK && freqOK ? 'Plan conforme' : testOK ? 'Plan à optimiser' : 'Test non conforme',
+        testOK
+            ? (polOK && freqOK
+                ? `Test moyenne OK, POM/POL conformes et fréquence compatible (n = ${n}).`
+                : `Test moyenne OK mais POM/POL ou fréquence restent insuffisants.`
+              )
+            : `Le critère x̄ − g·s ≥ QN n'est pas atteint.`
+    );
+
+    let html = `
+<h4 class="h4-mb8">② Test de conformité de la moyenne (seuil 90%)</h4>
+<div class="info-box blue info-box-mb">
+    Critère emplisseur (Arrêté 20/10/1978 §7 + Guide DGCCRF §VII.B) :<br>
+    <strong>x̄ − g(n) · s ≥ QN</strong><br>
+    <em>${f(xbar)} − ${f(g,3)} × ${f(s)} = ${f(test_val,4)} g  ${testOK ? '≥' : '<'}  ${f(qn,2)} g (QN)</em>
+</div>
+<table>
+${sectionRow('Référence réglementaire')}
+${rowInfo('Effectif n', n)}
+${rowCritical('g retenu (Annexe 3)', f(g,3), 'emtm')}
+${rowInfo('Moyenne x̄', f(xbar) + ' g')}
+${rowInfo('Écart-type s', f(s) + ' g')}
+${rowInfo('x̄ − g·s', f(test_val,4) + ' g')}
+${rowOK('Test x̄ − g·s ≥ QN', testOK ? `OUI (marge : +${f(testMargin,4)} g)` : `NON (manquant : ${f(testMargin,4)} g)`, testOK)}
+</table>
+
+<h4 class="h4-my14-8">③ Limites de la carte de contrôle de la moyenne</h4>
+<div class="info-box blue info-box-mb">
+    Calculées avec σ₀ = ${f(sigma)} g, n = ${n}, ms = ${f(ms)} g<br>
+    Référence : NF X06-031-1 / ISO 7870-2
+</div>
+<table>
+${sectionRow('Limites de la carte de contrôle de la moyenne')}
+${rowInfo('Seuil σ critique (E/2,05)', f(seuilSigma) + ' g')}
+${rowOK('σ₀ ≤ E/2,05', sigmaOK ? 'OUI' : 'NON', sigmaOK)}
+${rowInfo('Seuil de centrage ms', f(ms) + ' g')}
+${rowInfo('QC (quantité cible ≥ ms + k)', f(ms) + ' g + k (voir Annexe 4 guide)')}
+${rowInfo('Limite de contrôle supérieure (LCS)', f(lc_upper,4) + ' g')}
+${rowInfo('Limite de surveillance supérieure (LSS)', f(ls_upper,4) + ' g')}
+${rowInfo('Limite de surveillance inférieure (LSI)', f(ls_lower,4) + ' g')}
+${rowInfo('Limite de contrôle inférieure (LCI)', f(lc_lower,4) + ' g')}
+</table>
+<div class="info-box info-box-mt8">
+    ⚠️ La valeur TU1 = ${f(qn-E)} g (QN−E) ne doit <strong>jamais</strong> être utilisée comme limite de carte de contrôle (Guide §VII.B.2.2).
+</div>
+
+${sectionRow('Période opérationnelle — Efficacité de la carte')}
+<div class="info-box blue info-box-mb">
+    Calcul pour un déréglage critique : μ → QN (descente de ms vers QN = ${f(delta_n,2)} σ/√n)
+</div>
+<table>
+${rowInfo('Déréglage critique Δ (ms→QN)', f(ms - qn,4) + ' g = ' + f(delta_n,2) + ' σ/√n')}
+${rowInfo('Probabilité de détecter en 1 prélèvement', f(pDetect1*100,2) + ' %')}
+${rowInfo('POM (prob. 50%)', POM === Infinity ? '∞ — plan insuffisant' : POM + ' prélèvement(s)')}
+${rowInfo('POL (95% de confiance)', POL === Infinity ? '∞ — plan insuffisant' : POL + ' prélèvement(s)')}
+${rowInfo('Temps POM avec fréquence ' + f(freq,0) + ' min', POM === Infinity ? '∞' : pomHours + ' h')}
+${rowOK('Temps POL ≤ 1 heure (objectif DGCCRF)', POL === Infinity ? 'Plan insuffisant' : polHours + ' h → ' + (polOK?'OUI':'NON'), polOK)}
+${rowOK('Fréquence ≤ 60 min', freq + ' min → ' + (freqOK?'OUI':'NON'), freqOK)}
+${rowOK('Effectif n recommandé (7–10)', n + ' → ' + (nOK?'OUI':'Hors recommandation'), nOK)}
+${rowOK('Signe « e » → Cartes obligatoires', signeE ? 'OUI — Vérifier NF X06-031-1' : 'Cartes facultatives (recommandées)', true)}
+</table>
+<div class="info-box blue">
+    <strong>Actions recommandées :</strong>
+    ${testOK
+        ? (polOK && freqOK
+            ? `Plan robuste. Si besoin, gardez n entre 7 et 10 et surveillez la dérive de μ.`
+            : `Augmentez n vers ${nTarget} si possible, ou réduisez la fréquence à environ ${f(freqTarget, 0)} min.`
+          )
+        : `Augmentez n de ${n} à ${nTarget} ou réduisez l'écart-type s / la variabilité du process.`
+    }
+</div>
+<div class="conclusion ${testOK && polOK && freqOK ? 'ok' : testOK ? 'warn' : 'nok'}">
+${testOK
+    ? polOK && freqOK
+        ? '✅ Plan conforme : test de moyenne OK + détection déréglage dans ≤ 1h'
+        : '⚠️ Test de moyenne OK — mais plan d\'échantillonnage insuffisant pour détecter le déréglage dans 1h'
+    : '❌ Test de moyenne NON CONFORME — la partie de lot contrôlée ne satisfait pas au critère x̄ − g·s ≥ QN'}
+</div>`;
+
+    const overallOK = testOK && polOK && freqOK;
+    document.getElementById('p_result_hdr').textContent = overallOK
+        ? '✅ Plan d\'échantillonnage CONFORME'
+        : testOK ? '⚠️ Test OK — Plan à optimiser' : '❌ Test de moyenne NON CONFORME';
+    document.getElementById('p_result_hdr').className = 'result-header ' + (overallOK ? 'ok' : testOK ? 'warn' : 'nok');
+    document.getElementById('p_result_body').innerHTML = html;
+    document.getElementById('p_result').classList.add('show');
+    document.getElementById('p_dl_btn').disabled = false;
+    document.getElementById('p_result').scrollIntoView({ behavior: 'smooth' });
+
+    // Activer les étapes — transition instantanée sans clignotement
+    const stepOrder = ['step1', 'step2', 'step3', 'step4'];
+    stepOrder.forEach((id, index) => {
+        const el = document.getElementById(id);
+        if (el) el.className = index < 3 ? 'step done' : 'step active';
+    });
+
+    reports.pom = `RAPPORT PLAN D'ÉCHANTILLONNAGE POM/POL — Guide DGCCRF 2014
+Date : ${new Date().toLocaleString('fr-FR')}
+=======================================================
+QN         : ${f(qn,2)} g
+EMTM (E)   : ${f(E)} g
+σ₀         : ${f(sigma)} g
+n          : ${n}
+Fréquence  : ${f(freq,0)} min
+Signe e    : ${signeE ? 'Oui' : 'Non'}
+x̄          : ${f(xbar)} g
+s          : ${f(s)} g
+
+TEST DE LA MOYENNE
+------------------
+g(n=${n})  = ${f(g,3)}
+x̄ - g·s = ${f(test_val,4)} g  ${testOK?'≥':'<'}  ${f(qn,2)} g (QN)
+Test : ${testOK ? 'CONFORME' : 'NON CONFORME'}
+
+LIMITES CARTE DE CONTRÔLE (σ₀ = ${f(sigma)} g, ms = ${f(ms)} g)
+LCS : ${f(lc_upper,4)} g
+LSS : ${f(ls_upper,4)} g
+LSI : ${f(ls_lower,4)} g
+LCI : ${f(lc_lower,4)} g
+
+PÉRIODES OPÉRATIONNELLES
+P(détecter en 1 prélèv.) : ${f(pDetect1*100,2)} %
+POM : ${POM === Infinity ? '∞' : POM + ' prélèv. (' + pomHours + ' h)'}
+POL : ${POL === Infinity ? '∞' : POL + ' prélèv. (' + polHours + ' h)'}
+RÉFÉRENCES
+----------
+g(n) = valeur issue de l'Annexe 3 pour l'effectif n
+LCS/LSS/LSI/LCI calculées avec σ₀ et ms = seuil de centrage retenu
+
+ACTION
+------
+${testOK
+    ? (polOK && freqOK
+        ? 'Plan robuste : conserver la surveillance et réévaluer si la variabilité change.'
+        : `Augmenter n vers ${nTarget} et/ou réduire la fréquence à environ ${f(freqTarget,0)} min.`
+      )
+    : `Augmenter n de ${n} à ${nTarget} ou réduire la variabilité du process avant mise en route.`
+}
+
+POL ≤ 1h : ${polOK ? 'OUI' : 'NON'}`;
+}
+
+// ── TÉLÉCHARGEMENT RAPPORT ────────────────────────────
+function downloadReport(type) {
+    const content = reports[type];
+    if (!content) return;
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    const d = new Date().toISOString().slice(0,10);
+    a.download = `rapport_metro_${type}_${d}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+}
+
+// ── INIT ─────────────────────────────────────────────
+onTypeChange();
+document.getElementById('c_signe_e').addEventListener('change', function() {
+    document.getElementById('c_lot_wrap').style.display = this.value === 'oui' ? '' : 'none';
+});
+document.getElementById('c_sigma').addEventListener('input', function() {
+    syncSigmaInputs('c_sigma');
+});
+document.getElementById('p_sigma').addEventListener('input', function() {
+    syncSigmaInputs('p_sigma');
+});
+document.getElementById('c_lot_wrap').style.display = 'none';
+
+</script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+/**
+ * VisiPilot — Design Tokens v3
+ * Métrologie Préemballages DGCCRF 2014
+ */
+
+/* ── Light Theme ── */
+:root {
+  /* Brand - Vibrant Indigo/Blue */
+  --brand-50:  #eef2ff;
+  --brand-100: #e0e7ff;
+  --brand-200: #c7d2fe;
+  --brand-300: #a5b4fc;
+  --brand-400: #818cf8;
+  --brand-500: #6366f1;
+  --brand-600: #4f46e5;
+  --brand-700: #4338ca;
+  --brand-800: #3730a3;
+  --brand-900: #312e81;
+
+  /* Status */
+  --success-50:  #e6f7ed;
+  --success-100: #b8e8cc;
+  --success-200: #89d9ab;
+  --success-300: #5bca8a;
+  --success-400: #2cbb69;
+  --success-500: #1a9e52;
+  --success-600: #147a3e;
+  --success-700: #0e562a;
+
+  --warning-50:  #fff4e6;
+  --warning-100: #ffe0b3;
+  --warning-200: #ffcc80;
+  --warning-300: #ffb84d;
+  --warning-400: #ffa31a;
+  --warning-500: #d08a00;
+  --warning-600: #a36c00;
+  --warning-700: #764e00;
+
+  --danger-50:  #fde8e8;
+  --danger-100: #f9b8b8;
+  --danger-200: #f58888;
+  --danger-300: #f15858;
+  --danger-400: #ed2828;
+  --danger-500: #c0392b;
+  --danger-600: #962d22;
+  --danger-700: #6c2018;
+
+  /* Backgrounds */
+  --bg-base:      #f0f4f8;
+  --bg-surface:   rgba(255, 255, 255, 0.75);
+  --bg-elevated:  rgba(255, 255, 255, 0.9);
+  --bg-muted:     rgba(240, 242, 245, 0.6);
+  --bg-inverse:   #0f172a;
+  
+  /* Glassmorphism */
+  --glass-blur:   blur(16px);
+  --glass-border: rgba(255, 255, 255, 0.4);
+
+  /* Text */
+  --text-primary:   #0f172a;
+  --text-secondary: #475569;
+  --text-muted:     #94a3b8;
+  --text-inverse:   #f8fafc;
+  --text-brand:     var(--brand-600);
+
+  /* Borders */
+  --border:        #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --border-focus:  var(--brand-400);
+
+  /* Shadows */
+  --shadow-xs:  0 1px 2px rgba(15,23,42,0.04);
+  --shadow-sm:  0 2px 8px rgba(15,23,42,0.06);
+  --shadow-md:  0 4px 16px rgba(15,23,42,0.08);
+  --shadow-lg:  0 8px 32px rgba(15,23,42,0.12);
+  --shadow-xl:  0 16px 48px rgba(15,23,42,0.16);
+
+  /* Spacing */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Typography */
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+
+  --text-xs:   0.6875rem;  /* 11px */
+  --text-sm:   0.8125rem;  /* 13px */
+  --text-base: 0.9375rem;  /* 15px */
+  --text-lg:   1.0625rem;  /* 17px */
+  --text-xl:   1.25rem;    /* 20px */
+  --text-2xl:  1.5rem;     /* 24px */
+  --text-3xl:  1.875rem;   /* 30px */
+
+  --font-normal:   400;
+  --font-medium:   500;
+  --font-semibold: 600;
+  --font-bold:     700;
+
+  --leading-tight:   1.25;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+
+  /* Radius */
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-2xl:  32px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast:  0.15s;
+  --duration-base: 0.25s;
+  --duration-slow: 0.4s;
+
+  /* Z-Index */
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+}
+
+/* ── Dark Theme ── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --brand-50:  #020e15;
+    --brand-100: #08293d;
+    --brand-200: #0e4465;
+    --brand-300: #145f8d;
+    --brand-400: #1a7ab5;
+    --brand-500: #2b9bdf;
+    --brand-600: #5ab2e7;
+    --brand-700: #89c9ef;
+    --brand-800: #b8e0f7;
+    --brand-900: #e8f4fd;
+
+    --success-50:  #0a1f14;
+    --success-100: #0e562a;
+    --success-200: #147a3e;
+    --success-300: #1a9e52;
+    --success-400: #2cbb69;
+    --success-500: #5bca8a;
+    --success-600: #89d9ab;
+    --success-700: #b8e8cc;
+
+    --warning-50:  #1a1200;
+    --warning-100: #764e00;
+    --warning-200: #a36c00;
+    --warning-300: #d08a00;
+    --warning-400: #ffa31a;
+    --warning-500: #ffb84d;
+    --warning-600: #ffcc80;
+    --warning-700: #ffe0b3;
+
+    --danger-50:  #1a0a0a;
+    --danger-100: #6c2018;
+    --danger-200: #962d22;
+    --danger-300: #c0392b;
+    --danger-400: #ed2828;
+    --danger-500: #f15858;
+    --danger-600: #f58888;
+    --danger-700: #f9b8b8;
+
+    --bg-base:      #0b0f19;
+    --bg-surface:   rgba(30, 41, 59, 0.6);
+    --bg-elevated:  rgba(39, 53, 72, 0.8);
+    --bg-muted:     rgba(26, 37, 55, 0.5);
+    --bg-inverse:   #f8fafc;
+    
+    --glass-blur:   blur(16px);
+    --glass-border: rgba(255, 255, 255, 0.08);
+
+    --text-primary:   #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted:     #64748b;
+    --text-inverse:   #0f172a;
+    --text-brand:     var(--brand-500);
+
+    --border:        #334155;
+    --border-subtle: #1e293b;
+    --border-focus:  var(--brand-400);
+
+    --shadow-xs:  0 1px 2px rgba(0,0,0,0.2);
+    --shadow-sm:  0 2px 8px rgba(0,0,0,0.3);
+    --shadow-md:  0 4px 16px rgba(0,0,0,0.4);
+    --shadow-lg:  0 8px 32px rgba(0,0,0,0.5);
+    --shadow-xl:  0 16px 48px rgba(0,0,0,0.6);
+  }
+}
+
+/* ── Manual Theme Toggle ── */
+[data-theme="dark"] {
+  --brand-50:  #020e15;
+  --brand-100: #08293d;
+  --brand-200: #0e4465;
+  --brand-300: #145f8d;
+  --brand-400: #1a7ab5;
+  --brand-500: #2b9bdf;
+  --brand-600: #5ab2e7;
+  --brand-700: #89c9ef;
+  --brand-800: #b8e0f7;
+  --brand-900: #e8f4fd;
+
+  --success-50:  #0a1f14;
+  --success-100: #0e562a;
+  --success-200: #147a3e;
+  --success-300: #1a9e52;
+  --success-400: #2cbb69;
+  --success-500: #5bca8a;
+  --success-600: #89d9ab;
+  --success-700: #b8e8cc;
+
+  --warning-50:  #1a1200;
+  --warning-100: #764e00;
+  --warning-200: #a36c00;
+  --warning-300: #d08a00;
+  --warning-400: #ffa31a;
+  --warning-500: #ffb84d;
+  --warning-600: #ffcc80;
+  --warning-700: #ffe0b3;
+
+  --danger-50:  #1a0a0a;
+  --danger-100: #6c2018;
+  --danger-200: #962d22;
+  --danger-300: #c0392b;
+  --danger-400: #ed2828;
+  --danger-500: #f15858;
+  --danger-600: #f58888;
+  --danger-700: #f9b8b8;
+
+  --bg-base:      #0b0f19;
+  --bg-surface:   rgba(30, 41, 59, 0.6);
+  --bg-elevated:  rgba(39, 53, 72, 0.8);
+  --bg-muted:     rgba(26, 37, 55, 0.5);
+  --bg-inverse:   #f8fafc;
+  
+  --glass-blur:   blur(16px);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  --text-primary:   #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted:     #64748b;
+  --text-inverse:   #0f172a;
+  --text-brand:     var(--brand-500);
+
+  --border:        #334155;
+  --border-subtle: #1e293b;
+  --border-focus:  var(--brand-400);
+
+  --shadow-xs:  0 1px 2px rgba(0,0,0,0.2);
+  --shadow-sm:  0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,0.5);
+  --shadow-xl:  0 16px 48px rgba(0,0,0,0.6);
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.01ms;
+    --duration-base: 0.01ms;
+    --duration-slow: 0.01ms;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

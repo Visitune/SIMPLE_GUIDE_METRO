@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DGCCRF MetroGuide (par VisiPilot)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- ═══ HEADER ═══ -->
+    <header class="app__header">
+      <div class="header">
+        <div class="header__brand">
+          <a href="https://visipilot.com" target="_blank" rel="noopener" style="display:flex; align-items:center; text-decoration:none;">
+            <img src="logo.png" alt="VisiPilot" class="header__logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="header__logo-placeholder" style="display:none;"><i class="fa-solid fa-scale-balanced"></i></div>
+          </a>
+          <div>
+            <div class="header__title" style="color:white !important;">DGCCRF MetroGuide</div>
+            <div class="header__subtitle" style="color:var(--brand-100) !important;">Conformité Préemballages (par VisiPilot)</div>
+          </div>
+        </div>
+        <div class="header__actions">
+          <button type="button" class="theme-toggle" onclick="toggleTheme()" title="Basculer le thème" aria-label="Basculer le thème"><i class="fa-solid fa-moon"></i></button>
+          <button type="button" class="header__link" onclick="openAdminTips()" title="Gérer les fiches du guide" aria-label="Administration des fiches"><i class="fa-solid fa-sliders"></i> <span>Admin</span></button>
+          <button type="button" class="header__link" onclick="openModal('help-modal')" title="Guide d'utilisation"><i class="fa-solid fa-book-open"></i> Aide</button>
+        </div>
+      </div>
+      <nav class="nav" role="tablist" aria-label="Modules">
+        <button type="button" class="nav__btn nav__btn--active" role="tab" aria-selected="true" aria-controls="panel-home" onclick="switchTab('home')" id="tab-home">
+          <span class="icon"><i class="fa-solid fa-house"></i></span> Guide Interactif
+        </button>
+        <button type="button" class="nav__btn" role="tab" aria-selected="false" aria-controls="panel-balance" onclick="switchTab('balance')" id="tab-balance">
+          <span class="icon"><i class="fa-solid fa-scale-unbalanced"></i></span> Adéquation Balance
+        </button>
+        <button type="button" class="nav__btn" role="tab" aria-selected="false" aria-controls="panel-cpk" onclick="switchTab('cpk')" id="tab-cpk">
+          <span class="icon"><i class="fa-solid fa-chart-line"></i></span> Capabilité CPk
+        </button>
+        <button type="button" class="nav__btn" role="tab" aria-selected="false" aria-controls="panel-pom" onclick="switchTab('pom')" id="tab-pom">
+          <span class="icon"><i class="fa-solid fa-clipboard-list"></i></span> Plan POM/POL
+        </button>
+        <button type="button" class="nav__btn" role="tab" aria-selected="false" aria-controls="panel-tare" onclick="switchTab('tare')" id="tab-tare">
+          <span class="icon"><i class="fa-solid fa-box-open"></i></span> Gestion des Tares
+        </button>
+      </nav>
+    </header>
+
+    <!-- ═══ MAIN ═══ -->
+    <main class="app__main">
+      <div class="app__content">
+        
+        <!-- ═══════════════════════════════════════
+             PANEL 0: ACCUEIL / GUIDE INTERACTIF
+        ═══════════════════════════════════════ -->
+        <section class="panel panel--active" id="panel-home" role="tabpanel" aria-labelledby="tab-home">
+          <div style="grid-column: 1 / -1;">
+            <div class="card card--info mb-6" style="background: var(--bg-surface); border: 2px solid var(--brand-500); text-align:center; padding: var(--space-8);">
+              <h1 class="header__title" style="color:var(--brand-600); font-size: 2.8rem; margin-bottom: var(--space-2);"><i class="fa-solid fa-book-open" style="margin-right:12px;"></i> Guide Interactif DGCCRF</h1>
+              <p class="text-secondary" style="font-size: var(--text-lg); max-width: 800px; margin: 0 auto;">
+                Maîtrisez les <strong>24 principes fondamentaux</strong> de la métrologie légale. Ce guide algorithmique synthétise les exigences de la Directive 76/211/CEE et du Guide DGCCRF 2014.
+              </p>
+            </div>
+
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom: var(--space-4);">
+              <h2 class="section__title mt-8" style="margin-bottom:0; border-bottom:none;">
+                <i class="fa-solid fa-graduation-cap" style="margin-right:12px;"></i>
+                Fiches du Guide DGCCRF
+                <span id="tips-count" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--brand-500);color:white;font-size:.8rem;font-weight:700;margin-left:10px;vertical-align:middle;">24</span>
+              </h2>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <span style="font-size:12px; color:var(--text-muted);">Survolez pour retourner</span>
+                <button type="button" onclick="openAdminTips()" title="Gérer les fiches" style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-md);cursor:pointer;font-size:.82rem;color:var(--text-secondary);font-family:inherit;transition:all .2s;" onmouseover="this.style.borderColor='var(--brand-400)';this.style.color='var(--brand-600)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-secondary)'">
+                  <i class="fa-solid fa-sliders"></i> Gérer les fiches
+                </button>
+              </div>
+            </div>
+            <!-- Les cartes sont générées dynamiquement par renderTips() dans app.js -->
+            <div id="tips-grid" class="form-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-5); margin-bottom: 50px; align-items: stretch;">
+              <!-- rempli par JS -->
+            </div>
+
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════
+             PANEL 1: ADÉQUATION BALANCE
+        ═══════════════════════════════════════ -->
+        <section class="panel panel--split" id="panel-balance" role="tabpanel" aria-labelledby="tab-balance">
+          <aside class="app__sidebar">
+            <div class="card card--info mb-4">
+              <div class="card__title"><i class="fa-solid fa-scale-balanced" style="margin-right:8px;"></i> Adéquation de l'Instrument</div>
+              <div class="card__body" style="font-size:0.83rem; line-height:1.6;">
+
+                <!-- Principe -->
+                <details open>
+                  <summary style="cursor:pointer;color:var(--brand-600);font-weight:700;padding:6px 0;list-style:none;display:flex;align-items:center;gap:6px;">
+                    <i class="fa-solid fa-bullseye"></i> Principe fondamental
+                  </summary>
+                  <div style="padding:8px 0 4px 20px;">
+                    <p>L'incertitude de la balance ne doit pas fausser la décision de conformité. Si la balance elle-même est trop imprécise, elle peut <strong>valider un lot défectueux</strong> ou <strong>rejeter un lot conforme</strong>.</p>
+                    <p class="mt-2">La règle des 1/5 garantit que l'erreur instrument reste négligeable par rapport à la tolérance produit.</p>
+                  </div>
+                </details>
+
+                <!-- Réglementation -->
+                <details>
+                  <summary style="cursor:pointer;color:var(--brand-600);font-weight:700;padding:6px 0;list-style:none;display:flex;align-items:center;gap:6px;">
+                    <i class="fa-solid fa-book"></i> Base réglementaire
+                  </summary>
+                  <div style="padding:8px 0 4px 20px;font-size:.82rem;">
+                    <ul style="margin:0;padding-left:14px;">
+                      <li><strong>NAWI (balances)</strong> : Décret 91-330 du 27/03/1991 — EMT en service = <strong>2 × EMT neuve</strong></li>
+                      <li><strong>IPFA (trieuses)</strong> : Arrêté du 10/01/2006 — EMT en service = EMT nominale (<strong>pas de doublement</strong>)</li>
+                      <li><strong>Règle 1/5</strong> : Guide DGCCRF §4.2 + WELMEC 6.4 §4.1</li>
+                      <li><strong>Dir. 2014/31/UE</strong> (NAWI) — remplace 90/384/CEE</li>
+                      <li><strong>Dir. 2014/32/UE</strong> (AWI/IPFA)</li>
+                    </ul>
+                  </div>
+                </details>
+
+                <!-- Méthode de calcul -->
+                <details>
+                  <summary style="cursor:pointer;color:var(--brand-600);font-weight:700;padding:6px 0;list-style:none;display:flex;align-items:center;gap:6px;">
+                    <i class="fa-solid fa-calculator"></i> Méthode de calcul
+                  </summary>
+                  <div style="padding:8px 0 4px 20px;">
+                    <div style="background:var(--bg-elevated);border-radius:6px;padding:10px;font-family:monospace;font-size:.78rem;line-height:1.7;">
+                      <strong>Étape 1</strong> : ratio = QN / e<br>
+                      <strong>Étape 2 NAWI</strong> :<br>
+                      &nbsp; si ratio ≤ s1·e → facteur = 0,5<br>
+                      &nbsp; si ratio ≤ s2·e → facteur = 1,0<br>
+                      &nbsp; sinon → facteur = 1,5<br>
+                      &nbsp; EMT_neuve = facteur × e<br>
+                      &nbsp; EMT_service = <strong>2 × EMT_neuve</strong><br>
+                      <strong>Étape 2 IPFA</strong> :<br>
+                      &nbsp; si ratio ≤ s1·e → facteur = 1<br>
+                      &nbsp; si ratio ≤ s2·e → facteur = 2<br>
+                      &nbsp; sinon → facteur = 3<br>
+                      &nbsp; EMT_service = <strong>facteur × e</strong><br>
+                      <strong>Étape 3</strong> : EMT_service ≤ EMTM / 5 ?
+                    </div>
+                    <p class="mt-2" style="font-size:.78rem;"><strong>Seuils classe III</strong> (la plus fréquente) : s1 = 500e, s2 = 2000e. Ex. QN=100 g, e=1 g → ratio=100 → ≤ 500e → facteur 0,5 → EMT_neuve=0,5 g → EMT_service=1 g.</p>
+                  </div>
+                </details>
+
+                <!-- Échelon minimal -->
+                <details>
+                  <summary style="cursor:pointer;color:var(--brand-600);font-weight:700;padding:6px 0;list-style:none;display:flex;align-items:center;gap:6px;">
+                    <i class="fa-solid fa-table"></i> Échelon e minimal légal
+                  </summary>
+                  <div style="padding:8px 0 4px 20px;">
+                    <table style="width:100%;font-size:.75rem;border-collapse:collapse;">
+                      <thead><tr style="background:var(--brand-500);color:white;"><th style="padding:4px 6px;text-align:left;">e (g)</th><th style="padding:4px 6px;text-align:left;">QN mini NAWI</th><th style="padding:4px 6px;text-align:left;">QN mini IPFA</th></tr></thead>
+                      <tbody>
+                        <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:3px 6px;">0,1</td><td>Toute QN</td><td>Toute QN</td></tr>
+                        <tr style="border-bottom:1px solid var(--border-subtle);background:var(--bg-elevated);"><td style="padding:3px 6px;">0,5</td><td>≥ 50 g</td><td>≥ 25 g</td></tr>
+                        <tr style="border-bottom:1px solid var(--border-subtle);"><td style="padding:3px 6px;">1</td><td>≥ 200 g</td><td>≥ 110 g</td></tr>
+                        <tr style="border-bottom:1px solid var(--border-subtle);background:var(--bg-elevated);"><td style="padding:3px 6px;">2</td><td>≥ 2 kg</td><td>≥ 330 g</td></tr>
+                        <tr><td style="padding:3px 6px;">5</td><td>≥ 5 kg</td><td>≥ 1 670 g</td></tr>
+                      </tbody>
+                    </table>
+                    <p style="font-size:.75rem;margin-top:6px;color:var(--text-muted);">Source : Guide DGCCRF Tableau 1 (NAWI) et Tableau 3 (IPFA)</p>
+                  </div>
+                </details>
+
+                <!-- Application pratique -->
+                <details>
+                  <summary style="cursor:pointer;color:var(--brand-600);font-weight:700;padding:6px 0;list-style:none;display:flex;align-items:center;gap:6px;">
+                    <i class="fa-solid fa-hard-hat"></i> En pratique sur le terrain
+                  </summary>
+                  <div style="padding:8px 0 4px 20px;">
+                    <ol style="padding-left:14px;font-size:.82rem;line-height:1.7;">
+                      <li>Lire <strong>e</strong> sur la plaque signalétique de la balance (pas l'affichage d)</li>
+                      <li>Calculer <strong>EMTM</strong> avec le tableau réglementaire</li>
+                      <li>Calculer <strong>EMT en service</strong> selon la classe et le ratio QN/e</li>
+                      <li>Vérifier <strong>EMT_service ≤ EMTM/5</strong></li>
+                      <li>Si NON → choisir une balance de classe supérieure ou d'échelon plus petit</li>
+                    </ol>
+                    <div class="alert alert--warning mt-2" style="font-size:.78rem;padding:8px;">
+                      ⚠️ Ne jamais utiliser e = d si la plaque indique e ≠ d (ex. d=0,1 g mais e=1 g). C'est l'échelon e qui compte réglementairement.
+                    </div>
+                  </div>
+                </details>
+
+                <div class="alert alert--info mt-3" style="font-size:.78rem;">
+                  <strong>Règle-clé :</strong> EMT service ≤ EMTM / 5 (= 20% de l'EMTM)
+                </div>
+              </div>
+            </div>
+          </aside>
+          <button class="sidebar-toggle-strip" onclick="toggleSidebar(this)" title="Masquer / afficher le panneau">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <div class="app__body">
+            <div class="settings-bar">
+              <span class="settings-bar__label">Outils</span>
+              <button type="button" class="settings-btn" onclick="resetAll()">🔄 Réinitialiser</button>
+            </div>
+
+            <div class="verdict verdict--neutral" id="b_verdict">
+              <div class="verdict__icon">○</div>
+              <div class="verdict__content">
+                <div class="verdict__title">Saisie Requise</div>
+                <div class="verdict__text">Renseignez vos caractéristiques et cliquez sur "Vérifier".</div>
+              </div>
+            </div>
+
+            <div class="section">
+              <h2 class="section__title"><i class="fa-solid fa-scale-balanced" style="margin-right:8px;"></i> Instrument & Produit</h2>
+              <div class="form-grid">
+                <div class="field">
+                  <label class="field__label" for="b_type">Type</label>
+                  <select class="select" id="b_type" onchange="onTypeChange()">
+                    <option value="nawi">IPFNA — Balance</option>
+                    <option value="ipfa">IPFA — Trieuse</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="b_e">Échelon e</label>
+                  <input type="number" class="input" id="b_e" value="1" step="any">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="b_qn">QN (g)</label>
+                  <input type="number" class="input" id="b_qn" value="100" step="any">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="b_classe">Classe</label>
+                  <select class="select" id="b_classe" onchange="updateBalanceClassInfo()"></select>
+                  <span class="field__hint" id="b_class_desc"></span>
+                </div>
+              </div>
+              <div class="form-grid mt-4">
+                <div class="field">
+                  <label class="field__label" for="b_ref">Référence</label>
+                  <input type="text" class="input" id="b_ref" value="V41XWE3T-M">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="b_prod">Libellé produit</label>
+                  <input type="text" class="input" id="b_prod" value="Produit X">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="b_max">Max (g)</label>
+                  <input type="number" class="input" id="b_max" value="3000">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="b_min">Min (g)</label>
+                  <input type="number" class="input" id="b_min" value="20">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="b_d">Échelon d</label>
+                  <input type="number" class="input" id="b_d" value="1">
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button type="button" class="btn btn--primary" onclick="verifyBalance()"><i class="fa-solid fa-check" style="margin-right:6px;"></i> Vérifier</button>
+              <button type="button" class="btn btn--ghost" id="b_dl_btn" disabled onclick="downloadReport('balance')"><i class="fa-solid fa-download" style="margin-right:6px;"></i> Rapport</button>
+            </div>
+
+            <div class="result" id="b_result" style="display:none;">
+              <div class="result__header" id="b_result_hdr"></div>
+              <div class="result__body" id="b_result_body"></div>
+            </div>
+
+        </section> <!-- fin panel balance -->
+
+
+
+        <!-- ═══════════════════════════════════════
+             PANEL 2: CAPABILITÉ CPk
+        ═══════════════════════════════════════ -->
+        <section class="panel panel--split" id="panel-cpk" role="tabpanel" aria-labelledby="tab-cpk">
+          <aside class="app__sidebar">
+            <div class="card card--info mb-4">
+              <div class="card__title"><i class="fa-solid fa-chart-line" style="margin-right:8px;"></i> Fiche : Capabilité CPk</div>
+              <div class="card__body" style="font-size:0.83rem; line-height:1.6;">
+
+                <details open>
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-lightbulb"></i> Principe fondamental</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
+                    <p>La <strong>capabilité</strong> mesure l'aptitude du processus d'emplissage à produire des lots conformes <em>sans recourir au tri</em>.</p>
+                    <p class="mt-2">Un Cpk élevé signifie que la machine est régulière et bien centrée. Un Cpk faible impose un <strong>surdosage systématique</strong> (coût matière) pour rester dans les tolérances légales.</p>
+                    <p class="mt-2">⚠️ Pour les préemballages, <strong>l'EMTM est une erreur EN MOINS uniquement</strong> — il n'y a aucune sanction pour surdosage. On ne calcule donc que le Cpk côté inférieur.</p>
+                  </div>
+                </details>
+
+                <details class="mt-3">
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-scale-balanced"></i> Base réglementaire</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
+                    <p><strong>Guide DGCCRF 2014 §5.1.2</strong> — Maîtrise statistique du processus. Exige la surveillance de la capabilité et la détermination du seuil de centrage <em>ms</em>.</p>
+                    <p class="mt-2"><strong>WELMEC 6.4 §3.5</strong> — Guide emplisseurs : le CPk doit être calculé avant de fixer la QC (Quantité Cible) et les limites des cartes de contrôle.</p>
+                    <p class="mt-2"><strong>Directive 76/211/CEE Annexe I</strong> — Définit les 3 critères de conformité du lot auxquels le CPk doit répondre statistiquement.</p>
+                    <p class="mt-2"><strong>NF X06-030 / ISO 8258</strong> — Méthodes d'estimation de σ₀ à partir de cartes de contrôle (σ₀ = s̄/c₄ ou R̄/d₂).</p>
+                  </div>
+                </details>
+
+                <details class="mt-3">
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-calculator"></i> Formules de calcul</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px; font-family:monospace; font-size:0.79rem; line-height:1.7;">
+                    <strong>Cp</strong>  = E / (3 × σ₀)<br>
+                    &nbsp;&nbsp;&nbsp;→ référence machine, indépendant du centrage<br><br>
+                    <strong>Cpk_lower</strong> = (μ − (QN − E)) / (3 × σ₀)<br>
+                    &nbsp;&nbsp;&nbsp;→ critère défectueux (TU1 = QN − E)<br><br>
+                    <strong>Cpk_super</strong> = (μ − (QN − 2E)) / (3 × σ₀)<br>
+                    &nbsp;&nbsp;&nbsp;→ critère super-défectueux (TU2), signe e uniquement<br><br>
+                    <strong>Cpk retenu</strong> = MIN(Cpk_lower [, Cpk_super si signe e])<br><br>
+                    <strong>Seuil σ critique</strong> : σ₀ ≤ E / 2,05<br>
+                    &nbsp;&nbsp;&nbsp;→ Si respecté : ms = QN (pas de surdosage)<br>
+                    &nbsp;&nbsp;&nbsp;→ Sinon : ms = QN − E + 2,05 × σ₀<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(+ max avec critère super-déf. si signe e)
+                  </div>
+                </details>
+
+                <details class="mt-3">
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-table"></i> Interprétation du Cpk</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
+                    <table style="width:100%; font-size:0.78rem; border-collapse:collapse;">
+                      <thead><tr style="background:var(--bg-muted);">
+                        <th style="padding:4px 6px; text-align:left; border-bottom:1px solid var(--border);">Cpk</th>
+                        <th style="padding:4px 6px; text-align:left; border-bottom:1px solid var(--border);">Diagnostic</th>
+                      </tr></thead>
+                      <tbody>
+                        <tr><td style="padding:3px 6px; color:#dc2626;">< 0,67</td><td style="padding:3px 6px;">Très insuffisant — &gt; 4,5 % défectueux</td></tr>
+                        <tr style="background:var(--bg-muted);"><td style="padding:3px 6px; color:#d97706;">0,67 – 1,00</td><td style="padding:3px 6px;">Insuffisant — surdosage obligatoire</td></tr>
+                        <tr><td style="padding:3px 6px; color:#ca8a04;">1,00 – 1,33</td><td style="padding:3px 6px;">Acceptable — centrage sur QN possible</td></tr>
+                        <tr style="background:var(--bg-muted);"><td style="padding:3px 6px; color:#16a34a;">1,33 – 1,63</td><td style="padding:3px 6px;">Bon — économie matière envisageable</td></tr>
+                        <tr><td style="padding:3px 6px; color:#0369a1;">≥ 1,63</td><td style="padding:3px 6px;">Excellent — σ ≤ E/2,05, pas de surdosage</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </details>
+
+                <details class="mt-3">
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-hard-hat"></i> En pratique sur le terrain</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
+                    <ol style="padding-left:16px; line-height:1.8;">
+                      <li>Prélever <strong>≥ 20 pesées</strong> consécutives en régime stabilisé (pas de démarrage ni de fin de lot)</li>
+                      <li>Calculer σ₀ estimé = écart-type de l'échantillon (<em>n−1</em>)</li>
+                      <li>Calculer l'EMTM E du produit (table Directive 76/211)</li>
+                      <li>Vérifier si σ₀ ≤ E/2,05 pour savoir si un surdosage est nécessaire</li>
+                      <li>Calculer ms, puis régler μ ≥ ms sur la machine</li>
+                      <li>Recalculer le Cpk avec μ réel de production pour confirmer la conformité</li>
+                    </ol>
+                    <p class="mt-2" style="color:var(--text-secondary);">⚙️ σ₀ inclut : variabilité machine + variabilité tare + variabilité produit + opérateur. Ne pas confondre avec σ d'une seule tête de remplissage.</p>
+                  </div>
+                </details>
+
+                <div class="alert alert--info mt-3" style="font-size:0.8rem;">
+                  Règle-clé : σ₀ ≤ <strong>E / 2,05</strong> → centrage sur QN sans surdosage
+                </div>
+              </div>
+            </div>
+          </aside>
+          <button class="sidebar-toggle-strip" onclick="toggleSidebar(this)" title="Masquer / afficher le panneau">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <div class="app__body">
+            <div class="stepper">
+              <div class="stepper__item stepper__item--active" id="s_cpk_1"><div class="stepper__num">1</div> Modèle</div>
+              <i class="fa-solid fa-chevron-right stepper__arrow"></i>
+              <div class="stepper__item" id="s_cpk_2"><div class="stepper__num">2</div> Import Pesées</div>
+              <i class="fa-solid fa-chevron-right stepper__arrow"></i>
+              <div class="stepper__item" id="s_cpk_3"><div class="stepper__num">3</div> Moyenne μ</div>
+              <i class="fa-solid fa-chevron-right stepper__arrow"></i>
+              <div class="stepper__item" id="s_cpk_4"><div class="stepper__num">4</div> Verdict</div>
+            </div>
+
+            <div class="verdict verdict--neutral" id="c_verdict">
+              <div class="verdict__icon">○</div>
+              <div class="verdict__content">
+                <div class="verdict__title">Initialisation</div>
+                <div class="verdict__text">Commencez par importer vos données σ₀ ou téléchargez le modèle Excel.</div>
+              </div>
+            </div>
+
+            <div class="section">
+              <h2 class="section__title"><i class="fa-solid fa-file-excel" style="margin-right:8px;"></i> 1. Données de Capabilité (&sigma;₀)</h2>
+              <div class="btn-row mb-4">
+                <button type="button" class="btn btn--ghost btn--sm" onclick="downloadTemplate('cpk')"><i class="fa-solid fa-download"></i> Modèle Excel .xlsx</button>
+              </div>
+              
+              <div class="upload-zone" id="cpk_upload_zone">
+                <input type="file" class="upload-zone__input" id="cpk_file" accept=".xlsx, .xls, .csv" onchange="handleFileUpload(this, 'cpk')">
+                <i class="fa-solid fa-cloud-arrow-up upload-zone__icon"></i>
+                <div class="upload-zone__text">Glissez votre fichier Excel ici ou <strong>cliquez pour parcourir</strong></div>
+                <div class="upload-zone__filename" id="cpk_filename">Aucun fichier sélectionné</div>
+              </div>
+            </div>
+
+            <div class="section">
+              <h2 class="section__title"><i class="fa-solid fa-sliders" style="margin-right:8px;"></i> 2. Paramètres de Production</h2>
+              <div class="form-grid">
+                <div class="field">
+                  <label class="field__label" for="c_qn">QN (g)</label>
+                  <input type="number" class="input" id="c_qn" value="100" min="1" step="any">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="c_mu">Moyenne actuelle &mu; (g)</label>
+                  <input type="number" class="input" id="c_mu" value="101" step="any">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="c_signe_e">Signe 'e'</label>
+                  <select class="select" id="c_signe_e">
+                    <option value="non">Non</option>
+                    <option value="oui">Oui (Obligation Cartes)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field__label">Écart-type &sigma;₀ calculé</label>
+                  <input type="text" class="input" id="c_sigma_display" value="Import requis" disabled style="background:var(--bg-muted);">
+                  <input type="hidden" id="c_sigma" value="0">
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button type="button" class="btn btn--primary" id="c_calc_btn" disabled onclick="calcCpk()"><i class="fa-solid fa-chart-simple" style="margin-right:6px;"></i> Calculer le Cpk</button>
+            </div>
+
+            <div class="result" id="c_result" style="display:none;">
+              <div class="result__header" id="c_result_hdr"></div>
+              <div class="result__body" id="c_result_body"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════
+             PANEL 3: PLAN POM/POL
+        ═══════════════════════════════════════ -->
+
+        <section class="panel panel--split" id="panel-pom" role="tabpanel" aria-labelledby="tab-pom">
+          <aside class="app__sidebar">
+            <div class="card card--info mb-4">
+              <div class="card__title"><i class="fa-solid fa-clipboard-list" style="margin-right:8px;"></i> Fiche : Plan POM/POL</div>
+              <div class="card__body" style="font-size:0.83rem; line-height:1.6;">
+
+                <details open>
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-lightbulb"></i> Principe fondamental</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
+                    <p>POM et POL mesurent la <strong>réactivité du plan de surveillance</strong> : combien de prélèvements sont nécessaires pour détecter une dérive dangereuse de la machine ?</p>
+                    <p class="mt-2"><strong>POM</strong> (Période Opérationnelle Moyenne) : nombre médian de prélèvements avant détection. Indique la réactivité typique.</p>
+                    <p class="mt-2"><strong>POL</strong> (Période Opérationnelle Limite) : nombre maximal de prélèvements au-delà duquel la dérive <em>doit</em> être détectée avec 95 % de certitude.</p>
+                    <p class="mt-2">Le scénario critique analysé : la moyenne glisse de ms (cible) vers QN (lot NC) — c'est la dérive minimale qui met la conformité en péril.</p>
+                  </div>
+                </details>
+
+                <details class="mt-3">
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-scale-balanced"></i> Base réglementaire</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
+                    <p><strong>Guide DGCCRF 2014 §5.1.4</strong> — Exige que le <strong>temps POL ≤ 60 minutes</strong> de fabrication. Tout déréglage susceptible de rendre un lot NC doit être détecté dans l'heure.</p>
+                    <p class="mt-2"><strong>NF X06-031-1 / ISO 7870-2</strong> — Cartes de contrôle aux mesures : définissent les limites de contrôle (LCI/LCS) et les courbes OC (Opérateur Caractéristique) qui fondent le calcul de POM/POL.</p>
+                    <p class="mt-2"><strong>WELMEC 6.4 §3.6</strong> — Le plan d'échantillonnage (n, fréquence) doit être dimensionné pour satisfaire l'exigence POL ≤ 1h avant toute mise en production.</p>
+                    <p class="mt-2"><strong>Recommandation pratique (Guide §5.1.3)</strong> : effectif n entre 7 et 10 unités, calé si possible sur le pas de l'emplisseuse (nb de becs).</p>
+                  </div>
+                </details>
+
+                <details class="mt-3">
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-calculator"></i> Formules de calcul</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px; font-family:monospace; font-size:0.79rem; line-height:1.8;">
+                    <strong>LCI</strong> = ms − 3 × σ₀/√n<br>
+                    &nbsp;&nbsp;&nbsp;→ Limite de Contrôle Inférieure de la carte x̄<br><br>
+                    <strong>P</strong> = Φ((LCI − QN) / (σ₀/√n))<br>
+                    &nbsp;&nbsp;&nbsp;→ probabilité de détection en 1 prélèvement<br>
+                    &nbsp;&nbsp;&nbsp;→ Φ = fonction de répartition normale N(0,1)<br><br>
+                    <strong>POM</strong> = 1 / P<br>
+                    &nbsp;&nbsp;&nbsp;→ nb prélèvements pour 50 % de chance de détecter<br><br>
+                    <strong>POL</strong> = log(0,05) / log(1 − P)<br>
+                    &nbsp;&nbsp;&nbsp;→ nb prélèvements pour 95 % de certitude<br>
+                    &nbsp;&nbsp;&nbsp;→ loi géométrique : P(non-détection après k tirages) ≤ 5%<br><br>
+                    <strong>Temps POL</strong> = POL × fréquence (min)<br>
+                    &nbsp;&nbsp;&nbsp;→ doit être ≤ 60 min
+                  </div>
+                </details>
+
+                <details class="mt-3">
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-sliders"></i> Leviers d'action</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
+                    <p>Si le temps POL calculé dépasse 60 min, deux leviers :</p>
+                    <table style="width:100%; font-size:0.79rem; border-collapse:collapse; margin-top:6px;">
+                      <thead><tr style="background:var(--bg-muted);">
+                        <th style="padding:4px 6px; text-align:left; border-bottom:1px solid var(--border);">Levier</th>
+                        <th style="padding:4px 6px; text-align:left; border-bottom:1px solid var(--border);">Effet sur POL</th>
+                      </tr></thead>
+                      <tbody>
+                        <tr><td style="padding:3px 6px;">↑ Augmenter n</td><td style="padding:3px 6px;">↑ P → ↓ POL (fort effet)</td></tr>
+                        <tr style="background:var(--bg-muted);"><td style="padding:3px 6px;">↓ Réduire fréquence</td><td style="padding:3px 6px;">↓ temps POL directement</td></tr>
+                        <tr><td style="padding:3px 6px;">↓ Réduire σ₀ machine</td><td style="padding:3px 6px;">↑ ms-QN écart → ↑ P → ↓ POL</td></tr>
+                      </tbody>
+                    </table>
+                    <p class="mt-2" style="color:#dc2626;">⛔ Espacer les prélèvements aggrave le temps POL — ne jamais compenser un POL trop long par une fréquence plus rare.</p>
+                  </div>
+                </details>
+
+                <details class="mt-3">
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-hard-hat"></i> En pratique sur le terrain</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
+                    <ol style="padding-left:16px; line-height:1.8;">
+                      <li>Déterminer σ₀ (depuis l'étude de capabilité CPk)</li>
+                      <li>Calculer ms (seuil de centrage)</li>
+                      <li>Choisir n (7 à 10 unités, calé sur le nb de becs)</li>
+                      <li>Calculer LCI = ms − 3×σ₀/√n</li>
+                      <li>Calculer P et vérifier POL × fréquence ≤ 60 min</li>
+                      <li>Si conforme : formaliser dans la procédure de surveillance</li>
+                      <li>Valider annuellement ou après tout changement machine</li>
+                    </ol>
+                  </div>
+                </details>
+
+                <div class="alert alert--info mt-3" style="font-size:0.8rem;">
+                  Règle-clé : <strong>Temps POL ≤ 60 min</strong> (Guide DGCCRF §5.1.4)
+                </div>
+              </div>
+            </div>
+          </aside>
+          <button class="sidebar-toggle-strip" onclick="toggleSidebar(this)" title="Masquer / afficher le panneau">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <div class="app__body">
+            <div class="stepper">
+              <div class="stepper__item stepper__item--active" id="s_pom_1"><div class="stepper__num">1</div> Paramètres</div>
+              <i class="fa-solid fa-chevron-right stepper__arrow"></i>
+              <div class="stepper__item" id="s_pom_2"><div class="stepper__num">2</div> Pesées de lot</div>
+              <i class="fa-solid fa-chevron-right stepper__arrow"></i>
+              <div class="stepper__item" id="s_pom_3"><div class="stepper__num">3</div> Analyse</div>
+            </div>
+
+            <div class="verdict verdict--neutral" id="p_verdict">
+              <div class="verdict__icon">○</div>
+              <div class="verdict__content">
+                <div class="verdict__title">Initialisation</div>
+                <div class="verdict__text">Renseignez vos paramètres et importez les pesées du prélèvement.</div>
+              </div>
+            </div>
+
+            <div class="section">
+              <h2 class="section__title"><i class="fa-solid fa-sliders" style="margin-right:8px;"></i> 1. Configuration du Plan</h2>
+              <div class="form-grid">
+                <div class="field">
+                  <label class="field__label" for="p_qn">QN (g)</label>
+                  <input type="number" class="input" id="p_qn" value="100" min="1" step="any">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="p_n">Effectif n</label>
+                  <input type="number" class="input" id="p_n" value="10" min="2" max="65" step="1">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="p_freq">Fréquence (min)</label>
+                  <input type="number" class="input" id="p_freq" value="30" min="5" step="5">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="p_sigma">σ₀ (Capacité machine)</label>
+                  <input type="number" class="input" id="p_sigma" value="1.5" step="any">
+                </div>
+              </div>
+            </div>
+
+            <div class="section">
+              <h2 class="section__title"><i class="fa-solid fa-file-excel" style="margin-right:8px;"></i> 2. Données du Prélèvement</h2>
+              <div class="btn-row mb-4">
+                <button type="button" class="btn btn--ghost btn--sm" onclick="downloadTemplate('pom')"><i class="fa-solid fa-download"></i> Modèle Prélèvement .xlsx</button>
+              </div>
+              <div class="upload-zone" id="pom_upload_zone">
+                <input type="file" class="upload-zone__input" id="pom_file" accept=".xlsx, .xls, .csv" onchange="handleFileUpload(this, 'pom')">
+                <i class="fa-solid fa-cloud-arrow-up upload-zone__icon"></i>
+                <div class="upload-zone__text">Importez vos <strong>n</strong> pesées ici</div>
+                <div class="upload-zone__filename" id="pom_filename">Aucun fichier sélectionné</div>
+              </div>
+              
+              <div class="form-grid mt-4">
+                <div class="field">
+                  <label class="field__label">Moyenne calculée x̄</label>
+                  <input type="text" class="input" id="p_xbar_display" disabled value="Import requis">
+                  <input type="hidden" id="p_xbar" value="0">
+                </div>
+                <div class="field">
+                  <label class="field__label">Écart-type calculé s</label>
+                  <input type="text" class="input" id="p_s_display" disabled value="Import requis">
+                  <input type="hidden" id="p_s" value="0">
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button type="button" class="btn btn--primary" id="p_calc_btn" disabled onclick="calcPomPol()"><i class="fa-solid fa-magnifying-glass-chart" style="margin-right:6px;"></i> Lancer l'Analyse</button>
+            </div>
+
+            <div class="result" id="p_result" style="display:none;">
+              <div class="result__header" id="p_result_hdr"></div>
+              <div class="result__body" id="p_result_body"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════
+             PANEL 4: TARE
+        ═══════════════════════════════════════ -->
+        <section class="panel panel--split" id="panel-tare" role="tabpanel" aria-labelledby="tab-tare">
+          <aside class="app__sidebar">
+            <div class="card card--info mb-4">
+              <div class="card__title"><i class="fa-solid fa-box-open" style="margin-right:8px;"></i> Fiche : Maîtrise des Tares</div>
+              <div class="card__body" style="font-size:0.83rem; line-height:1.6;">
+
+                <details open>
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-lightbulb"></i> Principe fondamental</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
+                    <p>La tare est le poids de l'emballage vide. Pour connaître le poids <em>net</em> d'un préemballage, la machine soustrait la tare du brut.</p>
+                    <p class="mt-2">Si les tares varient trop d'un emballage à l'autre, cette soustraction devient <strong>inexacte</strong> : certains préemballages apparemment conformes sont en réalité sous-dosés.</p>
+                    <p class="mt-2">La règle E/5 détermine si la variabilité des tares est suffisamment faible pour utiliser une tare unique (moyenne), ou si chaque emballage doit être pesé individuellement.</p>
+                  </div>
+                </details>
+
+                <details class="mt-3">
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-scale-balanced"></i> Base réglementaire</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
+                    <p><strong>Guide DGCCRF 2014 §4.3</strong> — Fixe la règle décisionnelle : tare moyenne autorisée si s_t ≤ E/5. Exige un échantillon de <strong>≥ 20 emballages vides représentatifs</strong>.</p>
+                    <p class="mt-2"><strong>WELMEC 6.4 §4.2</strong> — Même règle avec précision complémentaire : la tare moyenne utilisée doit être <strong>arrondie par excès</strong> pour éviter tout sous-dosage systématique.</p>
+                    <p class="mt-2"><strong>Directive 76/211/CEE</strong> — La conformité du lot est jugée sur le contenu net. Une tare mal maîtrisée génère directement des défectueux et super-défectueux masqués.</p>
+                    <p class="mt-2"><strong>Cas particulier verre</strong> (WELMEC 6.4 §4.2.3) : la tare individuelle est généralement recommandée car la variabilité du verre dépasse souvent le seuil E/5.</p>
+                  </div>
+                </details>
+
+                <details class="mt-3">
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-calculator"></i> Méthode de calcul</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px; font-family:monospace; font-size:0.79rem; line-height:1.8;">
+                    <strong>Données :</strong> t₁, t₂, … tₙ  (n ≥ 20 tares)<br><br>
+                    <strong>t̄</strong>  = (t₁ + t₂ + … + tₙ) / n<br><br>
+                    <strong>s_t</strong> = √[ Σ(tᵢ − t̄)² / (n−1) ]<br><br>
+                    <strong>E</strong>   = EMTM(QN)  (table Dir. 76/211/CEE)<br><br>
+                    <strong>Seuil</strong> = E / 5<br><br>
+                    Si s_t ≤ E/5  →  Tare Moyenne autorisée<br>
+                    Si s_t &gt; E/5  →  Tare Individuelle OBLIGATOIRE<br><br>
+                    <em>Exemple : QN=500 g → E=15 g → seuil=3,0 g</em>
+                  </div>
+                </details>
+
+                <details class="mt-3">
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-triangle-exclamation"></i> Pièges courants</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
+                    <p>🔺 <strong>Tare sous-estimée</strong> — Si la tare moyenne retenue est inférieure à la vraie tare, le contenu net affiché est surestimé → sous-dosage réel masqué.</p>
+                    <p class="mt-2">🔺 <strong>Échantillon non représentatif</strong> — Peser uniquement les emballages d'un seul carton n'est pas représentatif de la variabilité fournisseur totale.</p>
+                    <p class="mt-2">🔺 <strong>Emballage composite</strong> — Toujours peser l'ensemble complet (contenant + bouchon + opercule) : les écarts de chaque composant se cumulent.</p>
+                    <p class="mt-2">🔺 <strong>Oubli du changement lot fournisseur</strong> — La tare doit être réévaluée à chaque nouveau lot d'emballages.</p>
+                  </div>
+                </details>
+
+                <details class="mt-3">
+                  <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-hard-hat"></i> Protocole terrain</summary>
+                  <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
+                    <ol style="padding-left:16px; line-height:1.8;">
+                      <li>Sélectionner <strong>≥ 20 emballages vides</strong> en tirage aléatoire sur la production</li>
+                      <li>Peser chaque emballage sur une balance adaptée (EMT ≤ EMTM/5 du produit)</li>
+                      <li>Saisir les masses dans le module Tares</li>
+                      <li>Calculer s_t et comparer au seuil E/5</li>
+                      <li>Si tare moyenne autorisée : arrondir t̄ <strong>par excès</strong> avant de la programmer</li>
+                      <li>Enregistrer et dater l'analyse — à renouveler à chaque changement de lot emballage</li>
+                    </ol>
+                  </div>
+                </details>
+
+                <div class="alert alert--info mt-3" style="font-size:0.8rem;">
+                  Règle-clé : <strong>s_t ≤ E / 5</strong> pour autoriser la tare moyenne<br>
+                  (Guide DGCCRF §4.3 | WELMEC 6.4 §4.2)
+                </div>
+              </div>
+            </div>
+          </aside>
+          <button class="sidebar-toggle-strip" onclick="toggleSidebar(this)" title="Masquer / afficher le panneau">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <div class="app__body">
+            <div class="stepper">
+              <div class="stepper__item stepper__item--active" id="s_tare_1"><div class="stepper__num">1</div> Modèle</div>
+              <i class="fa-solid fa-chevron-right stepper__arrow"></i>
+              <div class="stepper__item" id="s_tare_2"><div class="stepper__num">2</div> Pesées Tares</div>
+              <i class="fa-solid fa-chevron-right stepper__arrow"></i>
+              <div class="stepper__item" id="s_tare_3"><div class="stepper__num">3</div> Verdict</div>
+            </div>
+
+            <div class="verdict verdict--neutral" id="t_verdict">
+              <div class="verdict__icon">○</div>
+              <div class="verdict__content">
+                <div class="verdict__title">Initialisation</div>
+                <div class="verdict__text">Importez vos pesées d'emballages pour vérifier la variabilité.</div>
+              </div>
+            </div>
+
+            <div class="section">
+              <h2 class="section__title"><i class="fa-solid fa-file-excel" style="margin-right:8px;"></i> 1. Pesées des Emballages Vides (Tares)</h2>
+              <div class="btn-row mb-4">
+                <button type="button" class="btn btn--ghost btn--sm" onclick="downloadTemplate('tare')"><i class="fa-solid fa-download"></i> Modèle Tares .xlsx</button>
+              </div>
+              <div class="upload-zone" id="tare_upload_zone">
+                <input type="file" class="upload-zone__input" id="tare_file" accept=".xlsx, .xls, .csv" onchange="handleFileUpload(this, 'tare')">
+                <i class="fa-solid fa-cloud-arrow-up upload-zone__icon"></i>
+                <div class="upload-zone__text">Glissez vos 10-20 pesées de tares ici</div>
+                <div class="upload-zone__filename" id="tare_filename">Aucun fichier sélectionné</div>
+              </div>
+            </div>
+
+            <div class="section">
+              <h2 class="section__title"><i class="fa-solid fa-sliders" style="margin-right:8px;"></i> 2. Paramètres</h2>
+              <div class="form-grid">
+                <div class="field">
+                  <label class="field__label" for="t_qn">QN Produit (g)</label>
+                  <input type="number" class="input" id="t_qn" value="100" min="1" step="any">
+                </div>
+                <label class="field__label" for="t_weights">Poids Tares (séparés par un retour à la ligne ou virgule) <span class="help-tip" data-tip="10 à 20 pesées recommandées"></span></label>
+                <textarea class="input" id="t_weights" rows="6" placeholder="Par ex:\n12,5\n12,6\n12,8\n12,4\n..."></textarea>
+              </div>
+            </div>
+            <div class="btn-row">
+              <button type="button" class="btn btn--primary" onclick="calcTare()"><i class="fa-solid fa-calculator" style="margin-right:6px;"></i> Vérifier Variabilité</button>
+              <button type="button" class="btn btn--ghost" id="t_dl_btn" disabled onclick="downloadReport('tare')"><i class="fa-solid fa-download" style="margin-right:6px;"></i> Rapport</button>
+            </div>
+            <div class="result" id="t_result" style="display:none;">
+              <div class="result__header" id="t_result_hdr"></div>
+              <div class="result__body" id="t_result_body"></div>
+            </div>
+          </div>
+        </section>
+
+    </main>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="app__footer">
+      © <a href="https://visipilot.com" target="_blank">VisiPilot</a> — Guide DGCCRF 2014 — Directive 76/211/CEE — WELMEC 6.4 / 6.5 — NF X06-031-1 — ISO 7870-2
+    </footer>
+
+  </div>
+
+  <!-- ═══ MODALS ═══ -->
+
+  <!-- Modal Admin Fiches -->
+  <div class="modal-overlay" id="admin-tips-modal">
+    <div class="modal" style="max-width:700px;">
+      <div class="modal__header">
+        <h2 class="modal__title"><i class="fa-solid fa-sliders" style="margin-right:8px; color:var(--brand-500);"></i> Administration des Fiches</h2>
+        <button type="button" class="modal__close" onclick="closeModal('admin-tips-modal')">✕</button>
+      </div>
+      <div class="modal__body">
+        <p style="font-size:.85rem; color:var(--text-secondary); margin-bottom:16px;">
+          Cochez les fiches à afficher dans le Guide Interactif. Les préférences sont sauvegardées dans votre navigateur (localStorage).
+          <br><strong>52 fiches disponibles</strong> — activez celles qui correspondent à votre contexte métier.
+        </p>
+        <div style="display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
+          <button type="button" onclick="saveAdminTips()" style="padding:10px 20px;background:var(--brand-500);color:white;border:none;border-radius:var(--radius-md);cursor:pointer;font-weight:600;font-family:inherit;font-size:.9rem;">
+            <i class="fa-solid fa-floppy-disk"></i> Enregistrer
+          </button>
+          <button type="button" onclick="resetAdminTips()" style="padding:10px 18px;background:var(--bg-muted);color:var(--text-secondary);border:1px solid var(--border);border-radius:var(--radius-md);cursor:pointer;font-family:inherit;font-size:.85rem;">
+            <i class="fa-solid fa-rotate-left"></i> Remettre par défaut
+          </button>
+          <button type="button" onclick="closeModal('admin-tips-modal')" style="padding:10px 18px;background:transparent;color:var(--text-muted);border:1px solid var(--border);border-radius:var(--radius-md);cursor:pointer;font-family:inherit;font-size:.85rem;">
+            Annuler
+          </button>
+        </div>
+        <div id="admin-tips-list" style="max-height:55vh; overflow-y:auto; border:1px solid var(--border); border-radius:var(--radius-md); padding:16px;">
+          <!-- rempli par openAdminTips() -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="help-modal">
+    <div class="modal">
+      <div class="modal__header">
+        <h2 class="modal__title"><i class="fa-solid fa-book" style="margin-right:8px;"></i> Guide d'utilisation</h2>
+        <button type="button" class="modal__close" onclick="closeModal('help-modal')">✕</button>
+      </div>
+      <div class="modal__body help-content">
+        <h4><i class="fa-solid fa-bullseye" style="color:var(--brand-500); margin-right:6px;"></i> DGCCRF MetroGuide</h4>
+        <p>Outil d'autocontrôle métrologique conforme au Guide DGCCRF 2014 et WELMEC 6.4.</p>
+
+        <h4><i class="fa-solid fa-scale-unbalanced" style="color:var(--brand-500); margin-right:6px;"></i> Adéquation Balance</h4>
+        <p>Vérifie que la balance est mathématiquement adaptée pour mesurer vos préemballages.</p>
+        <p><strong>Règle éliminatoire :</strong> EMT (erreur max balance) en service ≤ 1/5 EMTM</p>
+
+        <h4><i class="fa-solid fa-chart-line" style="color:var(--brand-500); margin-right:6px;"></i> Capabilité CPk</h4>
+        <p>Évalue la dispersion de votre doseuse. Si elle disperse trop, vous surdosez pour compenser et éviter T1.</p>
+        <p><strong>Cpk ≥ 1,33</strong> = bon niveau | <strong>Cpk &lt; 0,67</strong> = alerte surdosage majeur</p>
+
+        <h4><i class="fa-solid fa-clipboard-list" style="color:var(--brand-500); margin-right:6px;"></i> Plan POM/POL</h4>
+        <p>Contrôle par prélèvement destructif / en cours de prod.</p>
+        <p><strong>Recommandation :</strong> L'anomalie de dérive doit être détectée (POL) en moins de 1h.</p>
+        
+        <h4><i class="fa-solid fa-box-open" style="color:var(--brand-500); margin-right:6px;"></i> Tares</h4>
+        <p><strong>Tare standard / moyenne autorisée</strong> si S_tare ≤ EMTM / 4.<br>Sinon, pesée manuelle individuelle obligatoire.</p>
+
+        <h4><i class="fa-solid fa-key" style="color:var(--brand-500); margin-right:6px;"></i> Glossaire</h4>
+        <ul>
+          <li><strong>QN</strong> — Quantité Nominale (poids déclaré au consommateur)</li>
+          <li><strong>EMTM</strong> — Erreur Maximale Tolérée en Moins</li>
+          <li><strong>σ₀</strong> — Écart-type inhérent de la machine (mesuré sur ≥20 échantillons)</li>
+          <li><strong>e</strong> — Échelon de vérification (voir plaque signalétique)</li>
+          <li><strong>signe e</strong> — Soumet le packer aux obligations complètes de la directive européenne.</li>
+        </ul>
+
+        <h4><i class="fa-solid fa-book-bookmark" style="color:var(--brand-500); margin-right:6px;"></i> Références Officielles</h4>
+        <ul>
+          <li>Directive 76/211/CEE</li>
+          <li>Directives 2014/31/UE (IPFNA) et 2014/32/UE (IPFA)</li>
+          <li>Guide DGCCRF 2014 (Auto-contrôle et Répression des fraudes)</li>
+          <li>WELMEC 6.4 / 6.5</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="about-modal">
+    <div class="modal">
+      <div class="modal__header">
+        <h2 class="modal__title"><i class="fa-solid fa-circle-info" style="margin-right:8px;"></i> À propos</h2>
+        <button type="button" class="modal__close" onclick="closeModal('about-modal')">✕</button>
+      </div>
+      <div class="modal__body" style="text-align:center;">
+        <img src="logo.png" alt="VisiPilot" style="height:72px;margin:var(--space-4) 0;" onerror="this.style.display='none';">
+        <h4 style="margin-top:var(--space-4);">DGCCRF MetroGuide</h4>
+        <p style="color:var(--text-secondary);">Conformité Préemballages — DGCCRF 2014</p>
+        <p style="margin-top:var(--space-4);font-size:var(--text-sm);color:var(--text-muted);">
+          © <a href="https://visipilot.com" target="_blank" style="color:var(--text-brand);">visipilot.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
