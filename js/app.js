@@ -29,7 +29,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-tag', title:'1. La Quantité Nominale (QN)',
     backIcon:'fa-solid fa-circle-info', backTitle:'Définition légale',
     body:'C\'est la promesse commerciale inscrite sur l\'étiquette. La moyenne réelle du lot doit être ≥ QN. Plage légale : 5 g à 10 kg (ou 10 L) avec signe <em>e</em>.',
-    ref:'[Dir. 76/211/CEE Art.2] | [Guide §1.1] | [WELMEC 6.4 §1.1]',
+    ref:'[Dir. 76/211/CEE Art.2] | [Guide §III.A.1] | [WELMEC 6.4]',
     active:true
   },
   {
@@ -37,7 +37,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-ruler-horizontal', title:'2. L\'EMTM',
     backIcon:'fa-solid fa-scale-balanced', backTitle:'La tolérance en moins',
     body:'L\'Erreur Maximale Tolérée en <strong>Moins</strong>. Pour 100 g → EMTM = 4,5 g. Pour 500 g → EMTM = 15 g. C\'est l\'unité de base de tous les réglages et seuils.',
-    ref:'[Dir. 76/211/CEE Annexe I] | [Guide §1.3] | [WELMEC 6.5 An.1]',
+    ref:'[Dir. 76/211/CEE Annexe I] | [Guide §III.A.1.2 + Annexe 5] | [WELMEC 6.5]',
     active:true
   },
   {
@@ -45,7 +45,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-boxes-stacked', title:'3. La Notion de Lot',
     backIcon:'fa-solid fa-clock', backTitle:'POL ≤ 1h → Lot ≤ 1h',
     body:'Un lot est une production homogène. La réglementation exige que tout déréglage soit <strong>détecté en ≤ 1h (POL)</strong>. Si un écart est trouvé, la prod depuis le dernier prélèvement conforme est mise en cause.',
-    ref:'[Guide §1.3.1 + §5.1.4] | [WELMEC 6.4 §2.1 + §3.4]',
+    ref:'[Guide §III.A.2 + §VII.B.2.3] | [WELMEC 6.4]',
     active:true
   },
   {
@@ -53,7 +53,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-chart-bar', title:'4. Règle 1 : La Moyenne',
     backIcon:'fa-solid fa-check-double', backTitle:'Moyenne ≥ QN — sans exception',
     body:'La moyenne effective du lot doit toujours être ≥ QN. Si la moyenne tombe à 99,9 g pour QN = 100 g, le lot est juridiquement <strong>falsifié</strong>, même si chaque unité semble correcte.',
-    ref:'[Dir. 76/211/CEE §1] | [Guide §1.3.2] | [WELMEC 6.4 §3.2]',
+    ref:'[Dir. 76/211/CEE Annexe I] | [Guide §III.A.1.1] | [WELMEC 6.4]',
     active:true
   },
   {
@@ -61,7 +61,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-circle-exclamation', title:'5. Règle 2 : Limite T1',
     backIcon:'fa-solid fa-percent', backTitle:'2% de défectueux max',
     body:'Max <strong>2% de préemballages défectueux</strong> (contenu &lt; QN − EMTM). Le NQA 2,5% est le paramètre du <em>plan de sondage côté inspecteur</em> — la limite côté producteur est 2%.',
-    ref:'[Dir. 76/211/CEE Annexe I §1] | [Guide §5.2] | [WELMEC 6.4 §3.3]',
+    ref:'[Dir. 76/211/CEE Annexe I] | [Guide §III.A.1.2] | [WELMEC 6.4]',
     active:true
   },
   {
@@ -69,7 +69,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-triangle-exclamation', title:'6. Règle 3 : Seuil TU2',
     backIcon:'fa-solid fa-gavel', backTitle:'Zéro Tolérance',
     body:'Aucun préemballage ne doit peser moins que <strong>QN − 2×EMTM</strong> (seuil TU2). Un seul exemplaire dans cette zone entraîne la non-conformité immédiate — quel que soit le taux global.',
-    ref:'[Guide §5.2] | [WELMEC 6.4 §3.3]',
+    ref:'[Guide §III.A.1.3] | [WELMEC 6.4]',
     active:true
   },
   {
@@ -77,7 +77,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-wave-square', title:'7. L\'Écart-Type (σ)',
     backIcon:'fa-solid fa-sliders', backTitle:'Maîtriser la dispersion',
     body:'Plus la doseuse est instable, plus σ est élevé et plus le surdosage est important. Règle-clé : si σ ≤ E/2,05, le centrage sur QN est possible. Au-delà, surdosage obligatoire.',
-    ref:'[Guide §5.1] | [WELMEC 6.4 §3.2] | [NF X06-030]',
+    ref:'[Guide §V.A] | [WELMEC 6.4] | [NF X06-030]',
     active:true
   },
   {
@@ -85,7 +85,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-chart-line', title:'8. L\'Indice Cpk',
     backIcon:'fa-solid fa-bolt', backTitle:'Performance machine',
     body:'<strong>Cpk &lt; 0,67</strong> = danger immédiat. <strong>Cpk 1,00–1,33</strong> = vigilance, surdosage possible. <strong>Cpk ≥ 1,33</strong> = bonne maîtrise. <strong>Cpk ≥ 1,63</strong> = centrage sur QN sans surdosage.',
-    ref:'[Guide §5.1.2] | [WELMEC 6.4 §3.5]',
+    ref:'[Guide §V] | [NF X06-030]',
     active:true
   },
   {
@@ -93,7 +93,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-scale-unbalanced-flip', title:'9. Règle du 1/5ème',
     backIcon:'fa-solid fa-compass', backTitle:'Adéquation balance',
     body:'L\'EMT en service de la balance doit être <strong>≤ 1/5 de l\'EMTM</strong>. Ex. pour QN=100 g (EMTM=4,5 g) : EMT service ≤ 0,9 g. Sinon la balance introduit trop d\'erreur dans la décision.',
-    ref:'[Guide §4.2] | [WELMEC 6.4 §4.1] | [Décret 91-330]',
+    ref:'[WELMEC 6.4] | [Guide §IV] | [Décret 91-330]',
     active:true
   },
   {
@@ -101,7 +101,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-box-open', title:'10. Règle du 1/5ème (Tares)',
     backIcon:'fa-solid fa-box-archive', backTitle:'Tare Moyenne ou Individuelle ?',
     body:'Peser ≥ 20 emballages vides. Si s_t &gt; <strong>E/5</strong> → tare individuelle obligatoire. Si s_t ≤ E/5 → tare moyenne autorisée. Ex. QN=100 g (E=4,5 g) → seuil = 0,9 g.',
-    ref:'[Guide §4.3] | [WELMEC 6.4 §4.2]',
+    ref:'[Guide §VI.A] | [WELMEC 6.4] | [OIML R87]',
     active:true
   },
   {
@@ -109,7 +109,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-hourglass-half', title:'11. POL ≤ 1 Heure',
     backIcon:'fa-solid fa-stopwatch', backTitle:'Réactivité réglementaire',
     body:'Le plan de contrôle doit détecter tout déréglage grave en <strong>≤ 60 min</strong>. Calcul : POL = log(0,05)/log(1−P) prélèvements × fréquence. Augmenter n ou réduire l\'intervalle si POL &gt; 1h.',
-    ref:'[Guide §5.1.4] | [WELMEC 6.4 §3.4] | [NF X06-031-1]',
+    ref:'[Guide §VII.B.2.3 + Annexe 4] | [NF X06-031-1]',
     active:true
   },
   {
@@ -117,7 +117,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-file-signature', title:'12. Preuve de Contrôle',
     backIcon:'fa-solid fa-shield-halved', backTitle:'Opposabilité juridique',
     body:'Un contrôle non documenté <strong>n\'existe pas</strong> face à la DGCCRF. Conserver tous les enregistrements <strong>2 ans minimum</strong> (avec signe <em>e</em>) : pesées, corrections, vérifications instruments.',
-    ref:'[Guide §6] | [Arrêté 20/10/1978] | [WELMEC 6.4 §5.1]',
+    ref:'[Guide §III.B.2.5] | [Arrêté 20/10/1978] | [WELMEC 6.4]',
     active:true
   },
   {
@@ -125,7 +125,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-robot', title:'13. IPFA vs IPFNA',
     backIcon:'fa-solid fa-microchip', backTitle:'Deux référentiels distincts',
     body:'<strong>IPFNA (balances)</strong> : EMT service = 2 × EMT neuve — Décret 91-330.<br><strong>IPFA (trieuses)</strong> : EMT = EMT nominale, pas de doublement — Arrêté 10/01/2006. Vérification : 20 passages du même préemballage.',
-    ref:'[Guide §4.1.1] | [WELMEC 6.4 §4.1] | [Arr. 10/01/2006]',
+    ref:'[Guide §IV.A.2 + §IV.B.2] | [Décret 91-330] | [Arr. 10/01/2006]',
     active:true
   },
   {
@@ -133,7 +133,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-book-medical', title:'14. Carnet de Vie',
     backIcon:'fa-solid fa-history', backTitle:'Identité de l\'instrument',
     body:'Chaque instrument doit avoir un <strong>carnet métrologique</strong> tenu à jour sur son lieu d\'utilisation : pannes, ajustages, vérifications périodiques, interventions. Absence = défaut documentaire.',
-    ref:'[Guide §4.1.2] | [WELMEC 6.4 §4.1] | [Décret 91-330]',
+    ref:'[Guide §IV.A.1 + §IV.B.1] | [Décret 91-330]',
     active:true
   },
   {
@@ -141,7 +141,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-certificate', title:'15. La Vignette Verte',
     backIcon:'fa-solid fa-calendar-check', backTitle:'Vérification périodique',
     body:'La vignette verte atteste de la vérification périodique (VP) annuelle par un organisme accrédité. <strong>Vignette rouge = interdiction</strong> d\'utilisation pour le contrôle des préemballages.',
-    ref:'[Guide §4.1.3] | [Décret 91-330 Art. 12] | [WELMEC 6.4 §4.1]',
+    ref:'[Guide §IV.A] | [Décret 91-330] | [Arr. 26/05/2004]',
     active:true
   },
   {
@@ -149,15 +149,15 @@ const TIPS_DATA = [
     icon:'fa-solid fa-handcuffs', title:'16. Sanctions & Risques',
     backIcon:'fa-solid fa-gavel', backTitle:'Le Procès Verbal',
     body:'Un lot NC peut entraîner : <strong>amende 5ème classe</strong> (jusqu\'à 1 500 €/unité), saisie des stocks, publication DGCCRF. La responsabilité pénale du conditionneur et du dirigeant est engagée.',
-    ref:'[C. conso Art. L412-1] | [Guide §7] | [WELMEC 6.5 §4.2]',
+    ref:'[C. conso Art. L412-1] | [Décret 78-166] | [Arrêté 20/10/1978]',
     active:true
   },
   {
     id:'tip-017', cat:'pratique',
     icon:'fa-solid fa-droplet-slash', title:'17. Écoulement & Pertes',
     backIcon:'fa-solid fa-filter', backTitle:'Produits visqueux',
-    body:'Les résidus collés à l\'emballage sont considérés comme <strong>non livrés au consommateur</strong>. Le guide exige un vidage total pour mesurer le contenu effectif. Prévoir un protocole de rinçage/vidage normalisé.',
-    ref:'[Guide §3.2.1] | [WELMEC 6.4 §2.3]',
+    body:'Produits sujets à perte de poids après dosage (cuisson, séchage, congélation, égouttage…) : contrôler de préférence <strong>après la phase de perte</strong> — la conformité est due jusqu\'au départ des marchandises. Poids net égoutté : EMT doublée admise en France.',
+    ref:'[Guide §III.B.1.1.7 + §III.A.2.4]',
     active:true
   },
   {
@@ -165,7 +165,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-weight-hanging', title:'18. Masses Étalons',
     backIcon:'fa-solid fa-microscope', backTitle:'Règle du 1/3 e',
     body:'L\'incertitude de la masse étalon doit être <strong>≤ e/3</strong> (échelon de vérification de la balance). Ex. balance e=1 g → masse étalon U ≤ 0,33 g. Raccordement COFRAC obligatoire.',
-    ref:'[Guide §4.2.2] | [WELMEC 6.4 §4.1] | [OIML R111]',
+    ref:'[Guide §IV.A.2] | [OIML R111]',
     active:true
   },
   {
@@ -173,7 +173,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-shuffle', title:'19. Tirage Aléatoire',
     backIcon:'fa-solid fa-random', backTitle:'Représentativité obligatoire',
     body:'Le prélèvement doit être <strong>aléatoire et représentatif</strong> de la production en cours. Choisir "les meilleurs" ou éviter les fins de ligne constitue une <strong>fraude métrologique</strong>.',
-    ref:'[Guide §1.3.1] | [WELMEC 6.4 §2.2] | [Arrêté 20/10/1978]',
+    ref:'[Guide §VII.B] | [Arrêté 20/10/1978] | [WELMEC 6.4]',
     active:true
   },
   {
@@ -181,7 +181,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-font', title:'20. Hauteur du Signe e',
     backIcon:'fa-solid fa-ruler-vertical', backTitle:'Min 3 mm',
     body:'Le symbole <em>e</em> doit mesurer <strong>au moins 3 mm</strong> de haut pour être conforme aux exigences de lisibilité. Il doit être indélébile et figurer à proximité du poids net.',
-    ref:'[Dir. 76/211/CEE Annexe I §3] | [Guide §1.2] | [WELMEC 6.4 §1.2]',
+    ref:'[Dir. 76/211/CEE Annexe I §3.3] | [Guide §III.B.2.1]',
     active:true
   },
   {
@@ -189,7 +189,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-bullseye', title:'21. Cpk & Centrage',
     backIcon:'fa-solid fa-crosshairs', backTitle:'Stable mais bien centré',
     body:'Un processus stable mais mal centré est aussi dangereux qu\'un processus dispersé. Le <strong>seuil de centrage ms</strong> = QN si σ ≤ E/2,05, sinon ms = QN − E + 2,05σ.',
-    ref:'[Guide §5.1.1] | [WELMEC 6.4 §3.2]',
+    ref:'[Guide §V.A] | [WELMEC 6.4]',
     active:true
   },
   {
@@ -197,7 +197,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-vial-circle-check', title:'22. Masse vs Volume',
     backIcon:'fa-solid fa-flask', backTitle:'Densimétrie',
     body:'Vendre au <strong>volume (mL)</strong> impose de peser en grammes puis de diviser par la <strong>densité réelle</strong> à température de production. Une variation de ±2°C peut modifier la densité et créer un déficit systématique.',
-    ref:'[Guide §3.2.2] | [WELMEC 6.4 §2.3] | [WELMEC 6.11]',
+    ref:'[Guide §III.B.1.1 + Annexe 1] | [WELMEC 6.11]',
     active:true
   },
   {
@@ -205,7 +205,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-shield-virus', title:'23. Dossier de Défense',
     backIcon:'fa-solid fa-shield-halved', backTitle:'Face à l\'audit DGCCRF',
     body:'En cas de contrôle, votre seule défense est l\'<strong>historique documenté</strong> : cartes de contrôle, preuves de réactivité (POL ≤ 1h), vérifications instruments, fiches de lot. Sans traces = NC présumée.',
-    ref:'[Guide §6.1] | [WELMEC 6.4 §5.1] | [Décret 78-166]',
+    ref:'[Guide §III.B.2.5] | [Décret 78-166] | [WELMEC 6.4]',
     active:true
   },
   {
@@ -213,17 +213,17 @@ const TIPS_DATA = [
     icon:'fa-solid fa-user-shield', title:'24. Rôle DGCCRF',
     backIcon:'fa-solid fa-building-shield', backTitle:'Surveillance officielle',
     body:'L\'inspecteur juge la <strong>loyauté du système d\'autocontrôle</strong>, pas uniquement le résultat d\'un lot. Un autocontrôle robuste et documenté est la meilleure protection — même si un lot s\'avère NC.',
-    ref:'[Guide Intro] | [WELMEC 6.5 §1.1] | [Arrêté 20/10/1978]',
+    ref:'[Guide §I] | [Arrêté 20/10/1978]',
     active:true
   },
 
   // ── FICHES SUPPLÉMENTAIRES (inactives par défaut — activables via Admin) ──
   {
     id:'tip-025', cat:'instruments',
-    icon:'fa-solid fa-clock-rotate-left', title:'Vérification NAWI : Fréquence',
+    icon:'fa-solid fa-clock-rotate-left', title:'Vérification IPFNA : Fréquence',
     backIcon:'fa-solid fa-calendar', backTitle:'Contrôle hebdomadaire',
     body:'Avec signe <em>e</em> : vérification de routine <strong>hebdomadaire minimum</strong>. Hors <em>e</em> : fréquence par analyse de risque. Toujours avec des masses étalon raccordées. La VP annuelle ne dispense pas des contrôles routiniers.',
-    ref:'[Guide §4.1.4] | [WELMEC 6.4 §4.1] | [Décret 91-330]',
+    ref:'[Guide §IV.A.2] | [Décret 91-330]',
     active:false
   },
   {
@@ -231,7 +231,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-conveyor-belt', title:'Vérification IPFA : 20 passages',
     backIcon:'fa-solid fa-repeat', backTitle:'Protocole trieuse',
     body:'Faire passer <strong>20 fois</strong> le même préemballage en mode automatique. Calculer moyenne et écart-type, comparer à l\'EMT et σ_max. Vérifier aussi le bon fonctionnement du système d\'éjection.',
-    ref:'[Guide §4.1.5] | [WELMEC 6.4 §4.1] | [Arr. 10/01/2006]',
+    ref:'[Guide §IV.B.2] | [Arr. 10/01/2006] | [OIML R51]',
     active:false
   },
   {
@@ -239,7 +239,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-arrows-alt-h', title:'Cp vs Cpk',
     backIcon:'fa-solid fa-balance-scale', backTitle:'Symétrique vs Centré',
     body:'<strong>Cp = E/(3σ)</strong> mesure la capacité intrinsèque (symétrique). <strong>Cpk</strong> intègre le centrage réel μ. On peut avoir Cp élevé (machine précise) mais Cpk faible (mal réglée). Les deux sont nécessaires.',
-    ref:'[Guide §5.1.2] | [WELMEC 6.4 §3.5]',
+    ref:'[Guide §V] | [NF X06-030]',
     active:false
   },
   {
@@ -247,7 +247,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-arrow-trend-up', title:'Surdosage Économique',
     backIcon:'fa-solid fa-coins', backTitle:'Coût du sur-remplissage',
     body:'Un surdosage de 1 g/unité sur 1 M préemballages/an = 1 tonne de produit offert. Pour un produit à 5 €/kg, c\'est <strong>5 000 €/an perdus</strong>. Un Cpk ≥ 1,63 permet d\'éliminer ce surcoût.',
-    ref:'[Guide §5.1.3] | [WELMEC 6.4 §3.5]',
+    ref:'[Guide §V.A] | [WELMEC 6.4]',
     active:false
   },
   {
@@ -255,7 +255,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-table-cells', title:'Taille n optimale',
     backIcon:'fa-solid fa-list-ol', backTitle:'7 à 10 recommandé',
     body:'Le Guide recommande <strong>n = 7 à 10</strong> unités par prélèvement. En multi-becs, prendre un multiple du nombre de becs pour couvrir tous les postes. Moins de 5 = plan insuffisant statistiquement.',
-    ref:'[Guide §7.B.2.1] | [WELMEC 6.4 §3.4] | [NF X06-031-1]',
+    ref:'[Guide §VII.B.1.1 + §VII.B.2.3] | [NF X06-031-1]',
     active:false
   },
   {
@@ -263,7 +263,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-function', title:'Valeur g (Annexe 3)',
     backIcon:'fa-solid fa-superscript', backTitle:'t(1-α)/√n à 90%',
     body:'g = t(1-α, n-1)/√n avec α=10%. Pour n=10 : g=0,437. Test : <strong>x̄ − g·s ≥ QN</strong>. Ce critère emplisseur (risque β minimisé) est différent du test officiel côté inspecteur (risque α).',
-    ref:'[Guide Annexe 3] | [Arrêté 20/10/1978 §7] | [WELMEC 6.4 §3.4]',
+    ref:'[Guide Annexe 3 + §VII.B.1.2] | [Arrêté 20/10/1978 Art. 7]',
     active:false
   },
   {
@@ -271,7 +271,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-chart-area', title:'Cartes de Contrôle',
     backIcon:'fa-solid fa-wave-square', backTitle:'LCS, LSS, LSI, LCI',
     body:'4 limites : LCS/LCI (action = arrêt immédiat), LSS/LSI (surveillance = vigilance). Calculées avec σ₀ et ms. <strong>Ne jamais utiliser TU1 (QN−E) comme limite</strong> — c\'est une erreur réglementaire.',
-    ref:'[Guide §7.B.2.2] | [NF X06-031-1] | [ISO 7870-2]',
+    ref:'[Guide §VII.B.2.1 + §VII.B.2.2] | [NF X06-031-1] | [ISO 7870-2]',
     active:false
   },
   {
@@ -279,7 +279,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-wine-bottle', title:'Tares en Verre',
     backIcon:'fa-solid fa-magnifying-glass', backTitle:'Toujours individuelle',
     body:'Pour les emballages en verre, la variabilité de tare est quasi toujours supérieure à E/5. La <strong>tare individuelle est généralement obligatoire</strong>. Peser le verre avant remplissage et soustraire.',
-    ref:'[Guide §4.3] | [WELMEC 6.4 §4.2]',
+    ref:'[Guide §VI.A] | [WELMEC 6.4] | [OIML R87]',
     active:false
   },
   {
@@ -287,7 +287,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-arrow-down-up-across-line', title:'Arrondi Tare Moyenne',
     backIcon:'fa-solid fa-calculator', backTitle:'Arrondir par excès',
     body:'La tare moyenne utilisée dans les calculs doit être <strong>arrondie par excès</strong>. Une tare sous-estimée génère un sous-dosage systématique. Ex. tare moyenne = 12,4 g → utiliser 12,5 g (arrondir au 0,5 g supérieur).',
-    ref:'[Guide §4.3.2] | [WELMEC 6.4 §4.2]',
+    ref:'[Guide §VI.B] | [WELMEC 6.4]',
     active:false
   },
   {
@@ -295,7 +295,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-floppy-disk', title:'2 Ans d\'Archives',
     backIcon:'fa-solid fa-folder-open', backTitle:'Enregistrements obligatoires',
     body:'Avec signe <em>e</em> : conserver 2 ans minimum tous les résultats de contrôle, cartes de contrôle, vérifications instruments, journal de bord, fiches de tare. L\'absence de document est une NC documentaire.',
-    ref:'[Guide §6] | [Arrêté 20/10/1978 §9] | [WELMEC 6.4 §5.1]',
+    ref:'[Guide §III.B.2.5] | [Arrêté 20/10/1978] | [WELMEC 6.4]',
     active:false
   },
   {
@@ -303,15 +303,15 @@ const TIPS_DATA = [
     icon:'fa-solid fa-book-open', title:'Journal de Bord',
     backIcon:'fa-solid fa-pen-to-square', backTitle:'Traçabilité de production',
     body:'Le journal de bord doit consigner : heures démarrage/arrêt, causes d\'arrêt, changements d\'équipe, lots de produit, paramètres de marche, anomalies, maintenance. C\'est la preuve de maîtrise du processus.',
-    ref:'[Guide §6.2] | [WELMEC 6.4 §5.2]',
+    ref:'[Guide §III.B.2.5] | [WELMEC 6.4]',
     active:false
   },
   {
     id:'tip-036', cat:'fondamentaux',
     icon:'fa-solid fa-tag', title:'Multipack : Règles Spéciales',
     backIcon:'fa-solid fa-layer-group', backTitle:'Produits groupés',
-    body:'Un multipack (ex. 6×100 g) est soumis à des règles spécifiques : la QN s\'applique au <strong>contenu total déclaré</strong>. Le contrôle s\'effectue sur la masse totale nette, pas unité par unité.',
-    ref:'[Guide §2.2] | [WELMEC 6.4 §2.4]',
+    body:'Un multipack (ex. 6×100 g) est soumis à des règles spécifiques : la QN s\'applique au <strong>contenu total déclaré</strong>. Le contrôle peut porter sur les unités individuelles avec E = EMT(QN globale) <strong>÷ nombre d\'unités</strong>, l\'échelon étant choisi selon la quantité cible unitaire.',
+    ref:'[Guide §III.B.1.1.6]',
     active:false
   },
   {
@@ -319,7 +319,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-temperature-half', title:'Températures & Densité',
     backIcon:'fa-solid fa-thermometer', backTitle:'Correction volumétrique',
     body:'Pour les liquides vendus en volume, la densité doit être mesurée à la <strong>température de conditionnement</strong>. L\'eau passe de 0,9982 g/mL à 20°C à 0,9970 g/mL à 25°C : un écart de 1,2 g/L non compensé.',
-    ref:'[Guide §3.2.2] | [WELMEC 6.11 §3]',
+    ref:'[Guide §III.B.1.1 + Annexe 1] | [WELMEC 6.11]',
     active:false
   },
   {
@@ -327,7 +327,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-list-check', title:'Gammes de Volumes Fixées',
     backIcon:'fa-solid fa-wine-glass', backTitle:'Vins & Spiritueux',
     body:'Certains produits (vins, spiritueux) doivent être conditionnés dans des <strong>volumes normalisés fixés</strong> par arrêté (ex. 75 cl, 1L pour vins). Ils ne peuvent pas choisir librement leur QN.',
-    ref:'[Arrêté 08/10/2008] | [Dir. 75/106/CEE] | [Guide §2.3]',
+    ref:'[Arrêté 08/10/2008] | [Dir. 2007/45/CE] | [Guide §II.A]',
     active:false
   },
   {
@@ -335,7 +335,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-arrow-right-arrow-left', title:'Critère Superdéfectueux',
     backIcon:'fa-solid fa-xmark-circle', backTitle:'U × σ selon taille lot',
     body:'Pour signe <em>e</em> : ms = max(QN−E+2,05σ, <strong>QN−2E+U×σ</strong>). U = 3,09 (N≤1000), 3,71 (N≤10000), 4,26 (N>10000). Plus le lot est grand, plus le critère est exigeant.',
-    ref:'[Guide §5.1.2] | [WELMEC 6.4 §3.3] | [Dir. 76/211/CEE An.I]',
+    ref:'[Guide §V.B] | [Dir. 76/211/CEE Annexe I]',
     active:false
   },
   {
@@ -351,7 +351,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-magnifying-glass-chart', title:'POM — Définition',
     backIcon:'fa-solid fa-chart-pie', backTitle:'Période Opérationnelle Moyenne',
     body:'POM = <strong>nombre moyen de prélèvements</strong> pour détecter un déréglage donné avec probabilité 50%. Formule : POM = 1/P où P = Φ((LCI−QN)/(σ/√n)). Indicateur de réactivité à 50%.',
-    ref:'[Guide §5.1.4] | [NF X06-031-1] | [WELMEC 6.4 §3.4]',
+    ref:'[Guide §VII.B.2.3 + Annexe 4] | [NF X06-031-1]',
     active:false
   },
   {
@@ -359,7 +359,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-flag-checkered', title:'POL — Définition',
     backIcon:'fa-solid fa-stopwatch-20', backTitle:'Période Opérationnelle Limite',
     body:'POL = <strong>nombre de prélèvements limite</strong> pour détecter le déréglage avec 95% de certitude. Formule : log(0,05)/log(1−P). POL × fréquence doit être ≤ 60 min.',
-    ref:'[Guide §5.1.4] | [NF X06-031-1] | [ISO 7870-2]',
+    ref:'[Guide §VII.B.2.3 + Annexe 4] | [NF X06-031-1] | [ISO 7870-2]',
     active:false
   },
   {
@@ -367,7 +367,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-sigma', title:'σ₀ : Mesure Correcte',
     backIcon:'fa-solid fa-ruler-combined', backTitle:'≥ 20 pesées consécutives',
     body:'σ₀ doit être mesuré sur <strong>≥ 20 pesées consécutives</strong> en production normale (pas en démarrage). L\'écart-type estimé sur l\'échantillon s ≠ σ₀ (processus). σ₀ s\'obtient sur plusieurs lots.',
-    ref:'[Guide §5.1.1] | [WELMEC 6.4 §3.2] | [NF X06-030]',
+    ref:'[Guide §V] | [NF X06-030]',
     active:false
   },
   {
@@ -375,7 +375,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-balance-scale-left', title:'Falsification Légale',
     backIcon:'fa-solid fa-gavel', backTitle:'Art. L412-1 C. Conso.',
     body:'Mettre sur le marché un lot dont la <strong>moyenne est &lt; QN</strong> constitue une infraction de "tromperie sur la quantité" punie même sans mauvaise intention. C\'est une infraction objective (résultat, pas intention).',
-    ref:'[C. Conso. Art. L441-1] | [Guide §7] | [Dir. 76/211/CEE]',
+    ref:'[C. Conso. Art. L441-1] | [Guide §III.A.1.1] | [Dir. 76/211/CEE]',
     active:false
   },
   {
@@ -383,7 +383,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-industry', title:'Trieuse : σ max classe X(1)',
     backIcon:'fa-solid fa-chart-column', backTitle:'Limite variabilité IPFA',
     body:'L\'arrêté 10/01/2006 impose un σ_max selon la classe et la charge. Ex. 100 g, classe X(1) : σ_max = 0,3 g. Classe X(0,5) : σ_max = 0,15 g. Mesurer sur 20 passages pour valider.',
-    ref:'[Arr. 10/01/2006 Annexe] | [WELMEC 6.4 §4.1.2]',
+    ref:'[Arr. 10/01/2006] | [Guide §IV.B.2 Tableau 5]',
     active:false
   },
   {
@@ -391,7 +391,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-layer-group', title:'Cumul d\'Échantillons',
     backIcon:'fa-solid fa-plus', backTitle:'Contrôle cumulatif',
     body:'Alternative au test simple : cumuler tous les prélèvements de la fraction horaire. Test final : x̄̄ − g(n_cumulé) × s̄ ≥ QN. Augmente la puissance statistique en fin de lot.',
-    ref:'[Guide §7.B.3] | [WELMEC 6.4 §3.4]',
+    ref:'[Guide §VII.B.1.3]',
     active:false
   },
   {
@@ -399,7 +399,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-box', title:'Composite Emballage',
     backIcon:'fa-solid fa-puzzle-piece', backTitle:'Tare = contenant complet',
     body:'Peser systématiquement le <strong>contenant complet</strong> (pot + couvercle + film + opercule). Oublier un composant sous-estime la tare → surestimation du poids net → risque de sous-dosage caché.',
-    ref:'[Guide §4.3.1] | [WELMEC 6.4 §4.2]',
+    ref:'[Guide §VI.A] | [WELMEC 6.4]',
     active:false
   },
   {
@@ -407,7 +407,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-recycle', title:'Remise en Conformité',
     backIcon:'fa-solid fa-rotate', backTitle:'Lots NC — Options',
     body:'Lot NC en moyenne : <strong>1) mélange</strong> avec lot surdosé (au moins au niveau cartons), <strong>2) complément produit</strong> (reconditionnement), <strong>3) tri</strong> automatique ou manuel. Documenter la décision.',
-    ref:'[Guide §8] | [WELMEC 6.4 §6]',
+    ref:'[Guide §IX.A]',
     active:false
   },
   {
@@ -415,7 +415,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-hashtag', title:'QN ≥ 5 g ou 5 mL',
     backIcon:'fa-solid fa-weight-scale', backTitle:'Champ d\'application',
     body:'La réglementation préemballages s\'applique à partir de <strong>QN ≥ 5 g ou 5 mL</strong> et jusqu\'à 10 kg / 10 L (pour signe <em>e</em>). En-dessous ou au-delà : réglementation spécifique ou négociée.',
-    ref:'[Dir. 76/211/CEE Art. 1] | [Guide §1.1]',
+    ref:'[Dir. 76/211/CEE Art. 1] | [Guide §III.A.1]',
     active:false
   },
   {
@@ -423,7 +423,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-magnifying-glass-plus', title:'Réduction Variabilité',
     backIcon:'fa-solid fa-wrench', backTitle:'Leviers d\'action',
     body:'Pour réduire σ₀ : <strong>1) maintenance préventive</strong> pompe/buse, <strong>2) stabilisation température produit</strong>, <strong>3) réduction vibrations</strong> machine, <strong>4) formation opérateurs</strong>. Mesurer avant/après chaque action.',
-    ref:'[Guide §5.1.3] | [NF X06-030 §5]',
+    ref:'[Guide §V] | [NF X06-030]',
     active:false
   },
   {
@@ -431,7 +431,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-timeline', title:'Journal : Changement d\'Équipe',
     backIcon:'fa-solid fa-users', backTitle:'Continuité du contrôle',
     body:'Chaque changement d\'équipe doit être consigné avec un <strong>prélèvement de validation immédiat</strong>. Un nouveau réglage ou remise en route après arrêt aussi. La continuité documentaire prouve l\'absence d\'interruption.',
-    ref:'[Guide §6.2] | [WELMEC 6.4 §5.2]',
+    ref:'[Guide §III.B.2.5] | [WELMEC 6.4]',
     active:false
   },
   {
@@ -439,7 +439,7 @@ const TIPS_DATA = [
     icon:'fa-solid fa-scale-balanced', title:'Éjection Trieuse',
     backIcon:'fa-solid fa-eject', backTitle:'Vérifier l\'éjection',
     body:'La trieuse doit non seulement <strong>détecter</strong> les défectueux mais aussi les <strong>éjecter efficacement</strong>. Vérifier la redirection physique (bac, volet) lors de chaque vérification. Un défectueux non éjecté est un lot NC non intercepté.',
-    ref:'[Guide §4.1.5] | [Arr. 10/01/2006 §4]',
+    ref:'[Guide §IV.B.2] | [Arr. 10/01/2006]',
     active:false
   }
 
@@ -1029,7 +1029,7 @@ function calcPomPol() {
   const seuilSigma = E / 2.05;
   const sigmaOK = sigma <= seuilSigma;
   // ms = seuil de centrage : critère défectueux, plus critère superdéfectueux si signe 'e'
-  // (Guide DGCCRF §5.1.2 — même règle que CPk)
+  // (Guide DGCCRF §V — même règle que CPk)
   const ms_defect = sigmaOK ? qn : qn - E + 2.05 * sigma;
   const ms = signeE ? Math.max(ms_defect, qn - 2 * E + U * sigma) : ms_defect;
 
@@ -1125,7 +1125,7 @@ function syncSigmaInputs(sourceId) {
 /**
  * Analyse la variabilité des tares et détermine si la tare moyenne est autorisée.
  *
- * Règle réglementaire (Guide DGCCRF §4.3 + WELMEC 6.4 §4.2) :
+ * Règle réglementaire (Guide DGCCRF §VI.A + WELMEC 6.4) :
  *   — Tare MOYENNE autorisée  si : s_t ≤ E/5  (≤ 20% de l'EMTM)
  *   — Tare INDIVIDUELLE oblig. si : s_t  > E/5
  *
@@ -1167,7 +1167,7 @@ function calcTare() {
 
   // ── Calcul réglementaire ──────────────────────────────────────────────────
   const E      = computeEMTM(qn);           // EMTM selon Directive 76/211/CEE
-  const seuil  = E / 5;                     // Seuil légal = E/5 (Guide §4.3)
+  const seuil  = E / 5;                     // Seuil légal = E/5 (Guide §VI.A)
   const isOk   = st <= seuil;               // true → tare moyenne autorisée
   const ratio  = (st / E * 100).toFixed(1); // % de E
 
@@ -1196,7 +1196,7 @@ function calcTare() {
     ${n_tare !== null ? `<tr><td>Nombre d'emballages pesés</td><td>${n_tare} ${n_tare < 20 ? '<span style="color:var(--warning-500);">⚠️ (recommandation : ≥ 20)</span>' : '✓'}</td></tr>` : '<tr><td>Source σ</td><td>Import Excel</td></tr>'}
     ${t_mean !== null ? `<tr><td>Tare moyenne</td><td>${f(t_mean, 3)} g</td></tr>` : ''}
     <tr><td style="color:var(--warning-500);font-weight:700;">Écart-type tares s_t</td><td style="color:var(--warning-500);font-weight:700;">${f(st, 3)} g (${ratio}% de E)</td></tr>
-    <tr style="background:var(--brand-50);color:var(--brand-600);font-weight:700;"><td colspan="2">Règle réglementaire (Guide §4.3)</td></tr>
+    <tr style="background:var(--brand-50);color:var(--brand-600);font-weight:700;"><td colspan="2">Règle réglementaire (Guide §VI.A)</td></tr>
     <tr><td>Seuil légal E/5</td><td>${f(seuil, 3)} g</td></tr>
     <tr><td style="color:var(--${isOk ? 'success' : 'danger'}-500);font-weight:700;">s_t ≤ E/5 ?</td><td style="color:var(--${isOk ? 'success' : 'danger'}-500);font-weight:700;">${f(st, 3)} g ${isOk ? '≤' : '>'} ${f(seuil, 3)} g → ${isOk ? 'OUI' : 'NON'}</td></tr>
   </table>
@@ -1209,7 +1209,7 @@ function calcTare() {
     }
   </div>
   <div class="alert alert--info mt-3">
-    <strong>Références :</strong> Guide DGCCRF §4.3 — WELMEC 6.4 §4.2 — Décret 78-166 Art. 4<br>
+    <strong>Références :</strong> Guide DGCCRF §VI.A — WELMEC 6.4 — Décret 78-166 Art. 4<br>
     <strong>Fréquence de contrôle :</strong> Réévaluer la tare à chaque changement de lot d'emballages ou de format. Conserver les résultats 2 ans minimum (obligatoire avec signe 'e').
   </div>`;
 
@@ -1236,7 +1236,7 @@ function calcTare() {
   document.getElementById('t_result').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   // Stockage rapport texte
-  reports.tare = `RAPPORT GESTION DES TARES — VisiPilot\nDate: ${new Date().toLocaleString('fr-FR')}\nQN: ${f(qn,2)} g | EMTM (E): ${f(E,3)} g\nSeuil légal E/5: ${f(seuil,3)} g\n${n_tare !== null ? 'N pesées: ' + n_tare + '\nTare moyenne: ' + f(t_mean,3) + ' g\n' : ''}Écart-type s_t: ${f(st,3)} g (${ratio}% de E)\nRègle s_t ≤ E/5: ${isOk ? 'OUI — Tare Moyenne AUTORISÉE' : 'NON — Tare Individuelle OBLIGATOIRE'}\nRéf: Guide DGCCRF §4.3 | WELMEC 6.4 §4.2`;
+  reports.tare = `RAPPORT GESTION DES TARES — VisiPilot\nDate: ${new Date().toLocaleString('fr-FR')}\nQN: ${f(qn,2)} g | EMTM (E): ${f(E,3)} g\nSeuil légal E/5: ${f(seuil,3)} g\n${n_tare !== null ? 'N pesées: ' + n_tare + '\nTare moyenne: ' + f(t_mean,3) + ' g\n' : ''}Écart-type s_t: ${f(st,3)} g (${ratio}% de E)\nRègle s_t ≤ E/5: ${isOk ? 'OUI — Tare Moyenne AUTORISÉE' : 'NON — Tare Individuelle OBLIGATOIRE'}\nRéf: Guide DGCCRF §VI.A | WELMEC 6.4`;
 }
 
 
