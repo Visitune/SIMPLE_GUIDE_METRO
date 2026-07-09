@@ -331,13 +331,13 @@
                         <th style="padding:4px 6px; text-align:left; border-bottom:1px solid var(--border);">Diagnostic</th>
                       </tr></thead>
                       <tbody>
-                        <tr><td style="padding:3px 6px; color:#dc2626;">< 0,67</td><td style="padding:3px 6px;">Très insuffisant — &gt; 4,5 % défectueux</td></tr>
-                        <tr style="background:var(--bg-muted);"><td style="padding:3px 6px; color:#d97706;">0,67 – 1,00</td><td style="padding:3px 6px;">Insuffisant — surdosage obligatoire</td></tr>
-                        <tr><td style="padding:3px 6px; color:#ca8a04;">1,00 – 1,33</td><td style="padding:3px 6px;">Acceptable — centrage sur QN possible</td></tr>
-                        <tr style="background:var(--bg-muted);"><td style="padding:3px 6px; color:#16a34a;">1,33 – 1,63</td><td style="padding:3px 6px;">Bon — économie matière envisageable</td></tr>
-                        <tr><td style="padding:3px 6px; color:#0369a1;">≥ 1,63</td><td style="padding:3px 6px;">Excellent — σ ≤ E/2,05, pas de surdosage</td></tr>
+                        <tr><td style="padding:3px 6px; color:#dc2626;">&lt; 0,68</td><td style="padding:3px 6px;">Non conforme — critère des 2 % de défectueux non tenu (z &lt; 2,05) → surdosage obligatoire</td></tr>
+                        <tr style="background:var(--bg-muted);"><td style="padding:3px 6px; color:#16a34a;">≥ 0,68</td><td style="padding:3px 6px;">Critère défectueux tenu (Cpk = z/3 ; z = 2,05 ⇔ 2 % sous TU1)</td></tr>
+                        <tr><td style="padding:3px 6px; color:#16a34a;">≥ U/3 (signe e)</td><td style="padding:3px 6px;">Critère superdéfectueux tenu : 1,03 (N ≤ 1 000) / 1,24 (N ≤ 10 000) / 1,42 (N &gt; 10 000)</td></tr>
+                        <tr style="background:var(--bg-muted);"><td style="padding:3px 6px; color:#0369a1;">1,00 / 1,33</td><td style="padding:3px 6px;">Repères industriels de confort (MSP) — sans valeur réglementaire</td></tr>
                       </tbody>
                     </table>
+                    <p style="font-size:.75rem;margin-top:6px;color:var(--text-muted);">⚠️ σ₀ = E/2,05 avec centrage sur QN correspond à Cpk ≈ 0,68 : c'est le seuil métrologique du critère défectueux — les seuils industriels (1,33…) sont des marges de confort, pas des exigences des textes.</p>
                   </div>
                 </details>
 
@@ -417,6 +417,14 @@
                   </select>
                 </div>
                 <div class="field">
+                  <label class="field__label" for="c_lot_n">Taille du lot N <span class="help-tip" data-tip="Fixe le coefficient U du critère superdéfectueux (signe e)"></span></label>
+                  <select class="select" id="c_lot_n">
+                    <option value="3.09">N ≤ 1 000 (U = 3,09)</option>
+                    <option value="3.71">1 000 &lt; N ≤ 10 000 (U = 3,71)</option>
+                    <option value="4.26">N &gt; 10 000 (U = 4,26)</option>
+                  </select>
+                </div>
+                <div class="field">
                   <label class="field__label">Écart-type &sigma;₀ calculé</label>
                   <input type="text" class="input" id="c_sigma_display" value="Import requis" disabled style="background:var(--bg-muted);">
                   <input type="hidden" id="c_sigma" value="0">
@@ -448,18 +456,18 @@
                 <details open>
                   <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-lightbulb"></i> Principe fondamental</summary>
                   <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
-                    <p>POM et POL mesurent la <strong>réactivité du plan de surveillance</strong> : combien de prélèvements sont nécessaires pour détecter une dérive dangereuse de la machine ?</p>
-                    <p class="mt-2"><strong>POM</strong> (Période Opérationnelle Moyenne) : nombre médian de prélèvements avant détection. Indique la réactivité typique.</p>
-                    <p class="mt-2"><strong>POL</strong> (Période Opérationnelle Limite) : nombre maximal de prélèvements au-delà duquel la dérive <em>doit</em> être détectée avec 95 % de certitude.</p>
-                    <p class="mt-2">Le scénario critique analysé : la moyenne glisse de ms (cible) vers QN (lot NC) — c'est la dérive minimale qui met la conformité en péril.</p>
+                    <p>POM et POl mesurent la <strong>réactivité du plan de surveillance</strong> : combien de prélèvements sont nécessaires pour détecter un déréglage dangereux de la machine ?</p>
+                    <p class="mt-2"><strong>POM</strong> (Période Opérationnelle Moyenne) : nombre d'échantillonnages permettant de déceler un déréglage donné avec une probabilité de 50 %.</p>
+                    <p class="mt-2"><strong>POl</strong> (Période Opérationnelle limite) : nombre d'échantillonnages réalisés en <strong>1 heure de fabrication</strong> (ex. fréquence 15 min → POl = 4). Le déréglage doit être décelé au plus tard au bout d'une heure : <strong>POM ≤ POl</strong>.</p>
+                    <p class="mt-2">Les déréglages analysés sont ceux de l'<strong>Annexe 4 du Guide</strong> : sous-dosage de la cible à m1 = 0,998·QN, dérive à m2 = QN − E + 2,05σ₀ (2 % de défectueux) et hausse de l'écart-type à σ₁.</p>
                   </div>
                 </details>
 
                 <details class="mt-3">
                   <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-scale-balanced"></i> Base réglementaire</summary>
                   <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
-                    <p><strong>Guide DGCCRF 2014 §VII.B.2.3 + Annexe 4</strong> — Tout déréglage susceptible de rendre un lot NC doit être détecté dans un délai ne dépassant pas <strong>1 heure de fabrication</strong> (temps POL ≤ 60 minutes).</p>
-                    <p class="mt-2"><strong>NF X06-031-1 / ISO 7870-2</strong> — Cartes de contrôle aux mesures : définissent les limites de contrôle (LCI/LCS) et les courbes OC (Opérateur Caractéristique) qui fondent le calcul de POM/POL.</p>
+                    <p><strong>Guide DGCCRF 2014 §VII.B.2.3 + Annexe 4</strong> — Tout déréglage susceptible de rendre un lot NC doit être détecté dans un délai ne dépassant pas <strong>1 heure de fabrication</strong> (POM ≤ POl = nombre de prélèvements par heure).</p>
+                    <p class="mt-2"><strong>NF X06-031-1 / ISO 7870-2</strong> — Cartes de contrôle aux mesures : définissent les limites de contrôle (LCI/LCS) et les courbes d'efficacité (caractéristique opérationnelle, « OC curve ») qui fondent les tables de POM.</p>
                     <p class="mt-2"><strong>WELMEC 6.4</strong> — Le plan d'échantillonnage (n, fréquence) doit être dimensionné pour satisfaire l'exigence POL ≤ 1h avant toute mise en production.</p>
                     <p class="mt-2"><strong>Recommandation pratique (Guide §VII.B.1.1 et §VII.B.2.3)</strong> : effectif n entre 7 et 10 unités, calé si possible sur le pas de l'emplisseuse (nb de becs).</p>
                   </div>
@@ -468,37 +476,39 @@
                 <details class="mt-3">
                   <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-calculator"></i> Formules de calcul</summary>
                   <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px; font-family:monospace; font-size:0.79rem; line-height:1.8;">
-                    <strong>LCI</strong> = ms − 3 × σ₀/√n<br>
-                    &nbsp;&nbsp;&nbsp;→ Limite de Contrôle Inférieure de la carte x̄<br><br>
-                    <strong>P</strong> = Φ((LCI − QN) / (σ₀/√n))<br>
-                    &nbsp;&nbsp;&nbsp;→ probabilité de détection en 1 prélèvement<br>
-                    &nbsp;&nbsp;&nbsp;→ Φ = fonction de répartition normale N(0,1)<br><br>
-                    <strong>POM</strong> = 1 / P<br>
-                    &nbsp;&nbsp;&nbsp;→ nb prélèvements pour 50 % de chance de détecter<br><br>
-                    <strong>POL</strong> = log(0,05) / log(1 − P)<br>
-                    &nbsp;&nbsp;&nbsp;→ nb prélèvements pour 95 % de certitude<br>
-                    &nbsp;&nbsp;&nbsp;→ loi géométrique : P(non-détection après k tirages) ≤ 5%<br><br>
-                    <strong>Temps POL</strong> = POL × fréquence (min)<br>
-                    &nbsp;&nbsp;&nbsp;→ doit être ≤ 60 min
+                    <strong>POl</strong> = nb d'échantillonnages par heure<br>
+                    &nbsp;&nbsp;&nbsp;→ ex. fréquence 15 min → POl = 4<br><br>
+                    <strong>Déréglage ① — critère moyenne</strong> :<br>
+                    &nbsp;&nbsp;&nbsp;m1 = 0,998 × QN (et QN − m1 ≥ 0,1 g)<br>
+                    <strong>Déréglage ② — critère défectueux</strong> :<br>
+                    &nbsp;&nbsp;&nbsp;m2 = QN − E + 2,05 × σ₀<br>
+                    <strong>δ√n</strong> = (QC − m) / σ₀ × √n<br>
+                    &nbsp;&nbsp;&nbsp;→ P = Φ(δ√n − 3) ; <strong>POM = 1 / P</strong><br><br>
+                    <strong>Déréglage ③ — carte écart-type</strong> :<br>
+                    &nbsp;&nbsp;&nbsp;σ₁ = (QC − (QN − E)) / 2,05<br>
+                    &nbsp;&nbsp;&nbsp;POM = 1 / P(s &gt; σ₀·(c₄ + 3√(1−c₄²)) | σ₁)<br><br>
+                    <strong>Efficacité correcte</strong> : POM ≤ POl<br>
+                    &nbsp;&nbsp;&nbsp;→ pour chacun des 3 déréglages (Annexe 4)
                   </div>
                 </details>
 
                 <details class="mt-3">
                   <summary style="cursor:pointer; color:var(--brand-600); font-weight:700; font-size:0.88rem; padding:4px 0; list-style:none; display:flex; align-items:center; gap:6px;"><i class="fa-solid fa-sliders"></i> Leviers d'action</summary>
                   <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
-                    <p>Si le temps POL calculé dépasse 60 min, deux leviers :</p>
+                    <p>Si POM &gt; POl pour l'un des déréglages, quatre leviers (Annexe 4) :</p>
                     <table style="width:100%; font-size:0.79rem; border-collapse:collapse; margin-top:6px;">
                       <thead><tr style="background:var(--bg-muted);">
                         <th style="padding:4px 6px; text-align:left; border-bottom:1px solid var(--border);">Levier</th>
-                        <th style="padding:4px 6px; text-align:left; border-bottom:1px solid var(--border);">Effet sur POL</th>
+                        <th style="padding:4px 6px; text-align:left; border-bottom:1px solid var(--border);">Effet</th>
                       </tr></thead>
                       <tbody>
-                        <tr><td style="padding:3px 6px;">↑ Augmenter n</td><td style="padding:3px 6px;">↑ P → ↓ POL (fort effet)</td></tr>
-                        <tr style="background:var(--bg-muted);"><td style="padding:3px 6px;">↓ Réduire fréquence</td><td style="padding:3px 6px;">↓ temps POL directement</td></tr>
-                        <tr><td style="padding:3px 6px;">↓ Réduire σ₀ machine</td><td style="padding:3px 6px;">↑ ms-QN écart → ↑ P → ↓ POL</td></tr>
+                        <tr><td style="padding:3px 6px;">↑ Augmenter n</td><td style="padding:3px 6px;">↑ δ√n → ↓ POM (fort effet)</td></tr>
+                        <tr style="background:var(--bg-muted);"><td style="padding:3px 6px;">↑ Augmenter QC (surdosage k)</td><td style="padding:3px 6px;">↑ δ → ↓ POM (coût matière)</td></tr>
+                        <tr><td style="padding:3px 6px;">↑ Fréquence de prélèvement</td><td style="padding:3px 6px;">↑ POl directement</td></tr>
+                        <tr style="background:var(--bg-muted);"><td style="padding:3px 6px;">↓ Réduire σ₀ machine</td><td style="padding:3px 6px;">↑ δ → ↓ POM (levier durable)</td></tr>
                       </tbody>
                     </table>
-                    <p class="mt-2" style="color:#dc2626;">⛔ Espacer les prélèvements aggrave le temps POL — ne jamais compenser un POL trop long par une fréquence plus rare.</p>
+                    <p class="mt-2" style="color:#dc2626;">⛔ Espacer les prélèvements réduit POl — ne jamais compenser une carte peu efficace par une fréquence plus rare.</p>
                   </div>
                 </details>
 
@@ -507,18 +517,18 @@
                   <div style="padding:8px 0 4px 16px; border-left:3px solid var(--brand-300); margin-top:6px;">
                     <ol style="padding-left:16px; line-height:1.8;">
                       <li>Déterminer σ₀ (depuis l'étude de capabilité CPk)</li>
-                      <li>Calculer ms (seuil de centrage)</li>
+                      <li>Calculer ms (seuil de centrage), puis fixer QC = ms + k</li>
                       <li>Choisir n (7 à 10 unités, calé sur le nb de becs)</li>
-                      <li>Calculer LCI = ms − 3×σ₀/√n</li>
-                      <li>Calculer P et vérifier POL × fréquence ≤ 60 min</li>
-                      <li>Si conforme : formaliser dans la procédure de surveillance</li>
-                      <li>Valider annuellement ou après tout changement machine</li>
+                      <li>Calculer POl = 60 / fréquence (prélèvements par heure)</li>
+                      <li>Vérifier POM ≤ POl pour les 3 déréglages de l'Annexe 4</li>
+                      <li>Sinon : augmenter k (QC), n, la fréquence, ou réduire σ₀</li>
+                      <li>Formaliser dans la procédure ; valider annuellement ou après tout changement machine</li>
                     </ol>
                   </div>
                 </details>
 
                 <div class="alert alert--info mt-3" style="font-size:0.8rem;">
-                  Règle-clé : <strong>Temps POL ≤ 60 min</strong> (Guide DGCCRF §VII.B.2.3, Annexe 4)
+                  Règle-clé : <strong>POM ≤ POl</strong> pour chaque déréglage — détection en ≤ 1 h (Guide DGCCRF §VII.B.2.3, Annexe 4)
                 </div>
               </div>
             </div>
@@ -561,6 +571,25 @@
                 <div class="field">
                   <label class="field__label" for="p_sigma">σ₀ (Capacité machine)</label>
                   <input type="number" class="input" id="p_sigma" value="1.5" step="any">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="p_qc">Quantité cible QC (g) <span class="help-tip" data-tip="QC = ms + k (Annexe 4). Laisser vide pour QC = ms"></span></label>
+                  <input type="number" class="input" id="p_qc" placeholder="auto = ms" step="any">
+                </div>
+                <div class="field">
+                  <label class="field__label" for="p_signe_e">Signe 'e'</label>
+                  <select class="select" id="p_signe_e">
+                    <option value="non">Non</option>
+                    <option value="oui">Oui (Cartes obligatoires)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="p_lot_n">Taille du lot N <span class="help-tip" data-tip="Fixe le coefficient U du critère superdéfectueux (signe e)"></span></label>
+                  <select class="select" id="p_lot_n">
+                    <option value="3.09">N ≤ 1 000 (U = 3,09)</option>
+                    <option value="3.71">1 000 &lt; N ≤ 10 000 (U = 3,71)</option>
+                    <option value="4.26">N &gt; 10 000 (U = 4,26)</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -703,7 +732,7 @@
               <div class="upload-zone" id="tare_upload_zone">
                 <input type="file" class="upload-zone__input" id="tare_file" accept=".xlsx, .xls, .csv" onchange="handleFileUpload(this, 'tare')">
                 <i class="fa-solid fa-cloud-arrow-up upload-zone__icon"></i>
-                <div class="upload-zone__text">Glissez vos 10-20 pesées de tares ici</div>
+                <div class="upload-zone__text">Glissez vos pesées de tares ici (≥ 20 emballages, Guide §VI.A)</div>
                 <div class="upload-zone__filename" id="tare_filename">Aucun fichier sélectionné</div>
               </div>
             </div>
@@ -715,7 +744,7 @@
                   <label class="field__label" for="t_qn">QN Produit (g)</label>
                   <input type="number" class="input" id="t_qn" value="100" min="1" step="any">
                 </div>
-                <label class="field__label" for="t_weights">Poids Tares (séparés par un retour à la ligne ou virgule) <span class="help-tip" data-tip="10 à 20 pesées recommandées"></span></label>
+                <label class="field__label" for="t_weights">Poids Tares — un poids par ligne, virgule décimale acceptée (ex. 12,5) <span class="help-tip" data-tip="≥ 20 pesées d'emballages représentatifs (Guide §VI.A)"></span></label>
                 <textarea class="input" id="t_weights" rows="6" placeholder="Par ex:\n12,5\n12,6\n12,8\n12,4\n..."></textarea>
               </div>
             </div>
@@ -786,12 +815,12 @@
         <p><strong>Règle éliminatoire :</strong> EMT (erreur max balance) en service ≤ 1/5 EMTM</p>
 
         <h4><i class="fa-solid fa-chart-line" style="color:var(--brand-500); margin-right:6px;"></i> Capabilité CPk</h4>
-        <p>Évalue la dispersion de votre doseuse. Si elle disperse trop, vous surdosez pour compenser et éviter T1.</p>
-        <p><strong>Cpk ≥ 1,33</strong> = bon niveau | <strong>Cpk &lt; 0,67</strong> = alerte surdosage majeur</p>
+        <p>Évalue la dispersion de votre doseuse. Si elle disperse trop, vous surdosez pour compenser et éviter TU1.</p>
+        <p><strong>Cpk ≥ 0,68</strong> = critère 2 % de défectueux tenu (z = 2,05) | signe e : <strong>Cpk_super ≥ U/3</strong>. Repère industriel : ≥ 1,33 = marge confortable.</p>
 
         <h4><i class="fa-solid fa-clipboard-list" style="color:var(--brand-500); margin-right:6px;"></i> Plan POM/POL</h4>
         <p>Contrôle par prélèvement destructif / en cours de prod.</p>
-        <p><strong>Recommandation :</strong> L'anomalie de dérive doit être détectée (POL) en moins de 1h.</p>
+        <p><strong>Exigence (Annexe 4) :</strong> POM ≤ POl (nombre de prélèvements par heure) — chaque déréglage officiel détecté en moins d'1 h.</p>
         
         <h4><i class="fa-solid fa-box-open" style="color:var(--brand-500); margin-right:6px;"></i> Tares</h4>
         <p><strong>Tare standard / moyenne autorisée</strong> si s_t ≤ E / 5 (Guide DGCCRF §VI.A).<br>Sinon, pesée individuelle obligatoire.</p>

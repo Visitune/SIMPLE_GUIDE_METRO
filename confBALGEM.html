@@ -693,7 +693,7 @@
         <summary>▸ Table EMTM — Directive 76/211/CEE (Décret 78-166 Art. 4)</summary>
         <table class="ref-table ref-table-wrap">
             <tr><th>Quantité Nominale QN</th><th>EMTM (Erreur Maximale Tolérée en Moins)</th></tr>
-            <tr id="emtm_row_0"><td>QN ≤ 50 g</td><td>9 % de QN</td></tr>
+            <tr id="emtm_row_0"><td>5 g ≤ QN ≤ 50 g</td><td>9 % de QN</td></tr>
             <tr id="emtm_row_1"><td>50 g &lt; QN ≤ 100 g</td><td>4,5 g</td></tr>
             <tr id="emtm_row_2"><td>100 g &lt; QN ≤ 200 g</td><td>4,5 % de QN</td></tr>
             <tr id="emtm_row_3"><td>200 g &lt; QN ≤ 300 g</td><td>9 g</td></tr>
@@ -704,7 +704,7 @@
     </details>
 
     <details class="details-emt details-sum">
-        <summary>▸ Table EMT NAWI selon classe et plage de charge (Décret 91-330 — Tableau 2)</summary>
+        <summary>▸ Table EMT IPFNA selon classe et plage de charge (Décret 91-330 — Tableau 2 du Guide)</summary>
         <table class="ref-table ref-table-wrap">
             <tr><th>Classe</th><th>Plage de charge m</th><th>EMT (neuve)</th><th>EMT en service</th></tr>
             <tr id="emt_row_nawi_I_0"><td rowspan="3">I</td><td>m ≤ 50 000e</td><td>±0,5e</td><td>±1e</td></tr>
@@ -760,14 +760,14 @@
         <h4>Références réglementaires</h4>
         <div class="info-box blue">
             <strong>Formule de seuil ms :</strong> ms = QN si σ ≤ E/2,05, sinon ms = QN − E + 2,05σ (et, si signe e, comparaison avec Uσ).<br>
-            <strong>Interprétation :</strong> Cpk &lt; 0,67 = très insuffisant, 0,67 à 1,00 = insuffisant, 1,00 à 1,33 = acceptable, 1,33 à 1,63 = bon, ≥ 1,63 = excellent.
+            <strong>Interprétation métrologique :</strong> le critère des 2 % de défectueux est tenu si Cpk ≥ 0,68 (= 2,05/3) ; avec signe e, le critère superdéfectueux exige Cpk_super ≥ U/3 (1,03 / 1,24 / 1,42 selon N). Les seuils industriels (1,00 ; 1,33) sont des marges de confort sans valeur réglementaire.
         </div>
         <table class="ref-table">
-            <tr><th>Seuil</th><th>Interprétation opérateur</th></tr>
-            <tr><td>0,67</td><td>Limite basse, le procédé devient fragile</td></tr>
-            <tr><td>1,00</td><td>Minimum pratique pour un centrage acceptable</td></tr>
-            <tr><td>1,33</td><td>Bonne maîtrise statistique</td></tr>
-            <tr><td>1,63</td><td>Très bon niveau de sécurité process</td></tr>
+            <tr><th>Seuil Cpk</th><th>Interprétation</th></tr>
+            <tr><td>0,68</td><td>Seuil métrologique : critère des 2 % de défectueux (z = 2,05) — en dessous, surdosage obligatoire</td></tr>
+            <tr><td>U/3 (signe e)</td><td>Critère superdéfectueux : 1,03 (N ≤ 1 000) / 1,24 (N ≤ 10 000) / 1,42 (N &gt; 10 000)</td></tr>
+            <tr><td>1,00</td><td>Repère industriel — marge correcte</td></tr>
+            <tr><td>1,33</td><td>Repère industriel — marge confortable</td></tr>
         </table>
     </div>
 
@@ -838,7 +838,7 @@
     <div class="reg-context">
         <h4>Pourquoi POM/POL doivent détecter un déréglage en ≤ 1h ?</h4>
         <ul>
-            <li><strong>Exigence légale</strong> : Article 5 de l'arrêté du 20/10/1978 impose la détection rapide des déréglages</li>
+            <li><strong>Exigence</strong> : Article 5 de l'arrêté du 20/10/1978 (cartes de contrôle avec signe e) + Guide DGCCRF Annexe 4 : détection de tout déréglage en ≤ 1 h (POM ≤ POl)</li>
             <li><strong>Risque économique</strong> : Un déréglage non détecté = lot entier non conforme = perte financière</li>
             <li><strong>Fréquence type</strong> : 30 min avec n=10 offre un bon compromis détection/coût ( Guide DGCCRF §VII.B)</li>
         </ul>
@@ -847,9 +847,9 @@
     <div class="card card-blue">
         <h4>Référence : Guide DGCCRF §VII.B — Cartes de contrôle et périodes opérationnelles</h4>
         <p>
-            <strong>POM</strong> = Période Opérationnelle Moyenne : nombre d'échantillonnages pour détecter un déréglage avec probabilité 50%<br>
-            <strong>POL</strong> = Période Opérationnelle Limite : nombre d'échantillonnages maximal pour détecter le déréglage<br>
-            <strong>Objectif réglementaire :</strong> détecter tout déréglage menant à un lot NC dans <strong>≤ 1 heure de fabrication</strong>
+            <strong>POM</strong> = Période Opérationnelle Moyenne : nombre d'échantillonnages pour détecter un déréglage donné avec probabilité 50 %<br>
+            <strong>POl</strong> = Période Opérationnelle limite : nombre d'échantillonnages réalisés en 1 heure de fabrication (ex. fréquence 15 min → POl = 4)<br>
+            <strong>Objectif (Annexe 4) :</strong> POM ≤ POl pour chacun des déréglages officiels (m1 = 0,998·QN ; m2 = QN−E+2,05σ₀ ; hausse de σ) → détection en <strong>≤ 1 heure de fabrication</strong>
         </p>
     </div>
 
@@ -870,6 +870,11 @@
             <label for="p_sigma">Écart-type du processus σ₀ <span class="hint">(g)</span></label>
             <input type="number" id="p_sigma" title="Écart-type du processus de remplissage en grammes" value="1.5" min="0.001" step="any">
             <div class="field-help">Valeur synchronisée avec l’onglet CPk. Si vous la changez ici, elle se répercute aussi ailleurs.</div>
+        </div>
+        <div class="form-group">
+            <label for="p_qc">Quantité cible QC <span class="hint">(g — laisser vide pour QC = ms)</span></label>
+            <input type="number" id="p_qc" title="Quantité cible de fabrication QC = ms + k (Annexe 4)" placeholder="auto = ms" step="any">
+            <div class="field-help">QC = ms + k (k = surdosage d'efficacité, Annexe 4 du Guide). Vide → QC = ms.</div>
         </div>
         <div class="form-group">
             <label for="p_n">Effectif de l'échantillon n <span class="hint">(7–10 recommandé)</span></label>
@@ -1003,10 +1008,11 @@ const NAWI_EMT_THRESHOLDS = {
     'IIII': { s1: 50,    s2: 200,    label: 'Classe IIII (Usage moins exigeant)' }
 };
 
-// EMT IPFA (trieuse) : même structure de plages que NAWI mais référentiel différent (arrêté 10/01/2006)
+// EMT IPFA (trieuse) — Tableau 4 du Guide (arrêté 10/01/2006) : plages 0–500e / 500–2000e / 2000–10000e,
+// identiques quelle que soit la classe (indépendantes du facteur « x »)
 const IPFA_EMT_THRESHOLDS = {
-    'XII':   { s1: 5000, s2: 20000, label: 'Classe XII (trieuse précision standard)' },
-    'XIII':  { s1: 500,  s2: 2000,  label: 'Classe XIII (trieuse usage industriel)' }
+    'XII':   { s1: 500, s2: 2000, label: 'Classe XII (trieuse haute précision)' },
+    'XIII':  { s1: 500, s2: 2000, label: 'Classe XIII (trieuse standard industrielle)' }
 };
 
 // Table des g (Annexe 3 du Guide — t(1-α)/√n à 90%)
@@ -1070,6 +1076,58 @@ function getG(n) {
     if (lo === hi) return G_TABLE[lo];
     const t = (n - lo) / (hi - lo);
     return G_TABLE[lo] + t * (G_TABLE[hi] - G_TABLE[lo]);
+}
+
+function phi(z) {
+    // Fonction de répartition de la loi normale N(0,1) : Φ(z) = ½·(1 + erf(z/√2))
+    // erf approché par Abramowitz & Stegun 7.1.26 (erreur < 1,5×10⁻⁷)
+    const x = Math.abs(z) / Math.SQRT2;
+    const t = 1 / (1 + 0.3275911 * x);
+    const erf = 1 - t * (0.254829592 + t * (-0.284496736 + t * (1.421413741 + t * (-1.453152027 + t * 1.061405429)))) * Math.exp(-x * x);
+    const cdf = 0.5 * (1 + erf);
+    return z >= 0 ? cdf : 1 - cdf;
+}
+
+// Constante c4 de la carte s : c4 = √(2/(n−1))·Γ(n/2)/Γ((n−1)/2)
+function c4(n) {
+    function lnGammaHalf(m) { // ln Γ(m/2) pour m entier ≥ 1
+        let ln = m % 2 === 0 ? 0 : 0.5 * Math.log(Math.PI);
+        for (let k = m - 2; k >= 1; k -= 2) ln += Math.log(k / 2);
+        return ln;
+    }
+    return Math.sqrt(2 / (n - 1)) * Math.exp(lnGammaHalf(n) - lnGammaHalf(n - 1));
+}
+
+// P(χ²(k) > x) — fonction de survie du chi-deux (gamma incomplète régularisée)
+function chi2Sf(x, k) {
+    if (x <= 0) return 1;
+    const a = k / 2, xx = x / 2;
+    function lnGamma(z) { // Lanczos g=7
+        const c = [676.5203681218851, -1259.1392167224028, 771.32342877765313,
+            -176.61502916214059, 12.507343278686905, -0.13857109526572012,
+            9.9843695780195716e-6, 1.5056327351493116e-7];
+        let s = 0.99999999999980993;
+        for (let i = 0; i < 8; i++) s += c[i] / (z + i + 1);
+        const t = z + 7.5;
+        return 0.5 * Math.log(2 * Math.PI) + (z + 0.5) * Math.log(t) - t + Math.log(s) - Math.log(z);
+    }
+    if (xx < a + 1) {
+        let sum = 1 / a, term = sum, ap = a;
+        for (let i = 0; i < 300; i++) {
+            ap += 1; term *= xx / ap; sum += term;
+            if (Math.abs(term) < Math.abs(sum) * 1e-12) break;
+        }
+        return 1 - sum * Math.exp(-xx + a * Math.log(xx) - lnGamma(a));
+    }
+    let b = xx + 1 - a, c_ = 1e300, d = 1 / b, h = d;
+    for (let i = 1; i < 300; i++) {
+        const an = -i * (i - a);
+        b += 2; d = an * d + b; if (Math.abs(d) < 1e-300) d = 1e-300;
+        c_ = b + an / c_; if (Math.abs(c_) < 1e-300) c_ = 1e-300;
+        d = 1 / d; const del = d * c_; h *= del;
+        if (Math.abs(del - 1) < 1e-12) break;
+    }
+    return h * Math.exp(-xx + a * Math.log(xx) - lnGamma(a));
 }
 
 function echelonAdapte(qn, e, type) {
@@ -1195,7 +1253,10 @@ function syncSigmaInputs(sourceId) {
 }
 
 function deriveStatsFromRaw() {
-    const raw = document.getElementById('p_raw_values').value.trim();
+    // Virgule décimale française : si le texte ne contient aucun point,
+    // une virgule entre deux chiffres est un séparateur décimal (12,5 → 12.5)
+    let raw = document.getElementById('p_raw_values').value.trim();
+    if (!raw.includes('.')) raw = raw.replace(/(\d),(?=\d)/g, '$1.');
     const nums = raw
         .split(/[\s,;]+/g)
         .map(v => parseFloat(v))
@@ -1369,7 +1430,7 @@ ${rowInfo('Produit / QN', prod + ' — ' + f(qn,2) + ' g')}
 ${sectionRow('Calculs')}
 ${rowInfo('m/e (ratio charge/échelon)', f(qn/e,1) + ' → Plage : ' + plageLabel)}
 ${rowCritical('EMT (neuve)', '±' + f(emt_data.emt_neuf) + ' g', 'emtm')}
-${rowCritical(type === 'nawi' ? 'EMT en service (×2 — NAWI)' : 'EMT en service (×1 — IPFA, pas de doublement)', '±' + f(emt_service) + ' g', 'emt')}
+${rowCritical(type === 'nawi' ? 'EMT en service (×2 — IPFNA)' : 'EMT en service (×1 — IPFA, pas de doublement)', '±' + f(emt_service) + ' g', 'emt')}
 ${rowCritical('EMTM du produit', f(emtm) + ' g (Directive 76/211/CEE)', 'emtm')}
 ${rowCritical('Seuil 1/5 EMTM', f(emtm5) + ' g', 'threshold', isAdapte ? 'crit-pass' : 'crit-fail')}
 ${rowOK('EMT service ≤ 1/5 EMTM ?', f(emt_service) + ' g ≤ ' + f(emtm5) + ' g → ' + (isAdapte ? 'OUI' : 'NON'), isAdapte)}
@@ -1378,7 +1439,7 @@ ${rowOK('Échelon e adapté à QN ?', echelonOK ? 'OUI' : 'NON (voir Tableau 1/3
 ${buildComparisonBar(emt_service, emtm5, 'EMT service', '1/5 EMTM')}
 ${emtApplicableNote ? `<div class="info-box blue">${emtApplicableNote}</div>` : ''}
 ${qnOutOfScope ? '<div class="info-box bad">⚠️ Hors domaine : QN dépasse 10 000 g — calcul indicatif uniquement.</div>' : ''}
-${!(isAdapte && echelonOK) ? '<div class="info-box ' + (isAdapte ? 'blue' : 'bad') + '"><strong>Actions recommandées :</strong> ' + (isAdapte ? 'Vérifiez l'échelon e au regard du tableau réglementaire.' : 'Utiliser une balance de classe supérieure, ou augmenter le QN, ou choisir un échelon e plus petit.') + '</div>' : ''}
+${!(isAdapte && echelonOK) ? '<div class="info-box ' + (isAdapte ? 'blue' : 'bad') + '"><strong>Actions recommandées :</strong> ' + (isAdapte ? 'Vérifiez l\'échelon e au regard du tableau réglementaire.' : 'Utiliser une balance de classe supérieure, ou augmenter le QN, ou choisir un échelon e plus petit.') + '</div>' : ''}
 `;
 
     const both = isAdapte && echelonOK;
@@ -1416,7 +1477,7 @@ CALCULS
 -------
 Ratio m/e          : ${f(qn/e,1)}  → Plage : ${plageLabel}
 EMT neuve          : ±${f(emt_data.emt_neuf)} g
-EMT en service     : ±${f(emt_service)} g${type === 'nawi' ? ' (= 2 × EMT neuve — règle NAWI)' : ' (= EMT nominale — IPFA, pas de doublement)'}
+EMT en service     : ±${f(emt_service)} g${type === 'nawi' ? ' (= 2 × EMT neuve — règle IPFNA)' : ' (= EMT nominale — IPFA, pas de doublement)'}
 EMTM produit       : ${f(emtm)} g
 1/5 EMTM           : ${f(emtm5)} g
 
@@ -1463,40 +1524,35 @@ function calcCpk() {
     const Cpk_super   = signeE ? (mu - seuil_superdef) / (3 * sigma) : null;
     const Cpk         = Cpk_super !== null ? Math.min(Cpk_lower, Cpk_super) : Cpk_lower;
 
-    // Taux de défectueux estimé (loi normale)
-    // P(X < QN-E) = Phi(-(mu-(QN-E))/(sigma)) = Phi(-Cpk_lower*3)
-    function phi(z) {
-        // Approximation loi normale cumulative
-        const t = 1 / (1 + 0.3275911 * Math.abs(z));
-        const poly = t * (0.254829592 + t * (-0.284496736 + t * (1.421413741 + t * (-1.453152027 + t * 1.061405429))));
-        const cdf = 1 - poly * Math.exp(-z * z / 2);
-        return z >= 0 ? cdf : 1 - cdf;
-    }
+    // Taux de défectueux estimé (loi normale) — phi() globale (Φ exacte à 1,5×10⁻⁷)
     const z_defect  = (mu - seuil_defect) / sigma;
     const pct_defect = (1 - phi(z_defect)) * 100;
     const z_super    = signeE ? (mu - seuil_superdef) / sigma : null;
     const pct_super  = signeE ? (1 - phi(z_super)) * 100 : null;
 
-    // Verdict
+    // Verdict — seuils MÉTROLOGIQUES dérivés des textes :
+    //  critère défectueux 2 % (z = 2,05)       → Cpk_lower ≥ 2,05/3 ≈ 0,68
+    //  critère superdéfectueux signe e (z = U) → Cpk_super ≥ U/3 (1,03 / 1,24 / 1,42 selon N)
     const surplus    = mu - ms; // surdosage actuel par rapport au seuil requis
     const msOK       = mu >= ms;
-    const cpkGlobal  = Cpk >= (sigmaOK ? 1.00 : 0.683);
+    const CPK_MIN_DEFECT = 2.05 / 3;
+    const cpkSuperMin = signeE ? U / 3 : null;
+    const reglOK = Cpk_lower >= CPK_MIN_DEFECT && (!signeE || Cpk_super >= cpkSuperMin);
 
     // Gauge position (Cpk de 0 à 2, clamp)
     const gaugePos = Math.min(Math.max(Cpk / 2, 0), 1) * 100;
 
     let interp;
-    if (Cpk < 0.67)      interp = { label: 'Très insuffisant — surdosage impératif, envisager amélioration machine', cls: 'nok' };
-    else if (Cpk < 1.00) interp = { label: 'Insuffisant — surdosage nécessaire', cls: 'warn' };
-    else if (Cpk < 1.33) interp = { label: 'Acceptable — vigilance requise, centrage sur QN possible', cls: 'warn' };
-    else if (Cpk < 1.63) interp = { label: 'Bon — faible risque de défectueux', cls: 'ok' };
-    else                 interp = { label: 'Excellent — centrage sur QN sans surdosage', cls: 'ok' };
+    if (!reglOK)         interp = { label: 'Non conforme aux critères métrologiques — surdosage ou amélioration machine requis', cls: 'nok' };
+    else if (Cpk < 1.00) interp = { label: 'Conforme aux critères métrologiques — marge faible (bonne pratique : viser ≥ 1,33)', cls: 'warn' };
+    else if (Cpk < 1.33) interp = { label: 'Conforme — marge correcte', cls: 'ok' };
+    else                 interp = { label: 'Conforme — marge confortable', cls: 'ok' };
 
     setVerdictStrip(
         'c_verdict',
-        Cpk >= 1.33 && msOK ? 'ok' : Cpk >= 1.00 ? 'warn' : 'nok',
-        Cpk >= 1.33 && msOK ? 'Cpk satisfaisant' : Cpk >= 1.00 ? 'Cpk limite' : 'Cpk insuffisant',
-        `${interp.label}. Seuil σ = ${f(seuilSigma)} g, ms = ${f(ms)} g.`
+        reglOK && msOK ? (Cpk >= 1.00 ? 'ok' : 'warn') : 'nok',
+        reglOK && msOK ? 'Capabilité conforme' : 'Capabilité insuffisante',
+        `${interp.label}. Seuil réglementaire Cpk ≥ ${f(CPK_MIN_DEFECT,2)}${signeE ? ' et Cpk_super ≥ ' + f(cpkSuperMin,2) : ''}, ms = ${f(ms)} g.`
     );
 
     const html = `
@@ -1507,11 +1563,10 @@ function calcCpk() {
     </div>
     <div class="cpk-labels">
         <span><strong>0</strong><em>non mesuré</em></span>
-        <span><strong>0,67</strong><em>limite basse</em></span>
-        <span><strong>1,00</strong><em>minimum pratique</em></span>
-        <span><strong>1,33</strong><em>bon niveau</em></span>
-        <span><strong>1,63</strong><em>très bon</em></span>
-        <span><strong>2,0</strong><em>excellent</em></span>
+        <span><strong>0,68</strong><em>seuil 2 % défect.</em></span>
+        <span><strong>1,00</strong><em>marge correcte</em></span>
+        <span><strong>1,33</strong><em>confortable</em></span>
+        <span><strong>2,0</strong><em>&nbsp;</em></span>
     </div>
 </div>
 <table>
@@ -1522,10 +1577,10 @@ ${signeE ? rowCritical('Seuil superdéfectueux TU2 (QN−2E)', f(seuil_superdef)
 ${rowInfo('Écart-type processus σ₀', f(sigma) + ' g')}
 ${rowInfo('Seuil σ critique (E/2,05)', f(seuilSigma) + ' g')}
 ${rowOK('σ ≤ E/2,05 (centrage sur QN possible)', sigmaOK ? 'OUI' : 'NON — surdosage obligatoire', sigmaOK)}
-${sectionRow('Indices de capabilité')}
+${sectionRow('Indices de capabilité vs critères métrologiques')}
 ${rowInfo('Cp (symétrique)', f(Cp,3))}
-${rowInfo('Cpk inférieur (critère défectueux)', f(Cpk_lower,3))}
-${signeE ? rowInfo('Cpk superdéfectueux', f(Cpk_super,3)) : ''}
+${rowOK('Cpk inférieur ≥ 0,68 (critère 2 % défectueux, z = 2,05)', f(Cpk_lower,3) + ' → ' + (Cpk_lower >= CPK_MIN_DEFECT ? 'OUI' : 'NON'), Cpk_lower >= CPK_MIN_DEFECT)}
+${signeE ? rowOK('Cpk superdéfectueux ≥ ' + f(cpkSuperMin,2) + ' (z = U = ' + f(U,2) + ')', f(Cpk_super,3) + ' → ' + (Cpk_super >= cpkSuperMin ? 'OUI' : 'NON'), Cpk_super >= cpkSuperMin) : ''}
 ${rowInfo('Cpk global retenu', f(Cpk,3))}
 ${sectionRow(`Centrage actuel (μ = ${f(mu)} g)`)}
 ${rowInfo('Seuil de centrage ms requis (sans surdosage)', f(ms_defect) + ' g')}
@@ -1619,67 +1674,65 @@ function calcPomPol() {
     const g     = getG(n);
     const seuilSigma = E / 2.05;
     const sigmaOK = sigma <= seuilSigma;
-    const ms    = sigmaOK ? qn : qn - E + 2.05 * sigma;
+    const ms_defect = sigmaOK ? qn : qn - E + 2.05 * sigma;
+    const ms    = signeE ? Math.max(ms_defect, qn - 2 * E + U * sigma) : ms_defect;
+
+    // Quantité cible QC = ms + k (k = surdosage d'efficacité, Annexe 4) ; défaut : QC = ms
+    const qcInput = parseFloat(document.getElementById('p_qc').value);
+    const QC   = !isNaN(qcInput) && qcInput > 0 ? qcInput : ms;
+    const kSur = QC - qn;
+    const qcOK = QC >= ms - 1e-9;
 
     // Test de la moyenne (critère emplisseur — risque β)
     const test_val   = xbar - g * s;
     const testOK     = test_val >= qn;
     const testMargin = test_val - qn;
 
-    // Limites cartes de contrôle (σ₀ connu)
-    const lc_upper  = ms + 3 * sigma / Math.sqrt(n);
-    const ls_upper  = ms + 2 * sigma / Math.sqrt(n);
-    const ls_lower  = ms - 2 * sigma / Math.sqrt(n);
-    const lc_lower  = ms - 3 * sigma / Math.sqrt(n);
+    // Limites cartes de contrôle, centrées sur QC (σ₀ connu — NF X06-031-1)
+    const lc_upper  = QC + 3 * sigma / Math.sqrt(n);
+    const ls_upper  = QC + 2 * sigma / Math.sqrt(n);
+    const ls_lower  = QC - 2 * sigma / Math.sqrt(n);
+    const lc_lower  = QC - 3 * sigma / Math.sqrt(n);
 
-    // POM / POL — efficacité de la carte de contrôle pour détecter un déréglage δ vers ms→QN (déréglage = QN - ms)
-    // Pour une dérive de Δ (en unités de σ/√n), P(détection en 1 échantillon) = 1 - β
-    // POM ≈ 1 / (1 - β),  POL ≈ 3 × POM (ordre de grandeur pratique)
-    // On calcule pour le déréglage "critique" : δ = (QN - lc_lower) / (σ/√n)
-    // Approximation : si déréglage descend la moyenne exactement à QN :
-    //   Z = (lc_lower - QN) / (σ/√n), P(detect) = P(Z < z_lc_lower)
-    // On utilise phi() déjà définie
-    function phi(z) {
-        const t = 1 / (1 + 0.3275911 * Math.abs(z));
-        const poly = t * (0.254829592 + t * (-0.284496736 + t * (1.421413741 + t * (-1.453152027 + t * 1.061405429))));
-        const cdf = 1 - poly * Math.exp(-z * z / 2);
-        return z >= 0 ? cdf : 1 - cdf;
-    }
+    // ── Efficacité selon l'Annexe 4 du Guide DGCCRF 2014 ──
+    // POl = nombre d'échantillonnages par heure (ex. toutes les 15 min → POl = 4)
+    const POl = Math.floor(60 / freq);
+    const freqOK = freq <= 60 && POl >= 1;
+    // Déréglage ① — carte moyenne, critère de la moyenne : m1 = 0,998·QN (QN − m1 ≥ 0,1 g)
+    const m1 = Math.min(0.998 * qn, qn - 0.1);
+    const delta1 = (QC - m1) / sigma;
+    const P1 = phi(delta1 * Math.sqrt(n) - 3);
+    const POM1 = P1 > 0 ? 1 / P1 : Infinity;
+    // Déréglage ② — carte moyenne, critère des défectueux : m2 = QN − E + 2,05·σ₀
+    const m2 = qn - E + 2.05 * sigma;
+    const delta2 = (QC - m2) / sigma;
+    const P2 = phi(delta2 * Math.sqrt(n) - 3);
+    const POM2 = P2 > 0 ? 1 / P2 : Infinity;
+    // Déréglage ③ — carte écart-type, critère des défectueux : σ₁ = (QC − (QN−E)) / 2,05
+    const sigma1 = (QC - (qn - E)) / 2.05;
+    const c4n = c4(n);
+    const UCLs = sigma * (c4n + 3 * Math.sqrt(1 - c4n * c4n));
+    const P3 = sigma1 > 0 ? chi2Sf((n - 1) * Math.pow(UCLs / sigma1, 2), n - 1) : 0;
+    const POM3 = P3 > 0 ? 1 / P3 : Infinity;
 
-    // Probabilité de détecter en 1 prélèvement si déréglage vers QN (cible descend de ms à QN)
-    // La LCI est à ms - 3σ/√n ; si la vraie moyenne devient QN :
-    const delta_n   = (ms - qn) / (sigma / Math.sqrt(n)); // déréglage en unités σ/√n
-    const z_detect  = (ms - 3 * sigma / Math.sqrt(n) - qn) / (sigma / Math.sqrt(n));
-    // P(x̄ < LCI | vraie moy = QN) = phi(z_detect)
-    const beta1    = 1 - phi(z_detect); // prob de NE PAS détecter
-    const pDetect1 = phi(z_detect);      // prob de détecter en 1 prélèvement
-
-    const POM = pDetect1 > 0 && pDetect1 < 1 ? Math.round(1 / pDetect1) : (pDetect1 >= 1 ? 1 : Infinity);
-    const POL = pDetect1 > 0 && pDetect1 < 1
-        ? Math.round(Math.log(0.05) / Math.log(1 - pDetect1))  // 95% confiance
-        : (pDetect1 >= 1 ? 1 : Infinity);
-
-    const pomHours = POM !== Infinity ? f(POM * freq / 60, 2) : '∞';
-    const polHours = POL !== Infinity ? f(POL * freq / 60, 2) : '∞';
-    const polOK    = POL !== Infinity && (POL * freq / 60) <= 1.0;
-
-    // Validation de la fréquence
-    const freqOK = freq <= 60;
+    const eff1 = POM1 <= POl, eff2 = POM2 <= POl, eff3 = POM3 <= POl;
+    const effOK = eff1 && eff2 && eff3;
+    const pomMax = Math.max(POM1, POM2, POM3);
+    const fPOM = (v) => v === Infinity || v > 9999 ? '> 9999' : f(v, 1);
 
     // Recommandations
     const nOK     = n >= 7 && n <= 10;
-    const echanOK = freqOK;
     const nTarget = n < 7 ? 7 : (n < 10 ? 10 : n);
-    const freqTarget = POL !== Infinity ? Math.max(5, Math.floor(60 / POL)) : 5;
     renderGTable(n);
+    const overallOK = testOK && effOK && freqOK && qcOK;
     setVerdictStrip(
         'p_verdict',
-        testOK && polOK && freqOK ? 'ok' : testOK ? 'warn' : 'nok',
-        testOK && polOK && freqOK ? 'Plan conforme' : testOK ? 'Plan à optimiser' : 'Test non conforme',
+        overallOK ? 'ok' : testOK ? 'warn' : 'nok',
+        overallOK ? 'Plan conforme (Annexe 4)' : testOK ? 'Plan à optimiser' : 'Test non conforme',
         testOK
-            ? (polOK && freqOK
-                ? `Test moyenne OK, POM/POL conformes et fréquence compatible (n = ${n}).`
-                : `Test moyenne OK mais POM/POL ou fréquence restent insuffisants.`
+            ? (overallOK
+                ? `Test moyenne OK et POM ≤ POl pour les 3 déréglages (POM max = ${fPOM(pomMax)}, POl = ${POl}).`
+                : `Test moyenne OK mais efficacité de carte insuffisante (POM max = ${fPOM(pomMax)} vs POl = ${POl}).`
               )
             : `Le critère x̄ − g·s ≥ QN n'est pas atteint.`
     );
@@ -1703,7 +1756,7 @@ ${rowOK('Test x̄ − g·s ≥ QN', testOK ? `OUI (marge : +${f(testMargin,4)} g
 
 <h4 class="h4-my14-8">③ Limites de la carte de contrôle de la moyenne</h4>
 <div class="info-box blue info-box-mb">
-    Calculées avec σ₀ = ${f(sigma)} g, n = ${n}, ms = ${f(ms)} g<br>
+    Calculées avec σ₀ = ${f(sigma)} g, n = ${n}, carte centrée sur QC = ${f(QC)} g<br>
     Référence : NF X06-031-1 / ISO 7870-2
 </div>
 <table>
@@ -1711,7 +1764,7 @@ ${sectionRow('Limites de la carte de contrôle de la moyenne')}
 ${rowInfo('Seuil σ critique (E/2,05)', f(seuilSigma) + ' g')}
 ${rowOK('σ₀ ≤ E/2,05', sigmaOK ? 'OUI' : 'NON', sigmaOK)}
 ${rowInfo('Seuil de centrage ms', f(ms) + ' g')}
-${rowInfo('QC (quantité cible ≥ ms + k)', f(ms) + ' g + k (voir Annexe 4 guide)')}
+${rowOK('Quantité cible QC = ms + k', f(QC) + ' g (k = ' + f(kSur,3) + ' g) → ' + (qcOK ? 'OK' : 'QC < ms !'), qcOK)}
 ${rowInfo('Limite de contrôle supérieure (LCS)', f(lc_upper,4) + ' g')}
 ${rowInfo('Limite de surveillance supérieure (LSS)', f(ls_upper,4) + ' g')}
 ${rowInfo('Limite de surveillance inférieure (LSI)', f(ls_lower,4) + ' g')}
@@ -1721,40 +1774,39 @@ ${rowInfo('Limite de contrôle inférieure (LCI)', f(lc_lower,4) + ' g')}
     ⚠️ La valeur TU1 = ${f(qn-E)} g (QN−E) ne doit <strong>jamais</strong> être utilisée comme limite de carte de contrôle (Guide §VII.B.2.2).
 </div>
 
-${sectionRow('Période opérationnelle — Efficacité de la carte')}
+${sectionRow('Efficacité de la carte — Annexe 4 du Guide (POM ≤ POl)')}
 <div class="info-box blue info-box-mb">
-    Calcul pour un déréglage critique : μ → QN (descente de ms vers QN = ${f(delta_n,2)} σ/√n)
+    POl = ${POl} échantillonnage(s) par heure (fréquence ${f(freq,0)} min). Chaque déréglage officiel de l'Annexe 4 doit être décelé en ≤ 1 h : POM ≤ POl.
 </div>
 <table>
-${rowInfo('Déréglage critique Δ (ms→QN)', f(ms - qn,4) + ' g = ' + f(delta_n,2) + ' σ/√n')}
-${rowInfo('Probabilité de détecter en 1 prélèvement', f(pDetect1*100,2) + ' %')}
-${rowInfo('POM (prob. 50%)', POM === Infinity ? '∞ — plan insuffisant' : POM + ' prélèvement(s)')}
-${rowInfo('POL (95% de confiance)', POL === Infinity ? '∞ — plan insuffisant' : POL + ' prélèvement(s)')}
-${rowInfo('Temps POM avec fréquence ' + f(freq,0) + ' min', POM === Infinity ? '∞' : pomHours + ' h')}
-${rowOK('Temps POL ≤ 1 heure (objectif DGCCRF)', POL === Infinity ? 'Plan insuffisant' : polHours + ' h → ' + (polOK?'OUI':'NON'), polOK)}
+${rowOK('① Critère moyenne : m1 = 0,998·QN = ' + f(m1,2) + ' g (δ√n = ' + f(delta1*Math.sqrt(n),2) + ')', 'POM = ' + fPOM(POM1) + ' → ' + (eff1 ? 'efficace' : 'INSUFFISANT'), eff1)}
+${rowOK('② Critère défectueux : m2 = QN−E+2,05σ₀ = ' + f(m2,2) + ' g (δ√n = ' + f(delta2*Math.sqrt(n),2) + ')', 'POM = ' + fPOM(POM2) + ' → ' + (eff2 ? 'efficace' : 'INSUFFISANT'), eff2)}
+${rowOK('③ Carte écart-type : σ₁ = (QC−TU1)/2,05 = ' + f(sigma1,2) + ' g (σ₁/σ₀ = ' + f(sigma1/sigma,2) + ')', 'POM = ' + fPOM(POM3) + ' → ' + (eff3 ? 'efficace' : 'INSUFFISANT'), eff3)}
 ${rowOK('Fréquence ≤ 60 min', freq + ' min → ' + (freqOK?'OUI':'NON'), freqOK)}
 ${rowOK('Effectif n recommandé (7–10)', n + ' → ' + (nOK?'OUI':'Hors recommandation'), nOK)}
 ${rowOK('Signe « e » → Cartes obligatoires', signeE ? 'OUI — Vérifier NF X06-031-1' : 'Cartes facultatives (recommandées)', true)}
 </table>
+<div class="info-box info-box-mt8">
+    POM calculées analytiquement (carte de Shewhart, limites 3σ) — les tables NF X06-031-1 peuvent différer légèrement ; l'exemple chiffré de l'Annexe 4 du Guide est reproduit à ≈ 5 % près avec les mêmes verdicts.
+</div>
 <div class="info-box blue">
-    <strong>Actions recommandées :</strong>
+    <strong>Actions recommandées (Annexe 4) :</strong>
     ${testOK
-        ? (polOK && freqOK
+        ? (effOK && freqOK
             ? `Plan robuste. Si besoin, gardez n entre 7 et 10 et surveillez la dérive de μ.`
-            : `Augmentez n vers ${nTarget} si possible, ou réduisez la fréquence à environ ${f(freqTarget, 0)} min.`
+            : `Augmentez n vers ${nTarget}, augmentez la quantité cible QC (surdosage k), resserrez la fréquence de prélèvement ou réduisez σ₀.`
           )
         : `Augmentez n de ${n} à ${nTarget} ou réduisez l'écart-type s / la variabilité du process.`
     }
 </div>
-<div class="conclusion ${testOK && polOK && freqOK ? 'ok' : testOK ? 'warn' : 'nok'}">
+<div class="conclusion ${overallOK ? 'ok' : testOK ? 'warn' : 'nok'}">
 ${testOK
-    ? polOK && freqOK
-        ? '✅ Plan conforme : test de moyenne OK + détection déréglage dans ≤ 1h'
-        : '⚠️ Test de moyenne OK — mais plan d\'échantillonnage insuffisant pour détecter le déréglage dans 1h'
+    ? overallOK
+        ? '✅ Plan conforme : test de moyenne OK + chaque déréglage de l\'Annexe 4 détecté en ≤ 1 h'
+        : '⚠️ Test de moyenne OK — mais efficacité de carte insuffisante (POM > POl pour au moins un déréglage)'
     : '❌ Test de moyenne NON CONFORME — la partie de lot contrôlée ne satisfait pas au critère x̄ − g·s ≥ QN'}
 </div>`;
 
-    const overallOK = testOK && polOK && freqOK;
     document.getElementById('p_result_hdr').textContent = overallOK
         ? '✅ Plan d\'échantillonnage CONFORME'
         : testOK ? '⚠️ Test OK — Plan à optimiser' : '❌ Test de moyenne NON CONFORME';
@@ -1789,32 +1841,34 @@ g(n=${n})  = ${f(g,3)}
 x̄ - g·s = ${f(test_val,4)} g  ${testOK?'≥':'<'}  ${f(qn,2)} g (QN)
 Test : ${testOK ? 'CONFORME' : 'NON CONFORME'}
 
-LIMITES CARTE DE CONTRÔLE (σ₀ = ${f(sigma)} g, ms = ${f(ms)} g)
+LIMITES CARTE DE CONTRÔLE (σ₀ = ${f(sigma)} g, ms = ${f(ms)} g, QC = ${f(QC)} g, k = ${f(kSur,3)} g)
 LCS : ${f(lc_upper,4)} g
 LSS : ${f(ls_upper,4)} g
 LSI : ${f(ls_lower,4)} g
 LCI : ${f(lc_lower,4)} g
 
-PÉRIODES OPÉRATIONNELLES
-P(détecter en 1 prélèv.) : ${f(pDetect1*100,2)} %
-POM : ${POM === Infinity ? '∞' : POM + ' prélèv. (' + pomHours + ' h)'}
-POL : ${POL === Infinity ? '∞' : POL + ' prélèv. (' + polHours + ' h)'}
+EFFICACITÉ (ANNEXE 4) — POl = ${POl} prélèv./h
+① Critère moyenne    m1 = ${f(m1,2)} g → POM = ${fPOM(POM1)} (${eff1?'efficace':'insuffisant'})
+② Critère défectueux m2 = ${f(m2,2)} g → POM = ${fPOM(POM2)} (${eff2?'efficace':'insuffisant'})
+③ Carte écart-type   σ₁ = ${f(sigma1,2)} g → POM = ${fPOM(POM3)} (${eff3?'efficace':'insuffisant'})
+
 RÉFÉRENCES
 ----------
 g(n) = valeur issue de l'Annexe 3 pour l'effectif n
-LCS/LSS/LSI/LCI calculées avec σ₀ et ms = seuil de centrage retenu
+Déréglages m1/m2/σ₁ et POM ≤ POl : Guide DGCCRF 2014, Annexe 4
+LCS/LSS/LSI/LCI calculées avec σ₀, carte centrée sur QC
 
 ACTION
 ------
 ${testOK
-    ? (polOK && freqOK
+    ? (effOK && freqOK
         ? 'Plan robuste : conserver la surveillance et réévaluer si la variabilité change.'
-        : `Augmenter n vers ${nTarget} et/ou réduire la fréquence à environ ${f(freqTarget,0)} min.`
+        : `Augmenter n vers ${nTarget}, augmenter QC (surdosage k) ou resserrer la fréquence.`
       )
     : `Augmenter n de ${n} à ${nTarget} ou réduire la variabilité du process avant mise en route.`
 }
 
-POL ≤ 1h : ${polOK ? 'OUI' : 'NON'}`;
+POM ≤ POl (détection ≤ 1 h) : ${effOK ? 'OUI' : 'NON'}`;
 }
 
 // ── TÉLÉCHARGEMENT RAPPORT ────────────────────────────

@@ -30,10 +30,10 @@ Les industriels qui conditionnent des produits alimentaires, cosmétiques ou mé
 ### 2. Adéquation Balance
 - Supporte les **IPFNA** (balances non automatiques, Décret 91-330 / Dir. 2014/31/UE) et les **IPFA** (trieuses pondérales, Arrêté 10/01/2006 / Dir. 2014/32/UE)
 - Calcul de l'EMT selon la plage de charge réelle (pas de simplification à 0,5e)
-- Pour les NAWI : **EMT service = 2 × EMT neuve** (règle légale souvent méconnue)
+- Pour les IPFNA : **EMT service = 2 × EMT neuve** (règle légale souvent méconnue)
 - Pour les IPFA : EMT service = EMT nominale (pas de doublement)
 - Vérification de la **règle du 1/5** : EMT service ≤ EMTM / 5
-- Vérification de l'adéquation de l'échelon e à la QN (tableaux WELMEC 6.4)
+- Vérification de l'adéquation de l'échelon e à la QN (Tableaux 1 et 3 du Guide DGCCRF — arrêté 20/10/1978 et WELMEC 6.4)
 - Rapport téléchargeable (.txt)
 
 ### 3. Capabilité CPk
@@ -43,23 +43,22 @@ Les industriels qui conditionnent des produits alimentaires, cosmétiques ou mé
 - Prise en compte du **signe « e »** : critère superdéfectueux (TU2 = QN − 2E) en plus du critère défectueux (TU1 = QN − E)
 - Calcul du **seuil de centrage ms** et de la quantité cible QC
 - Seuil critique : σ₀ ≤ E/2,05 → centrage sur QN sans surdosage
-- Table d'interprétation Cpk (< 0,67 / 0,67–1,00 / 1,00–1,33 / 1,33–1,63 / ≥ 1,63)
+- Seuils métrologiques dérivés des textes : Cpk ≥ 0,68 (critère 2 % défectueux, z = 2,05) ; signe e : Cpk_super ≥ U/3 (1,03 / 1,24 / 1,42 selon N) — repères industriels (1,00/1,33) en mention secondaire
 - Rapport téléchargeable
 
 ### 4. Plan POM/POL
-- Calcul de la **Période Opérationnelle Moyenne (POM)** et de la **Période Opérationnelle Limite (POL)**
-- Basé sur la loi géométrique : POL = log(0,05) / log(1 − P)
-- Scénario critique : dérive de μ depuis ms vers QN (lot non conforme)
-- Vérification de l'exigence réglementaire : **Temps POL ≤ 60 minutes**
+- Efficacité du plan selon l'**Annexe 4 du Guide DGCCRF 2014** : POM ≤ POl (POl = nombre d'échantillonnages par heure)
+- Les trois déréglages officiels : m1 = 0,998·QN (critère moyenne), m2 = QN − E + 2,05σ₀ (critère défectueux), hausse de σ (carte écart-type)
+- POM calculées analytiquement (carte de Shewhart / loi du χ²) — l'exemple chiffré de l'Annexe 4 est reproduit à ≈ 5 % près avec les mêmes verdicts
+- Quantité cible QC = ms + k ajustable (surdosage d'efficacité k)
 - Table des valeurs de g (Annexe 3 du Guide DGCCRF, seuil α = 10 %)
-- Paramètres ajustables : QN, effectif n, fréquence (min), σ₀
 - Import des pesées du prélèvement pour test de conformité x̄ − g×s ≥ QN
 - Rapport téléchargeable
 
 ### 5. Gestion des Tares
-- Import des pesées d'emballages vides (10 à 20 unités recommandées)
+- Import des pesées d'emballages vides (≥ 20 emballages représentatifs, Guide §VI.A)
 - Calcul de la moyenne t̄ et de l'écart-type s_t
-- Application de la **règle E/5** (Guide DGCCRF §4.3 | WELMEC 6.4 §4.2)
+- Application de la **règle E/5** (Guide DGCCRF §VI.A | WELMEC 6.4)
 - Verdict : tare moyenne autorisée (s_t ≤ E/5) ou tare individuelle obligatoire (s_t > E/5)
 - Barre de comparaison visuelle s_t vs seuil
 - Rapport téléchargeable
@@ -73,15 +72,15 @@ Les industriels qui conditionnent des produits alimentaires, cosmétiques ou mé
 | **Directive 76/211/CEE** | Spécifications métrologiques des lots (EMTM, 3 critères) |
 | **Décret 78-166 du 31/01/1978** | Contrôle métrologique des préemballages |
 | **Arrêté du 20/10/1978** | Plans de contrôle officiels |
-| **Décret 91-330 du 27/03/1991** | Instruments à plateaux non automatiques (IPFNA) |
+| **Décret 91-330 du 27/03/1991** | Instruments de pesage à fonctionnement non automatique (IPFNA) |
 | **Arrêté du 10/01/2006** | Instruments de pesage à fonctionnement automatique (IPFA/trieuses) |
-| **Directive 2014/31/UE (NAWI)** | Instruments non automatiques — remplace 90/384/CEE |
+| **Directive 2014/31/UE (IPFNA / « NAWI »)** | Instruments de pesage non automatiques — remplace 90/384/CEE |
 | **Directive 2014/32/UE (MID/AWI)** | Instruments automatiques |
 | **Guide DGCCRF 2014** | Guide de bonnes pratiques d'autocontrôle métrologique |
 | **WELMEC 6.4** | Guide emplisseurs / importateurs (préemballages signe « e ») |
 | **WELMEC 6.5** | Guide contrôles officiels |
 | **NF X06-031-1 / ISO 7870-2** | Cartes de contrôle aux mesures |
-| **ISO 8258** | Cartes de contrôle Shewhart |
+| **ISO 8258** | Cartes de contrôle Shewhart (remplacée par ISO 7870-2 ; les deux sont citées par le Guide §II.B) |
 
 ---
 
@@ -89,7 +88,7 @@ Les industriels qui conditionnent des produits alimentaires, cosmétiques ou mé
 
 | Quantité Nominale | EMTM |
 |---|---|
-| QN ≤ 50 g | 9 % de QN |
+| 5 g ≤ QN ≤ 50 g | 9 % de QN |
 | 50 g < QN ≤ 100 g | 4,5 g |
 | 100 g < QN ≤ 200 g | 4,5 % de QN |
 | 200 g < QN ≤ 300 g | 9 g |
@@ -102,7 +101,7 @@ Les industriels qui conditionnent des produits alimentaires, cosmétiques ou mé
 ## Architecture technique
 
 ```
-GUIDE METRO PROPRE/
+SIMPLE_GUIDE_METRO/
 ├── index.html          # Application principale (SPA 5 onglets)
 ├── confBALGEM.html     # Module Balance — version autonome
 ├── css/
@@ -164,4 +163,4 @@ Puis ouvrir `http://localhost:8080`.
 
 Développé par **VisiPilot** — outil d'aide à l'autocontrôle métrologique.
 
-> ⚠️ Cet outil est un aide à la décision. Les résultats doivent être interprétés par un métrologue qualifié. Ils ne se substituent pas à un contrôle officiel DGCCRF.
+> ⚠️ Cet outil est une aide à la décision. Les résultats doivent être interprétés par un métrologue qualifié. Ils ne se substituent pas à un contrôle officiel DGCCRF.

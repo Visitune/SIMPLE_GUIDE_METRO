@@ -44,7 +44,7 @@ const TIPS_DATA = [
     id:'tip-003', cat:'fondamentaux',
     icon:'fa-solid fa-boxes-stacked', title:'3. La Notion de Lot',
     backIcon:'fa-solid fa-clock', backTitle:'POL ≤ 1h → Lot ≤ 1h',
-    body:'Un lot est une production homogène. La réglementation exige que tout déréglage soit <strong>détecté en ≤ 1h (POL)</strong>. Si un écart est trouvé, la prod depuis le dernier prélèvement conforme est mise en cause.',
+    body:'Un lot est une production homogène. La réglementation exige que tout déréglage soit <strong>détecté en ≤ 1 h (POM ≤ POl)</strong>. Si un écart est trouvé, la prod depuis le dernier prélèvement conforme est mise en cause.',
     ref:'[Guide §III.A.2 + §VII.B.2.3] | [WELMEC 6.4]',
     active:true
   },
@@ -84,7 +84,7 @@ const TIPS_DATA = [
     id:'tip-008', cat:'capabilite',
     icon:'fa-solid fa-chart-line', title:'8. L\'Indice Cpk',
     backIcon:'fa-solid fa-bolt', backTitle:'Performance machine',
-    body:'<strong>Cpk &lt; 0,67</strong> = danger immédiat. <strong>Cpk 1,00–1,33</strong> = vigilance, surdosage possible. <strong>Cpk ≥ 1,33</strong> = bonne maîtrise. <strong>Cpk ≥ 1,63</strong> = centrage sur QN sans surdosage.',
+    body:'Seuil métrologique : <strong>Cpk ≥ 0,68</strong> (= 2,05/3) pour tenir le critère des 2 % de défectueux. Avec signe <em>e</em> : vérifier aussi Cpk_super ≥ U/3 (1,03 / 1,24 / 1,42 selon N). Repère industriel : ≥ 1,33 = marge confortable (sans valeur réglementaire).',
     ref:'[Guide §V] | [NF X06-030]',
     active:true
   },
@@ -108,7 +108,7 @@ const TIPS_DATA = [
     id:'tip-011', cat:'echantillonnage',
     icon:'fa-solid fa-hourglass-half', title:'11. POL ≤ 1 Heure',
     backIcon:'fa-solid fa-stopwatch', backTitle:'Réactivité réglementaire',
-    body:'Le plan de contrôle doit détecter tout déréglage grave en <strong>≤ 60 min</strong>. Calcul : POL = log(0,05)/log(1−P) prélèvements × fréquence. Augmenter n ou réduire l\'intervalle si POL &gt; 1h.',
+    body:'Le plan de contrôle doit détecter tout déréglage grave en <strong>≤ 60 min</strong> : POM ≤ POl, avec POl = nombre de prélèvements par heure (ex. toutes les 15 min → POl = 4). Si POM &gt; POl : augmenter n, la quantité cible QC ou la fréquence.',
     ref:'[Guide §VII.B.2.3 + Annexe 4] | [NF X06-031-1]',
     active:true
   },
@@ -148,7 +148,7 @@ const TIPS_DATA = [
     id:'tip-016', cat:'sanctions',
     icon:'fa-solid fa-handcuffs', title:'16. Sanctions & Risques',
     backIcon:'fa-solid fa-gavel', backTitle:'Le Procès Verbal',
-    body:'Un lot NC peut entraîner : <strong>amende 5ème classe</strong> (jusqu\'à 1 500 €/unité), saisie des stocks, publication DGCCRF. La responsabilité pénale du conditionneur et du dirigeant est engagée.',
+    body:'Un lot NC expose à des <strong>suites administratives et pénales</strong> : injonction, retrait/saisie des lots, contravention par préemballage non conforme et, en cas de tromperie sur la quantité, délit du Code de la consommation. La responsabilité du conditionneur et du dirigeant est engagée.',
     ref:'[C. conso Art. L412-1] | [Décret 78-166] | [Arrêté 20/10/1978]',
     active:true
   },
@@ -246,7 +246,7 @@ const TIPS_DATA = [
     id:'tip-028', cat:'capabilite',
     icon:'fa-solid fa-arrow-trend-up', title:'Surdosage Économique',
     backIcon:'fa-solid fa-coins', backTitle:'Coût du sur-remplissage',
-    body:'Un surdosage de 1 g/unité sur 1 M préemballages/an = 1 tonne de produit offert. Pour un produit à 5 €/kg, c\'est <strong>5 000 €/an perdus</strong>. Un Cpk ≥ 1,63 permet d\'éliminer ce surcoût.',
+    body:'Un surdosage de 1 g/unité sur 1 M préemballages/an = 1 tonne de produit offert. Pour un produit à 5 €/kg, c\'est <strong>5 000 €/an perdus</strong>. Réduire σ₀ sous E/2,05 permet de centrer sur QN et d\'éliminer ce surcoût.',
     ref:'[Guide §V.A] | [WELMEC 6.4]',
     active:false
   },
@@ -350,7 +350,7 @@ const TIPS_DATA = [
     id:'tip-041', cat:'echantillonnage',
     icon:'fa-solid fa-magnifying-glass-chart', title:'POM — Définition',
     backIcon:'fa-solid fa-chart-pie', backTitle:'Période Opérationnelle Moyenne',
-    body:'POM = <strong>nombre moyen de prélèvements</strong> pour détecter un déréglage donné avec probabilité 50%. Formule : POM = 1/P où P = Φ((LCI−QN)/(σ/√n)). Indicateur de réactivité à 50%.',
+    body:'POM = <strong>nombre moyen d\'échantillonnages</strong> pour détecter un déréglage donné (probabilité 50 %). Se détermine en fonction de δ√n, avec δ = (QC − m)/σ₀ où m est la cible déréglée (m1 ou m2 de l\'Annexe 4).',
     ref:'[Guide §VII.B.2.3 + Annexe 4] | [NF X06-031-1]',
     active:false
   },
@@ -358,7 +358,7 @@ const TIPS_DATA = [
     id:'tip-042', cat:'echantillonnage',
     icon:'fa-solid fa-flag-checkered', title:'POL — Définition',
     backIcon:'fa-solid fa-stopwatch-20', backTitle:'Période Opérationnelle Limite',
-    body:'POL = <strong>nombre de prélèvements limite</strong> pour détecter le déréglage avec 95% de certitude. Formule : log(0,05)/log(1−P). POL × fréquence doit être ≤ 60 min.',
+    body:'POl = <strong>nombre d\'échantillonnages réalisés en 1 heure</strong> de fabrication (ex. fréquence 15 min → POl = 4). Efficacité correcte si <strong>POM ≤ POl</strong> : le déréglage est alors décelé en moyenne en moins d\'une heure.',
     ref:'[Guide §VII.B.2.3 + Annexe 4] | [NF X06-031-1] | [ISO 7870-2]',
     active:false
   },
@@ -596,9 +596,11 @@ const NAWI_EMT = {
   IIII: { s1: 50,    s2: 200,    label: 'Classe IIII — Usage moins exigeant' }
 };
 
+// Tableau 4 du Guide (arrêté 10/01/2006) : plages 0–500e / 500–2000e / 2000–10000e,
+// identiques quelle que soit la classe (indépendantes du facteur « x »)
 const IPFA_EMT = {
-  XII:  { s1: 5000, s2: 20000, label: 'Classe XII — Trieuse standard' },
-  XIII: { s1: 500,  s2: 2000,  label: 'Classe XIII — Trieuse industrielle' }
+  XII:  { s1: 500, s2: 2000, label: 'Classe XII — Trieuse haute précision' },
+  XIII: { s1: 500, s2: 2000, label: 'Classe XIII — Trieuse standard industrielle' }
 };
 
 const G_TABLE = {
@@ -619,6 +621,18 @@ const reports = { balance: null, cpk: null, pom: null, tare: null };
 function f(v, d = 3) {
   if (typeof v !== 'number' || isNaN(v)) return 'N/A';
   return parseFloat(v.toFixed(d)).toString();
+}
+
+/**
+ * Parse une liste de nombres saisie librement (retours ligne, espaces, ; ou ,).
+ * Gère la virgule décimale française : si le texte ne contient aucun point,
+ * une virgule entre deux chiffres est traitée comme séparateur décimal (12,5 → 12.5).
+ */
+function parseNumberList(raw) {
+  let txt = (raw || '').trim();
+  if (!txt) return [];
+  if (!txt.includes('.')) txt = txt.replace(/(\d),(?=\d)/g, '$1.');
+  return txt.split(/[\s,;]+/).map(parseFloat).filter(v => !isNaN(v) && v > 0);
 }
 
 function computeEMTM(qn) {
@@ -669,10 +683,57 @@ function echelonNote(type, qn, e) {
 }
 
 function phi(z) {
-  const t = 1 / (1 + 0.3275911 * Math.abs(z));
-  const p = t * (0.254829592 + t * (-0.284496736 + t * (1.421413741 + t * (-1.453152027 + t * 1.061405429))));
-  const cdf = 1 - p * Math.exp(-z * z / 2);
+  // Fonction de répartition de la loi normale N(0,1) : Φ(z) = ½·(1 + erf(z/√2))
+  // erf approché par Abramowitz & Stegun 7.1.26 (erreur < 1,5×10⁻⁷)
+  const x = Math.abs(z) / Math.SQRT2;
+  const t = 1 / (1 + 0.3275911 * x);
+  const erf = 1 - t * (0.254829592 + t * (-0.284496736 + t * (1.421413741 + t * (-1.453152027 + t * 1.061405429)))) * Math.exp(-x * x);
+  const cdf = 0.5 * (1 + erf);
   return z >= 0 ? cdf : 1 - cdf;
+}
+
+// Constante c4 de la carte s (espérance de s = c4·σ) : c4 = √(2/(n−1))·Γ(n/2)/Γ((n−1)/2)
+function c4(n) {
+  function lnGammaHalf(m) { // ln Γ(m/2) pour m entier ≥ 1
+    let ln = m % 2 === 0 ? 0 : 0.5 * Math.log(Math.PI);
+    for (let k = m - 2; k >= 1; k -= 2) ln += Math.log(k / 2);
+    return ln;
+  }
+  return Math.sqrt(2 / (n - 1)) * Math.exp(lnGammaHalf(n) - lnGammaHalf(n - 1));
+}
+
+// P(χ²(k) > x) — fonction de survie du chi-deux via la gamma incomplète régularisée
+// (série pour x < k/2+1, fraction continue de Lentz sinon)
+function chi2Sf(x, k) {
+  if (x <= 0) return 1;
+  const a = k / 2, xx = x / 2;
+  function lnGamma(z) { // Lanczos g=7
+    const c = [676.5203681218851, -1259.1392167224028, 771.32342877765313,
+      -176.61502916214059, 12.507343278686905, -0.13857109526572012,
+      9.9843695780195716e-6, 1.5056327351493116e-7];
+    let s = 0.99999999999980993;
+    for (let i = 0; i < 8; i++) s += c[i] / (z + i + 1);
+    const t = z + 7.5;
+    return 0.5 * Math.log(2 * Math.PI) + (z + 0.5) * Math.log(t) - t + Math.log(s) - Math.log(z);
+  }
+  if (xx < a + 1) { // série : P(a,x) puis Q = 1−P
+    let sum = 1 / a, term = sum, ap = a;
+    for (let i = 0; i < 300; i++) {
+      ap += 1; term *= xx / ap; sum += term;
+      if (Math.abs(term) < Math.abs(sum) * 1e-12) break;
+    }
+    return 1 - sum * Math.exp(-xx + a * Math.log(xx) - lnGamma(a));
+  }
+  // fraction continue (Lentz) : Q(a,x) directement
+  let b = xx + 1 - a, c_ = 1e300, d = 1 / b, h = d;
+  for (let i = 1; i < 300; i++) {
+    const an = -i * (i - a);
+    b += 2; d = an * d + b; if (Math.abs(d) < 1e-300) d = 1e-300;
+    c_ = b + an / c_; if (Math.abs(c_) < 1e-300) c_ = 1e-300;
+    d = 1 / d; const del = d * c_; h *= del;
+    if (Math.abs(del - 1) < 1e-12) break;
+  }
+  return h * Math.exp(-xx + a * Math.log(xx) - lnGamma(a));
 }
 
 // ── Gestion Excel (SheetJS) ──
@@ -948,16 +1009,22 @@ function calcCpk() {
   const msOK = mu >= ms;
   const gaugePos = Math.min(Math.max(Cpk / 2, 0), 1) * 100;
 
-  let interp;
-  if (Cpk < 0.67) interp = { label: 'Très insuffisant', cls: 'danger' };
-  else if (Cpk < 1.00) interp = { label: 'Insuffisant', cls: 'warning' };
-  else if (Cpk < 1.33) interp = { label: 'Acceptable', cls: 'warning' };
-  else if (Cpk < 1.63) interp = { label: 'Bon', cls: 'success' };
-  else interp = { label: 'Excellent', cls: 'success' };
+  // Seuils MÉTROLOGIQUES dérivés des textes (et non des conventions industrielles) :
+  //  - critère défectueux 2 % (z = 2,05)          → Cpk_lower ≥ 2,05/3 ≈ 0,68
+  //  - critère superdéfectueux signe e (z = U)    → Cpk_super ≥ U/3 (1,03 / 1,24 / 1,42 selon N)
+  const CPK_MIN_DEFECT = 2.05 / 3;
+  const cpkSuperMin = signeE ? U / 3 : null;
+  const reglOK = Cpk_lower >= CPK_MIN_DEFECT && (!signeE || Cpk_super >= cpkSuperMin);
 
-  setVerdict('c_verdict', Cpk >= 1.33 && msOK ? 'success' : Cpk >= 1.00 ? 'warning' : 'danger',
+  let interp;
+  if (!reglOK) interp = { label: 'Non conforme aux critères métrologiques — surdosage ou amélioration machine requis', cls: 'danger' };
+  else if (Cpk < 1.00) interp = { label: 'Conforme aux critères métrologiques — marge faible (bonne pratique : viser ≥ 1,33)', cls: 'warning' };
+  else if (Cpk < 1.33) interp = { label: 'Conforme — marge correcte', cls: 'success' };
+  else interp = { label: 'Conforme — marge confortable', cls: 'success' };
+
+  setVerdict('c_verdict', reglOK && msOK ? (Cpk >= 1.00 ? 'success' : 'warning') : 'danger',
     `Cpk = ${f(Cpk, 3)} — ${interp.label}`,
-    `Seuil σ = ${f(seuilSigma)} g, ms = ${f(ms)} g`
+    `Seuil réglementaire Cpk ≥ ${f(CPK_MIN_DEFECT, 2)}${signeE ? ' et Cpk_super ≥ ' + f(cpkSuperMin, 2) : ''}, ms = ${f(ms)} g`
   );
 
   let html = `<div class="kpi-grid">
@@ -971,11 +1038,10 @@ function calcCpk() {
     <div class="gauge__bar"><div class="gauge__needle" style="left:${gaugePos}%"></div></div>
     <div class="gauge__scale">
       <span><strong>0</strong>non mesuré</span>
-      <span><strong>0,67</strong>limite</span>
-      <span><strong>1,00</strong>minimum</span>
-      <span><strong>1,33</strong>bon</span>
-      <span><strong>1,63</strong>très bon</span>
-      <span><strong>2,0</strong>excellent</span>
+      <span><strong>0,68</strong>seuil 2 % défect.</span>
+      <span><strong>1,00</strong>marge correcte</span>
+      <span><strong>1,33</strong>confortable</span>
+      <span><strong>2,0</strong>&nbsp;</span>
     </div>
   </div>
   <table class="table">
@@ -986,6 +1052,9 @@ function calcCpk() {
     ${rowInfo('σ₀', f(sigma) + ' g')}
     ${rowInfo('Seuil σ (E/2,05)', f(seuilSigma) + ' g')}
     ${rowOK('σ ≤ E/2,05', sigmaOK ? 'OUI' : 'NON — surdosage', sigmaOK)}
+    ${sectionRow('Capabilité vs critères métrologiques')}
+    ${rowOK('Cpk défectueux ≥ 0,68 (z = 2,05 → 2 %)', f(Cpk_lower, 3) + ' → ' + (Cpk_lower >= CPK_MIN_DEFECT ? 'OUI' : 'NON'), Cpk_lower >= CPK_MIN_DEFECT)}
+    ${signeE ? rowOK('Cpk superdéf. ≥ ' + f(cpkSuperMin, 2) + ' (z = U = ' + f(U, 2) + ')', f(Cpk_super, 3) + ' → ' + (Cpk_super >= cpkSuperMin ? 'OUI' : 'NON'), Cpk_super >= cpkSuperMin) : ''}
     ${sectionRow('Centrage')}
     ${rowInfo('ms requis', f(ms) + ' g')}
     ${rowInfo('μ actuelle', f(mu) + ' g')}
@@ -1011,6 +1080,18 @@ function calcCpk() {
 
 
 // ═══ PANEL 3: POM/POL ═══
+/**
+ * Efficacité du plan d'échantillonnage selon le Guide DGCCRF 2014, Annexe 4.
+ * Trois dérèglements officiels à détecter en ≤ 1 h de fabrication :
+ *   1. Carte moyenne / critère moyenne      : m1 = 0,998·QN (avec QN − m1 ≥ 0,1 g)
+ *   2. Carte moyenne / critère défectueux   : m2 = QN − E + 2,05·σ₀
+ *   3. Carte écart-type / critère défectueux: σ₁ = (QC − (QN − E)) / 2,05
+ * POl = nombre d'échantillonnages par heure ; efficacité correcte si POM ≤ POl.
+ * POM calculée analytiquement (carte de Shewhart : limite ±3σ/√n pour la moyenne,
+ * limite c4+3·√(1−c4²) pour la carte s). Les tables de la NF X06-031-1 peuvent
+ * différer légèrement (règles complémentaires) : l'exemple chiffré de l'Annexe 4
+ * est reproduit ici à ≈ 5 % près, avec les mêmes verdicts.
+ */
 function calcPomPol() {
   const qn = parseFloat(document.getElementById('p_qn').value);
   const sigma = parseFloat(document.getElementById('p_sigma').value);
@@ -1018,6 +1099,7 @@ function calcPomPol() {
   const freq = parseFloat(document.getElementById('p_freq').value);
   const signeE = document.getElementById('p_signe_e').value === 'oui';
   const U = parseFloat(document.getElementById('p_lot_n').value);
+  const qcInput = parseFloat(document.getElementById('p_qc').value);
   const xbar = parseFloat(document.getElementById('p_xbar').value);
   const s = parseFloat(document.getElementById('p_s').value);
 
@@ -1033,77 +1115,99 @@ function calcPomPol() {
   const ms_defect = sigmaOK ? qn : qn - E + 2.05 * sigma;
   const ms = signeE ? Math.max(ms_defect, qn - 2 * E + U * sigma) : ms_defect;
 
+  // Quantité cible QC = ms + k (k = surdosage d'efficacité, Annexe 4) ; défaut : QC = ms
+  const QC = !isNaN(qcInput) && qcInput > 0 ? qcInput : ms;
+  const k = QC - qn;
+  const qcOK = QC >= ms - 1e-9;
+
+  // Test de conformité de la moyenne (§VII.B.1.2 + Annexe 3)
   const test_val = xbar - g * s;
   const testOK = test_val >= qn;
   const testMargin = test_val - qn;
 
-  const lc_upper = ms + 3 * sigma / Math.sqrt(n);
-  const ls_upper = ms + 2 * sigma / Math.sqrt(n);
-  const ls_lower = ms - 2 * sigma / Math.sqrt(n);
-  const lc_lower = ms - 3 * sigma / Math.sqrt(n);
+  // Limites de la carte de la moyenne, centrée sur QC (NF X06-031-1 / ISO 7870-2)
+  const se = sigma / Math.sqrt(n);
+  const lc_upper = QC + 3 * se;
+  const ls_upper = QC + 2 * se;
+  const ls_lower = QC - 2 * se;
+  const lc_lower = QC - 3 * se;
 
-  const z_detect = (ms - 3 * sigma / Math.sqrt(n) - qn) / (sigma / Math.sqrt(n));
-  const pDetect1 = phi(z_detect);
-  const POM = pDetect1 > 0 && pDetect1 < 1 ? Math.round(1 / pDetect1) : (pDetect1 >= 1 ? 1 : Infinity);
-  const POL = pDetect1 > 0 && pDetect1 < 1 ? Math.round(Math.log(0.05) / Math.log(1 - pDetect1)) : (pDetect1 >= 1 ? 1 : Infinity);
-  const polHours = POL !== Infinity ? f(POL * freq / 60, 2) : '∞';
-  const polOK = POL !== Infinity && (POL * freq / 60) <= 1.0;
-  const freqOK = freq <= 60;
+  // POl = nombre d'échantillonnages par heure (Annexe 4 : ex. 15 min → POl = 4)
+  const POl = Math.floor(60 / freq);
+  const freqOK = freq <= 60 && POl >= 1;
+
+  // ── Dérèglement 1 : carte moyenne, critère de la moyenne ──
+  const m1 = Math.min(0.998 * qn, qn - 0.1);
+  const delta1 = (QC - m1) / sigma;
+  const P1 = phi(delta1 * Math.sqrt(n) - 3);
+  const POM1 = P1 > 0 ? 1 / P1 : Infinity;
+  // ── Dérèglement 2 : carte moyenne, critère des défectueux ──
+  const m2 = qn - E + 2.05 * sigma;
+  const delta2 = (QC - m2) / sigma;
+  const P2 = phi(delta2 * Math.sqrt(n) - 3);
+  const POM2 = P2 > 0 ? 1 / P2 : Infinity;
+  // ── Dérèglement 3 : carte écart-type, critère des défectueux ──
+  const sigma1 = (QC - (qn - E)) / 2.05;
+  const c4n = c4(n);
+  const UCLs = sigma * (c4n + 3 * Math.sqrt(1 - c4n * c4n));
+  const P3 = sigma1 > 0 ? chi2Sf((n - 1) * Math.pow(UCLs / sigma1, 2), n - 1) : 0;
+  const POM3 = P3 > 0 ? 1 / P3 : Infinity;
+
+  const eff1 = POM1 <= POl, eff2 = POM2 <= POl, eff3 = POM3 <= POl;
+  const effOK = eff1 && eff2 && eff3;
+  const pomMax = Math.max(POM1, POM2, POM3);
+  const fPOM = (v) => v === Infinity || v > 9999 ? '> 9999' : f(v, 1);
 
   renderGTable(n);
-
-  document.querySelectorAll('.step').forEach((el, i) => {
-    el.className = i < 3 ? 'step step--done' : 'step step--active';
-  });
-
   updateStepper('pom', 3);
-  setVerdict('p_verdict', testOK && polOK && freqOK ? 'success' : testOK ? 'warning' : 'danger',
-    testOK && polOK && freqOK ? 'Plan conforme' : testOK ? 'Plan à optimiser' : 'Non conforme',
-    testOK ? `Test OK, n=${n}, freq=${freq}min` : `x̄ − g·s < QN`
+
+  const overallOK = testOK && effOK && freqOK && qcOK;
+  setVerdict('p_verdict', overallOK ? 'success' : testOK ? 'warning' : 'danger',
+    overallOK ? 'Plan conforme (Annexe 4)' : testOK ? 'Plan à optimiser' : 'Non conforme',
+    testOK ? `POM max = ${fPOM(pomMax)} vs POl = ${POl} (n=${n}, ${freq} min)` : `x̄ − g·s < QN`
   );
 
-  const overallOK = testOK && polOK && freqOK;
   let html = `<div class="kpi-grid">
     <div class="kpi ${testOK ? 'kpi--ok' : 'kpi--danger'}"><div class="kpi__label">Test moyenne</div><div class="kpi__value">${testOK ? '✓' : '✗'}</div></div>
     <div class="kpi"><div class="kpi__label">g(n=${n})</div><div class="kpi__value">${f(g, 3)}</div></div>
-    <div class="kpi ${polOK ? 'kpi--ok' : 'kpi--danger'}"><div class="kpi__label">POL</div><div class="kpi__value">${polHours}<span class="kpi__unit">h</span></div></div>
+    <div class="kpi ${effOK ? 'kpi--ok' : 'kpi--danger'}"><div class="kpi__label">POM max / POl</div><div class="kpi__value">${fPOM(pomMax)}<span class="kpi__unit">/ ${POl}</span></div></div>
     <div class="kpi ${freqOK ? 'kpi--ok' : 'kpi--warn'}"><div class="kpi__label">Fréquence</div><div class="kpi__value">${freq}<span class="kpi__unit">min</span></div></div>
   </div>
   <table class="table">
-    ${sectionRow('Test de la moyenne')}
+    ${sectionRow('Test de la moyenne (§VII.B.1.2 + Annexe 3)')}
     ${rowInfo('x̄ − g·s', f(xbar) + ' − ' + f(g, 3) + ' × ' + f(s) + ' = ' + f(test_val, 4) + ' g')}
     ${rowOK('≥ QN ?', testOK ? `OUI (+${f(testMargin, 4)} g)` : `NON (−${f(Math.abs(testMargin), 4)} g)`, testOK)}
-    ${sectionRow('Carte de contrôle')}
-    ${rowInfo('ms', f(ms) + ' g')}
-    ${rowInfo('LCS', f(lc_upper, 4) + ' g')}
-    ${rowInfo('LSS', f(ls_upper, 4) + ' g')}
-    ${rowInfo('LSI', f(ls_lower, 4) + ' g')}
-    ${rowInfo('LCI', f(lc_lower, 4) + ' g')}
-    ${sectionRow('POM/POL')}
-    ${rowInfo('P(détecter en 1)', f(pDetect1 * 100, 2) + ' %')}
-    ${rowInfo('POM', POM === Infinity ? '∞' : POM + ' prélèv.')}
-    ${rowOK('POL ≤ 1h', polHours + ' h → ' + (polOK ? 'OUI' : 'NON'), polOK)}
+    ${sectionRow('Carte de contrôle de la moyenne (centrée sur QC)')}
+    ${rowInfo('Seuil de centrage ms', f(ms) + ' g')}
+    ${rowOK('Quantité cible QC (= ms + k)', f(QC) + ' g (k = ' + f(k, 3) + ' g) → ' + (qcOK ? 'OK' : 'QC < ms !'), qcOK)}
+    ${rowInfo('LCS / LSS', f(lc_upper, 4) + ' g / ' + f(ls_upper, 4) + ' g')}
+    ${rowInfo('LSI / LCI', f(ls_lower, 4) + ' g / ' + f(lc_lower, 4) + ' g')}
+    ${sectionRow('Efficacité — Annexe 4 (POM ≤ POl = ' + POl + ' prélèv./h)')}
+    ${rowOK('① m1 = 0,998·QN = ' + f(m1, 2) + ' g (δ√n = ' + f(delta1 * Math.sqrt(n), 2) + ')', 'POM = ' + fPOM(POM1) + ' → ' + (eff1 ? 'efficace' : 'INSUFFISANT'), eff1)}
+    ${rowOK('② m2 = QN−E+2,05σ₀ = ' + f(m2, 2) + ' g (δ√n = ' + f(delta2 * Math.sqrt(n), 2) + ')', 'POM = ' + fPOM(POM2) + ' → ' + (eff2 ? 'efficace' : 'INSUFFISANT'), eff2)}
+    ${rowOK('③ σ₁ = (QC−TU1)/2,05 = ' + f(sigma1, 2) + ' g (σ₁/σ₀ = ' + f(sigma1 / sigma, 2) + ')', 'POM = ' + fPOM(POM3) + ' → ' + (eff3 ? 'efficace' : 'INSUFFISANT'), eff3)}
     ${rowOK('Fréquence ≤ 60 min', freq + ' min → ' + (freqOK ? 'OUI' : 'NON'), freqOK)}
-  </table>`;
+  </table>
+  <p style="font-size:.75rem;color:var(--text-muted);margin-top:6px;">POM calculées analytiquement (carte de Shewhart, limites 3σ) — les tables NF X06-031-1 peuvent différer légèrement ; l'exemple chiffré de l'Annexe 4 du Guide est reproduit à ≈ 5 % près avec les mêmes verdicts.</p>`;
 
-  if (!overallOK) html += `<div class="alert alert--${testOK ? 'warning' : 'danger'} mt-4"><strong>Actions :</strong> ${testOK ? 'Augmentez n vers 7–10 et/ou <strong>réduisez l\'intervalle</strong> entre prélèvements (fréquence plus haute). Espacer les prélèvements aggrave le POL.' : 'Augmentez n (7–10 recommandé) ou réduisez la variabilité σ₀ du processus (maintenance machine).'}</div>`;
+  if (!overallOK) html += `<div class="alert alert--${testOK ? 'warning' : 'danger'} mt-4"><strong>Actions (Annexe 4) :</strong> ${testOK ? 'Augmentez l\'effectif n (7–10 recommandé), <strong>augmentez la quantité cible QC</strong> (surdosage k), réduisez σ₀ (maintenance, centrage des becs) ou resserrez la fréquence de prélèvement.' : 'Le critère x̄ − g·s ≥ QN n\'est pas atteint : la partie de lot contrôlée ne peut être déclarée conforme. Vérifiez le réglage (μ ≥ ms) avant d\'optimiser le plan.'}</div>`;
   html += `<div class="conclusion conclusion--${overallOK ? 'success' : testOK ? 'warning' : 'danger'}">
-    ${overallOK ? '✅ Plan conforme' : testOK ? '⚠️ Test OK — plan à optimiser' : '❌ Test NON CONFORME'}</div>`;
+    ${overallOK ? '✅ Plan conforme — chaque dérèglement de l\'Annexe 4 est détecté en ≤ 1 h' : testOK ? '⚠️ Test moyenne OK — efficacité de carte insuffisante (POM > POl)' : '❌ Test moyenne NON CONFORME'}</div>`;
 
   const hdr = document.getElementById('p_result_hdr');
   hdr.className = `result__header result__header--${overallOK ? 'success' : testOK ? 'warning' : 'danger'}`;
-  hdr.textContent = overallOK ? '✅ Plan CONFORME' : testOK ? '⚠️ Test OK' : '❌ NON CONFORME';
+  hdr.textContent = overallOK ? '✅ Plan CONFORME' : testOK ? '⚠️ Test OK — plan à optimiser' : '❌ NON CONFORME';
   document.getElementById('p_result_body').innerHTML = html;
   document.getElementById('p_result').style.display = 'block';
   document.getElementById('p_dl_btn').disabled = false;
   document.getElementById('p_result').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-  reports.pom = `RAPPORT POM/POL — VisiPilot\nDate: ${new Date().toLocaleString('fr-FR')}\nQN: ${f(qn,2)}g | n: ${n} | freq: ${freq}min\nx̄: ${f(xbar)}g | s: ${f(s)}g | g: ${f(g,3)}\nTest: ${testOK?'CONFORME':'NON CONFORME'}\nPOM: ${POM===Infinity?'∞':POM} | POL: ${POL===Infinity?'∞':POL} (${polHours}h)\nRésultat: ${overallOK?'CONFORME':'NON CONFORME'}`;
+  reports.pom = `RAPPORT POM/POL (Annexe 4) — VisiPilot\nDate: ${new Date().toLocaleString('fr-FR')}\nQN: ${f(qn,2)}g | E: ${f(E)}g | σ₀: ${f(sigma)}g | n: ${n} | freq: ${freq}min\nms: ${f(ms)}g | QC: ${f(QC)}g (k=${f(k,3)}g)${signeE ? ' | signe e (U='+U+')' : ''}\nTest moyenne x̄−g·s ≥ QN : ${f(xbar)} − ${f(g,3)}×${f(s)} = ${f(test_val,4)}g → ${testOK?'CONFORME':'NON CONFORME'}\nPOl: ${POl} prélèv./h\n① m1=${f(m1,2)}g → POM=${fPOM(POM1)} (${eff1?'efficace':'insuffisant'})\n② m2=${f(m2,2)}g → POM=${fPOM(POM2)} (${eff2?'efficace':'insuffisant'})\n③ σ₁=${f(sigma1,2)}g → POM=${fPOM(POM3)} (${eff3?'efficace':'insuffisant'})\nRésultat global: ${overallOK?'CONFORME':'NON CONFORME'}\nRéf: Guide DGCCRF 2014 Annexe 4 | NF X06-031-1 | ISO 7870-2`;
 }
 
 function deriveStatsFromRaw() {
   const raw = document.getElementById('p_raw_values').value.trim();
-  const nums = raw.split(/[\s,;]+/g).map(v => parseFloat(v)).filter(v => !isNaN(v));
+  const nums = parseNumberList(raw);
   if (nums.length < 2) { alert('Saisissez au moins 2 mesures.'); return; }
   const mean = nums.reduce((a, b) => a + b, 0) / nums.length;
   const std = Math.sqrt(nums.reduce((sum, x) => sum + Math.pow(x - mean, 2), 0) / (nums.length - 1));
@@ -1140,8 +1244,8 @@ function calcTare() {
   let nums = [];
 
   if (rawText.length > 0) {
-    // Saisie manuelle : valeurs séparées par virgule, point-virgule, espace ou retour ligne
-    nums = rawText.split(/[\s,;\n]+/).map(v => parseFloat(v.replace(',', '.'))).filter(v => !isNaN(v) && v > 0);
+    // Saisie manuelle : valeurs séparées par retour ligne, espace ou ; — virgule décimale française gérée
+    nums = parseNumberList(rawText);
   }
 
   // Fallback : σ importé depuis fichier Excel (handleFileUpload → t_sigma)
